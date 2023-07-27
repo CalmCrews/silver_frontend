@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { TextField, Button, Dialog, DialogTitle } from '@mui/material';
 import axios from 'axios';
+import { atom, useRecoilState } from 'recoil';
+import { useCookies } from 'react-cookie';
+import { loginState } from '../states/userInfo';
+import { useNavigate } from 'react-router-dom';
 
 type SignInFormValues = {
   userId: string;
@@ -11,19 +15,24 @@ type SignInFormValues = {
 
 function SignUpForm() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<SignInFormValues>();
-  const [open, setOpen] = useState(false);
 
+	const [login, setLogin] = useRecoilState(loginState);
+  const [cookies, setCookie, removeCookie] = useCookies(['refreshToken']);
+
+	const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<SignInFormValues> = data => {
     console.log(data);
-	axios.post(`${process.env.REACT_APP_API_URL}/users/register/`, {
+		axios.post(`${process.env.REACT_APP_API_URL}/users/register/`, {
       username: data.userId,
       password: data.password
     })
     .then(res => {
       console.log(res);
       if (res.data.message === "회원가입 성공") {
-        setOpen(true);
+        setLogin({ isLoggedIn: true, userId: 'user1', accessToken: res.data.accessToken });
+    		setCookie('refreshToken', res.data.refreshToken, { path: '/' });
+				navigate('/');
       }
     })
     .catch(err => {
@@ -33,7 +42,6 @@ function SignUpForm() {
   };
 
   return (
-	<>
 		<form onSubmit={handleSubmit(onSubmit)}>
 		<TextField
 			label="아이디"
@@ -63,10 +71,6 @@ function SignUpForm() {
 		<br />
 		<Button variant="contained" color="primary" type="submit">회원가입</Button>
 		</form>
-      <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>회원가입 완료</DialogTitle>
-      </Dialog>
-	</>
   );
 }
 
