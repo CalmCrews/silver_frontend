@@ -17,7 +17,8 @@ const Home = () => {
       {!login.isLoggedIn ? (
         <>
           <Button component={Link} to="/signup">회원가입</Button>
-          <Button component={Link} to="/login">로그인</Button>
+          <Button component={Link} to="/signin">로그인</Button>
+          <Button component={Link} to="/signin">카카오 로그인</Button>
         </>
       ) : (
         <>
