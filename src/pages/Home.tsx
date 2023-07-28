@@ -10,27 +10,37 @@ const Home = () => {
   const [login, setLogin] = useRecoilState(loginState);
   const [cookies, setCookie, removeCookie] = useCookies(['refreshToken']);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     setLogin({ isLoggedIn: false, userId: '', accessToken: ''});
     removeCookie('refreshToken');
   };
 
-  function LoginSuccess() {
-    const location = useLocation();
-  
-    useEffect(() => {
-      console.log(location.pathname);
-  
-      // if (token) {
-      //   setLogin({ isLoggedIn: true, userId: 'kakaouser1', accessToken: token });
-      //   navigate('/');
-      // }
-    }, [location]);
-  }
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+
+    const token = urlParams.get('token');
+
+    if (token) {
+      setLogin({ isLoggedIn: true, userId: 'kakaouser1', accessToken: token });
+      navigate('/');
+    }
+  }, [location, navigate, setLogin]);
+
 
   const handleKakaoLogin = () => {
-    window.location.href = `${process.env.REACT_APP_API_URL}/users/kakao/login`;
+    const kakaoLoginWindow = window.open(`${process.env.REACT_APP_API_URL}/users/kakao/login`, 'kakaoLoginWindow');
+
+    // 메시지 이벤트 리스너를 추가합니다.
+    window.addEventListener('message', (event) => {
+      // 메시지가 카카오 로그인 창에서 온 것이라면
+      if (event.source === kakaoLoginWindow) {
+        // 메시지를 받아 처리합니다.
+        // 예: 토큰을 추출하여 사용자를 로그인 상태로 만듭니다.
+        console.log(event.data);
+      }
+    });
   };
 
   return (
