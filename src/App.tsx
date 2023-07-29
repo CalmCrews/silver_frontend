@@ -14,12 +14,14 @@ function App() {
           <div className="desktop-background"></div>
         </div>
         <div className="mobile-view">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/review" element={<Review />} />
-          </Routes>
+          <div className="mobile-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/review" element={<Review />} />
+            </Routes>
+          </div>
         </div>
       </div>
     </Router>

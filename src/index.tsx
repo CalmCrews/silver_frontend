@@ -4,15 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
+import { ThemeProvider } from 'styled-components';
+import theme from './theme/theme';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <RecoilRoot>
         <App />
-    </RecoilRoot>
+      </RecoilRoot>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
