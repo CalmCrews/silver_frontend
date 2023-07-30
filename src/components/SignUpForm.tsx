@@ -17,8 +17,8 @@ const FormContainer = styled.form`
 const StyledTextField = styled.div`
 	display: flex;
 	width: 100%;
-	height: 60px;
-	border-radius: 30px;
+	height: 3.75rem;
+	border-radius: 2rem;
 	border: 2px solid ${props => props.theme.colors.primary};
 	align-items: center;
 	padding: 0 20px;
@@ -30,7 +30,7 @@ const FieldTitle = styled.h1`
 `
 
 const StyledLabel = styled.label`
-	width: 60px;
+	width: 4rem;
 	color: ${props => props.theme.colors.primary};
 	font-size: ${props => props.theme.text.sm};;
 	font-weight: 600;

@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { loginState } from '../states/userInfo';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import { fontSizeState } from '../states/userInfo';
 
 const Home = () => {
   const [login, setLogin] = useRecoilState(loginState);
@@ -15,6 +16,12 @@ const Home = () => {
   const handleLogout = () => {
     setLogin({ isLoggedIn: false, userId: '', accessToken: ''});
     removeCookie('refreshToken');
+  };
+
+  const [bodyFontSize, setBodyFontSize] = useRecoilState(fontSizeState);
+
+  const handleFontSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setBodyFontSize(event.target.value);
   };
 
   useEffect(() => {
@@ -57,6 +64,11 @@ const Home = () => {
           <Button onClick={handleLogout}>로그아웃</Button>
         </>
       )}
+      <select value={bodyFontSize} onChange={handleFontSizeChange}>
+        <option value="16px">16px</option>
+        <option value="18px">18px</option>
+        <option value="20px">20px</option>
+      </select>
     </div>
   );
 }

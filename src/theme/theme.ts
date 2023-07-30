@@ -1,13 +1,13 @@
 const theme = {
   title: {
-    sm: '24px',
-    md: '32px',
-    lg: '64px',
+    sm: '1.5rem',
+    md: '2rem',
+    lg: '4rem',
   },
   text: {
-    sm: '16px',
-    md: '20px',
-    lg: '24px',
+    sm: '1rem',
+    md: '1.25rem',
+    lg: '1.5rem',
   },
   colors: {
     primary: '#A394FF',
