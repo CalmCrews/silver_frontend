@@ -1,13 +1,13 @@
 const theme = {
   title: {
-    sm: '1.5rem',
-    md: '2rem',
-    lg: '4rem',
+    sm: '1.5rem',//24px
+    md: '2rem',//32px
+    lg: '4rem',//64px
   },
   text: {
-    sm: '1rem',
-    md: '1.25rem',
-    lg: '1.5rem',
+    sm: '1rem',//기본 16px
+    md: '1.25rem',//20px
+    lg: '1.5rem',//24px
   },
   colors: {
     primary: '#A394FF',
