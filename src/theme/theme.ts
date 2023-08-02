@@ -15,7 +15,8 @@ const theme = {
     background: '#F5F1FF',
     border: '#EBE4FF',
     disabled: '#F0F0F0',
-    black: '#3A3A3A'
+    black: '#3A3A3A',
+    grey: '#D9D9D9',
   },
 };
 

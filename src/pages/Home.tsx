@@ -54,7 +54,7 @@ const Home = () => {
     <div>
       {!login.isLoggedIn ? (
         <>
-          <Button component={Link} to="/signup">회원가입</Button>
+          <Button component={Link} to="/signup/id">회원가입</Button>
           <Button component={Link} to="/signin">로그인</Button>
           <Button onClick={handleKakaoLogin}>카카오 로그인</Button>
         </>
