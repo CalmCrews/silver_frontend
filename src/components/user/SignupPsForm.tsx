@@ -7,11 +7,11 @@ import { useCookies } from "react-cookie";
 import { loginState } from "../../states/userInfo";
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import FormButton from "../shared/FormButton";
 
 const FormContainer = styled.form`
   width: 100%;
   height: 100vh;
-  padding: 30px;
 `;
 
 const StyledTextField = styled.div`
@@ -93,6 +93,10 @@ const SignupPsForm = () => {
       });
   };
 
+  const handleButtonClick = () => {
+    
+  }
+
 	//비밀번호 확인 
 	const detectedPassword = watch("password");
 	const detectedPasswordConfirm = watch("passwordConfirm");
@@ -136,9 +140,11 @@ const SignupPsForm = () => {
           <FormHelperText>확인되었어요</FormHelperText>
         )}
       <br />
-      <Button variant="contained" color="primary" type="submit">
+      <div className="button-container" style={{width: "100%", position: "absolute", bottom: "88px"}}>
+      <FormButton isEnabled={true} onClick={handleButtonClick}>
         다 했어요!
-      </Button>
+      </FormButton>
+      </div>
     </FormContainer>
   );
 }

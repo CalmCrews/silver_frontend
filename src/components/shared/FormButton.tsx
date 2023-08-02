@@ -14,7 +14,7 @@ const StyledButton = styled.button<ButtonProps>`
   border: none;
   font-size: ${(props) => props.theme.text.lg};
   color: #fff;
-  background-color: ${(props) => (props.isEnabled ? (props) => props.theme.colors.grey : (props) => props.theme.colors.primary)};
+  background-color: ${(props) => props.isEnabled ? props.theme.colors.primary : props.theme.colors.grey};
   cursor: ${(props) => (props.isEnabled ? "pointer" : "not-allowed")};
 `;
 
