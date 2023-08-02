@@ -18,6 +18,7 @@ const StyledTextField = styled.div`
 const FieldTitle = styled.p`
   width: 100%;
   font-size: ${(props) => props.theme.text.md};
+  font-weight: 700;
   text-align: start;
   color: ${(props) => props.theme.colors.black};
   margin: 32px 0;
@@ -44,22 +45,25 @@ const SignupIdForm = () => {
   const navigate = useNavigate();
 
   const handleIdCheck = () => {
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/users/duplicateUserId/`, {
-        userId: userId,
-      })
-      .then((res) => {
-        //console.log(res);
-        if (res.status) {
-          setIdError(false);
-        }
-        else {
-          
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (userId)
+    {
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/users/duplicateUserId/`, {
+          userId: userId,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.status) {
+            setIdError(false);
+          }
+          else {
+            
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
 
   const handleNext = () => {
