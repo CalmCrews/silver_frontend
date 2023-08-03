@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 interface ButtonProps {
-  isEnabled: boolean;
+  disabled: boolean;
   onClick: () => void;
   children: React.ReactNode;
 }
@@ -14,13 +14,13 @@ const StyledButton = styled.button<ButtonProps>`
   border: none;
   font-size: ${(props) => props.theme.text.lg};
   color: #fff;
-  background-color: ${(props) => props.isEnabled ? props.theme.colors.primary : props.theme.colors.grey};
-  cursor: ${(props) => (props.isEnabled ? "pointer" : "not-allowed")};
+  background-color: ${(props) => props.disabled ? props.theme.colors.grey : props.theme.colors.primary };
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
-const FormButton = ({ isEnabled, onClick, children }: ButtonProps) => {
+const FormButton = ({ disabled, onClick, children }: ButtonProps) => {
   return (
-    <StyledButton isEnabled={isEnabled} onClick={isEnabled ? onClick : () => {}}>
+    <StyledButton disabled={disabled} onClick={disabled ?  () => {} : onClick }>
       {children}
     </StyledButton>
   );

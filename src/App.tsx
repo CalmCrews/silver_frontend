@@ -15,6 +15,7 @@ import './fonts/pretendard.css';
 const GlobalStyle = createGlobalStyle`
   * {
     font-family: 'Pretendard';
+    font-weight: 600;
   }
   html {
     font-size: ${props => props.theme.bodyFontSize};

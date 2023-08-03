@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import FormButton from "../shared/FormButton";
 import DefaultIcon from "../shared/DefaultIcon";
-import ICONS from "../../constants/constants";
 import Warning from "../../assets/icons/WarningIcon.png";
 import Checked from "../../assets/icons/CheckedIcon.png";
 
@@ -105,7 +104,7 @@ const SignupIdForm = () => {
         <HelperText><DefaultIcon icon={Checked} name={"checked_icon"}/>확인되었어요!</HelperText>
       )}
       <div className="button-container" style={{width: "100%", position: "absolute", bottom: "88px"}}>
-        <FormButton isEnabled={!idError} onClick={handleNext}>
+        <FormButton disabled={idError} onClick={handleNext}>
           다 했어요!
         </FormButton>
       </div>
