@@ -35,7 +35,7 @@ const FieldTitle = styled.h1`
 `;
 
 const StyledLabel = styled.label`
-  width: 3.75rem;
+  width: 4rem;
   color: ${(props) => props.theme.colors.primary};
   font-size: ${(props) => props.theme.text.sm};
   font-weight: 600;
@@ -71,7 +71,7 @@ const SignupPsForm = () => {
   const location = useLocation();
   const { userId } = location.state || {};
   const [login, setLogin] = useRecoilState(loginState);
-  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+  const [cookies, setCookie] = useCookies(["refreshToken"]);
   useEffect(() => {
     console.log("userId:", userId);
     if (!userId) {
@@ -94,7 +94,8 @@ const SignupPsForm = () => {
     const value = e.target.value;
     // 비밀번호 확인값이 있을 때만 검사 예약
     setPasswordsMatch(true);
-    if (value) {
+    setButtonEnabled(false);
+    if (value && watch("passwordConfirm")) {
       // 기존의 예약된 검사를 취소
       if (timer) {
         clearTimeout(timer);
@@ -118,7 +119,8 @@ const SignupPsForm = () => {
     const value = e.target.value;
     // 비밀번호 확인값이 있을 때만 검사 예약
     setPasswordsMatch(true);
-    if (value) {
+    setButtonEnabled(false);
+    if (value && watch("password")) {
       // 기존의 예약된 검사를 취소
       if (timer) {
         clearTimeout(timer);
@@ -163,13 +165,6 @@ const SignupPsForm = () => {
       });
   };
 
-  const handleButtonClick = () => {
-    
-  }
-
-	
-
-
   return (
     <div style={{position: "relative", width: "100%", height: "100%"}}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -184,14 +179,7 @@ const SignupPsForm = () => {
             error={Boolean(errors.password)}
             placeholder="여기에 입력해주세요"
             onChange={handlePasswordChange}
-            onFocus={() => {
-              console.log("onfocus",watch("password"));
-              setShowPassword(true);
-              console.log("onfocus",watch("password"));
-            }}
-            onBlur={() => {
-              setShowPassword(false)
-            }}
+            sx={{fontSize: "0.9rem", fontWeight: "600"}}
           />
         </StyledTextField>
         {errors.password && (
@@ -210,23 +198,17 @@ const SignupPsForm = () => {
             error={Boolean(errors.passwordConfirm)}
             placeholder="여기에 입력해주세요"
             onChange={handlePasswordConfirmChange}
-            onFocus={() => {
-              setShowPasswordConfirm(true)
-              
-            }}
-            onBlur={() => {
-              setShowPasswordConfirm(false)
-            }}
+            sx={{fontSize: "0.9rem", fontWeight: "600"}}
           />
         </StyledTextField>
         {!passwordsMatch && (
           <HelperText><DefaultIcon icon={Warning} name={"warning_icon"}/>비밀번호가 일치하지 않습니다.</HelperText>
         )}
         {isButtonEnabled && (
-            <HelperText><DefaultIcon icon={Checked} name={"checked_icon"}/>확인되었어요!</HelperText>
-          )}
+          <HelperText><DefaultIcon icon={Checked} name={"checked_icon"}/>확인되었어요!</HelperText>
+        )}
         <div className="button-container" style={{width: "100%", position: "absolute", bottom: "88px"}}>
-        <FormButton disabled={!isButtonEnabled} onClick={handleButtonClick}>
+        <FormButton disabled={!isButtonEnabled} type="submit">
           다 했어요!
         </FormButton>
         </div>

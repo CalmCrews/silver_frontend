@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 interface ButtonProps {
   disabled: boolean;
-  onClick: () => void;
+  onClick?: () => void;
   children: React.ReactNode;
+  type?: "button" | "submit" | "reset"; 
 }
 
 const StyledButton = styled.button<ButtonProps>`
@@ -18,9 +19,9 @@ const StyledButton = styled.button<ButtonProps>`
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
-const FormButton = ({ disabled, onClick, children }: ButtonProps) => {
+const FormButton = ({ disabled, onClick, children, type = "button" }: ButtonProps) => {
   return (
-    <StyledButton disabled={disabled} onClick={disabled ?  () => {} : onClick }>
+    <StyledButton disabled={disabled} onClick={disabled ?  () => {} : onClick } type={type}>
       {children}
     </StyledButton>
   );

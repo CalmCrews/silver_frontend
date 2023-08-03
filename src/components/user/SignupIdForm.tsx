@@ -52,6 +52,8 @@ const SignupIdForm = () => {
   const [ isWriting, setIsWriting ] = useState(true);
   const navigate = useNavigate();
 
+  const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+
   const handleIdCheck = () => {
     if (userId)
     {
@@ -87,14 +89,28 @@ const SignupIdForm = () => {
         <InputBase
           value= {userId}
           onChange={(e) => {
+            if (timer) {
+              clearTimeout(timer);
+            }
+            setIsWriting(true);
             if (e.target.value === '') {
               setIdError(true);
             }
             setUserId(e.target.value);
-            setIsWriting(true);
+            // 1초 이후에 새로운 검사 예약
+            setTimer(setTimeout(() => {
+              if (e.target.value !== '')
+                handleIdCheck();
+            }, 1000));
           }}
           placeholder="여기에 입력해주세요"
           onBlur={handleIdCheck}
+          sx={{
+            fontWeight: "600",
+            "& .MuiInputBase-root":{
+              fontSize: "0.95rem", color: "${(props) => props.theme.colors.black}"
+            }
+          }}
         />
       </StyledTextField>
       {!isWriting && idError && (
