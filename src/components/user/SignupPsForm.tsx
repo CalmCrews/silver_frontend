@@ -64,6 +64,7 @@ const SignupPsForm = () => {
     handleSubmit,
     watch,
     formState: { errors },
+    getValues,
   } = useForm<SignUpFormValues>();
 
   
@@ -95,14 +96,15 @@ const SignupPsForm = () => {
     // 비밀번호 확인값이 있을 때만 검사 예약
     setPasswordsMatch(true);
     setButtonEnabled(false);
-    if (value && watch("passwordConfirm")) {
+    // console.log(getValues("passwordConfirm"));
+    if (value && getValues("passwordConfirm")) {
       // 기존의 예약된 검사를 취소
       if (timer) {
         clearTimeout(timer);
       }
       // 1초 이후에 새로운 검사 예약
       setTimer(setTimeout(() => {
-        if (detectedPasswordConfirm !== value) {
+        if (getValues("passwordConfirm") !== value) {
           // 일치하지 않는 경우 에러 처리
           setPasswordsMatch(false);
           setButtonEnabled(false);
@@ -120,14 +122,14 @@ const SignupPsForm = () => {
     // 비밀번호 확인값이 있을 때만 검사 예약
     setPasswordsMatch(true);
     setButtonEnabled(false);
-    if (value && watch("password")) {
+    if (value && getValues("password")) {
       // 기존의 예약된 검사를 취소
       if (timer) {
         clearTimeout(timer);
       }
       // 1초 이후에 새로운 검사 예약
       setTimer(setTimeout(() => {
-        if (detectedPassword !== value) {
+        if (getValues("password") !== value) {
           // 일치하지 않는 경우 에러 처리
           setPasswordsMatch(false);
           setButtonEnabled(false);
@@ -180,6 +182,8 @@ const SignupPsForm = () => {
             placeholder="여기에 입력해주세요"
             onChange={handlePasswordChange}
             sx={{fontSize: "0.9rem", fontWeight: "600"}}
+            // onFocus={() => setShowPassword(true)}
+            // onBlur={() => setShowPassword(false)}
           />
         </StyledTextField>
         {errors.password && (
@@ -199,6 +203,8 @@ const SignupPsForm = () => {
             placeholder="여기에 입력해주세요"
             onChange={handlePasswordConfirmChange}
             sx={{fontSize: "0.9rem", fontWeight: "600"}}
+            // onFocus={() => setShowPasswordConfirm(true)}
+            // onBlur={() => setShowPasswordConfirm(false)}
           />
         </StyledTextField>
         {!passwordsMatch && (
