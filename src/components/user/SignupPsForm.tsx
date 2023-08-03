@@ -61,13 +61,7 @@ const SignupPsForm = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
 
-	const handleNext = () => {
-    setCurrentStep((prevStep) => prevStep + 1);
-  };
-
-  const handlePrev = () => {
-    setCurrentStep((prevStep) => prevStep - 1);
-  };
+	
 
   const onSubmit: SubmitHandler<SignUpFormValues> = (data) => {
     console.log(data);

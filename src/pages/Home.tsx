@@ -6,6 +6,19 @@ import { loginState } from '../states/userInfo';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { fontSizeState } from '../states/userInfo';
+import { styled } from 'styled-components';
+import HomeAppBar from '../components/HomeAppBar';
+import { Box, CssBaseline, Toolbar } from "@mui/material"
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  padding: 20px 45px;
+`
+
 
 const Home = () => {
   const [login, setLogin] = useRecoilState(loginState);
@@ -51,7 +64,10 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <Box sx={{ display: "flex", flexDirection: "column", width: "100%", height: "100vh", padding: "20px 45px", alignItems: "center"}}>
+      <CssBaseline/>
+      <Toolbar sx={{ height: "60px" }}/>
+      <HomeAppBar/>
       {!login.isLoggedIn ? (
         <>
           <Button component={Link} to="/signup/id">회원가입</Button>
@@ -69,7 +85,7 @@ const Home = () => {
         <option value="18px">18px</option>
         <option value="20px">20px</option>
       </select>
-    </div>
+    </Box>
   );
 }
 
