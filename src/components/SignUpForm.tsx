@@ -52,10 +52,19 @@ function SignUpForm() {
     formState: { errors },
   } = useForm<SignUpFormValues>();
 
+	const [currentStep, setCurrentStep] = useState(1);
   const [login, setLogin] = useRecoilState(loginState);
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const navigate = useNavigate();
+
+	const handleNext = () => {
+    setCurrentStep((prevStep) => prevStep + 1);
+  };
+
+  const handlePrev = () => {
+    setCurrentStep((prevStep) => prevStep - 1);
+  };
 
   const onSubmit: SubmitHandler<SignUpFormValues> = (data) => {
     console.log(data);
@@ -88,59 +97,70 @@ function SignUpForm() {
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <FieldTitle>아이디 설정</FieldTitle>
-      <StyledTextField>
-        <StyledLabel>아이디</StyledLabel>
-        <InputBase
-          {...register("userId", {
-            required: "아이디는 필수 입력 사항입니다.",
-          })}
-          error={Boolean(errors.userId)}
-          placeholder="아이디를 입력해주세요"
-        />
-      </StyledTextField>
-      {errors.userId && (
-        <FormHelperText>{errors.userId.message}</FormHelperText>
-      )}
-      <FieldTitle>비밀번호 설정</FieldTitle>
-      <StyledTextField>
-        <StyledLabel>비밀번호</StyledLabel>
-        <InputBase
-          type="password"
-          {...register("password", {
-            required: "비밀번호는 필수 입력 사항입니다.",
-          })}
-          error={Boolean(errors.password)}
-          placeholder="비밀번호를 입력해주세요"
-        />
-      </StyledTextField>
-      {errors.password && (
-        <FormHelperText>{errors.password.message}</FormHelperText>
-      )}
-      <FieldTitle>비밀번호 확인</FieldTitle>
-      <StyledTextField>
-        <StyledLabel>비밀번호</StyledLabel>
-        <InputBase
-          type="password"
-          {...register("passwordConfirm", {
-            required: "비밀번호 확인은 필수 입력 사항입니다.",
-            validate: (value) =>
-              value === watch("password") || "비밀번호가 일치하지 않습니다.",
-          })}
-          error={Boolean(errors.passwordConfirm)}
-          placeholder="비밀번호를 다시 입력해주세요"
-        />
-      </StyledTextField>
-      {errors.passwordConfirm && (
-        <FormHelperText>{errors.passwordConfirm.message}</FormHelperText>
-      )}
-      {detectedPassword === detectedPasswordConfirm && detectedPasswordConfirm &&(
-          <FormHelperText>확인되었어요</FormHelperText>
-        )}
-      <br />
-      <Button variant="contained" color="primary" type="submit">
-        다 했어요!
-      </Button>
+			{currentStep === 1 && (
+				<>
+					<FieldTitle>아이디 설정</FieldTitle>
+					<StyledTextField>
+						<StyledLabel>아이디</StyledLabel>
+						<InputBase
+							{...register("userId", {
+								required: "아이디는 필수 입력 사항입니다.",
+							})}
+							error={Boolean(errors.userId)}
+							placeholder="아이디를 입력해주세요"
+						/>
+					</StyledTextField>
+					{errors.userId && (
+						<FormHelperText>{errors.userId.message}</FormHelperText>
+					)}
+					<Button variant="contained" color="primary" onClick={handleNext}>
+						다 했어요!
+					</Button>
+				</>
+			)}
+			{currentStep === 2 && (
+				<>
+					<FieldTitle>비밀번호 설정</FieldTitle>
+					<StyledTextField>
+						<StyledLabel>비밀번호</StyledLabel>
+						<InputBase
+							type="password"
+							{...register("password", {
+								required: "비밀번호는 필수 입력 사항입니다.",
+							})}
+							error={Boolean(errors.password)}
+							placeholder="비밀번호를 입력해주세요"
+						/>
+					</StyledTextField>
+					{errors.password && (
+						<FormHelperText>{errors.password.message}</FormHelperText>
+					)}
+					<FieldTitle>비밀번호 확인</FieldTitle>
+					<StyledTextField>
+						<StyledLabel>비밀번호</StyledLabel>
+						<InputBase
+							type="password"
+							{...register("passwordConfirm", {
+								required: "비밀번호 확인은 필수 입력 사항입니다.",
+								validate: (value) =>
+									value === watch("password") || "비밀번호가 일치하지 않습니다.",
+							})}
+							error={Boolean(errors.passwordConfirm)}
+							placeholder="비밀번호를 다시 입력해주세요"
+						/>
+					</StyledTextField>
+					{errors.passwordConfirm && (
+						<FormHelperText>{errors.passwordConfirm.message}</FormHelperText>
+					)}
+					{detectedPassword === detectedPasswordConfirm && detectedPasswordConfirm &&(
+							<FormHelperText>확인되었어요</FormHelperText>
+						)}
+					<br />
+					<Button variant="contained" color="primary" type="submit">
+						다 했어요!
+					</Button>
+				</>
+			)}
     </FormContainer>
   );
 }
