@@ -64,7 +64,6 @@ const SignupPsForm = () => {
     handleSubmit,
     watch,
     formState: { errors },
-    getValues,
   } = useForm<SignUpFormValues>();
 
   
@@ -88,23 +87,25 @@ const SignupPsForm = () => {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   //비밀번호 확인 
-	let detectedPassword = watch("password");
-	let detectedPasswordConfirm = watch("passwordConfirm");
+  const [detectedPassword, setDetectedPassword] = useState('');
+  const [detectedPasswordConfirm, setDetectedPasswordConfirm] = useState('');
+
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    setDetectedPassword(e.target.value);
     // 비밀번호 확인값이 있을 때만 검사 예약
     setPasswordsMatch(true);
     setButtonEnabled(false);
+    console.log(detectedPassword, detectedPasswordConfirm);
     // console.log(getValues("passwordConfirm"));
-    if (value && getValues("passwordConfirm")) {
+    if (detectedPassword && detectedPasswordConfirm) {
       // 기존의 예약된 검사를 취소
       if (timer) {
         clearTimeout(timer);
       }
       // 1초 이후에 새로운 검사 예약
       setTimer(setTimeout(() => {
-        if (getValues("passwordConfirm") !== value) {
+        if (detectedPasswordConfirm !== e.target.value) {
           // 일치하지 않는 경우 에러 처리
           setPasswordsMatch(false);
           setButtonEnabled(false);
@@ -118,18 +119,19 @@ const SignupPsForm = () => {
   };
 
   const handlePasswordConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    setDetectedPasswordConfirm(e.target.value);
     // 비밀번호 확인값이 있을 때만 검사 예약
     setPasswordsMatch(true);
     setButtonEnabled(false);
-    if (value && getValues("password")) {
+    console.log(detectedPasswordConfirm, detectedPassword);
+    if (detectedPasswordConfirm && detectedPasswordConfirm) {
       // 기존의 예약된 검사를 취소
       if (timer) {
         clearTimeout(timer);
       }
       // 1초 이후에 새로운 검사 예약
       setTimer(setTimeout(() => {
-        if (getValues("password") !== value) {
+        if (detectedPassword !== e.target.value) {
           // 일치하지 않는 경우 에러 처리
           setPasswordsMatch(false);
           setButtonEnabled(false);
@@ -182,8 +184,8 @@ const SignupPsForm = () => {
             placeholder="여기에 입력해주세요"
             onChange={handlePasswordChange}
             sx={{fontSize: "0.9rem", fontWeight: "600"}}
-            // onFocus={() => setShowPassword(true)}
-            // onBlur={() => setShowPassword(false)}
+            onFocus={() => setShowPassword(true)}
+            onBlur={() => setShowPassword(false)}
           />
         </StyledTextField>
         {errors.password && (
@@ -203,8 +205,8 @@ const SignupPsForm = () => {
             placeholder="여기에 입력해주세요"
             onChange={handlePasswordConfirmChange}
             sx={{fontSize: "0.9rem", fontWeight: "600"}}
-            // onFocus={() => setShowPasswordConfirm(true)}
-            // onBlur={() => setShowPasswordConfirm(false)}
+            onFocus={() => setShowPasswordConfirm(true)}
+            onBlur={() => setShowPasswordConfirm(false)}
           />
         </StyledTextField>
         {!passwordsMatch && (
@@ -214,9 +216,9 @@ const SignupPsForm = () => {
           <HelperText><DefaultIcon icon={Checked} name={"checked_icon"}/>확인되었어요!</HelperText>
         )}
         <div className="button-container" style={{width: "100%", position: "absolute", bottom: "88px"}}>
-        <FormButton disabled={!isButtonEnabled} type="submit">
-          다 했어요!
-        </FormButton>
+          <FormButton disabled={!isButtonEnabled} type="submit">
+            다 했어요!
+          </FormButton>
         </div>
       </FormContainer>
     </div>
