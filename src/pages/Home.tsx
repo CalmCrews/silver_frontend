@@ -7,7 +7,7 @@ import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { fontSizeState } from '../states/userInfo';
 import { styled } from 'styled-components';
-import HomeAppBar from '../components/HomeAppBar';
+import HomeAppBar from '../components/shared/HomeAppBar';
 import { Box, CssBaseline, Toolbar } from "@mui/material"
 
 const Container = styled.div`
@@ -67,7 +67,12 @@ const Home = () => {
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", height: "100vh", padding: "20px 45px", alignItems: "center"}}>
       <CssBaseline/>
       <Toolbar sx={{ height: "60px" }}/>
-      <HomeAppBar/>
+      <HomeAppBar>
+        <>
+          <Box>
+          </Box>
+        </>
+      </HomeAppBar>
       {!login.isLoggedIn ? (
         <>
           <Button component={Link} to="/signup/id">회원가입</Button>
