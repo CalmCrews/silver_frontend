@@ -10,8 +10,13 @@ import SignIn from "./pages/users/SignIn";
 import { fontSizeState } from './states/userInfo';
 import SignupId from "./pages/users/SignupId";
 import SignupPs from "./pages/users/SignupPs";
+import './fonts/pretendard.css';
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    font-family: 'Pretendard';
+    font-weight: 600;
+  }
   html {
     font-size: ${props => props.theme.bodyFontSize};
   }

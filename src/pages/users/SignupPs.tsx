@@ -15,7 +15,7 @@ const Container = styled.div`
 const Title = styled.h1`
   color: ${props => props.theme.colors.primary};
   font-size: ${props => props.theme.title.md};
-  margin-top: 50px 0;
+  margin: 50px 0;
 `
 
 const SignupPs = () => {

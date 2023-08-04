@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 interface ButtonProps {
-  isEnabled: boolean;
-  onClick: () => void;
+  disabled: boolean;
+  onClick?: () => void;
   children: React.ReactNode;
+  type?: "button" | "submit" | "reset"; 
 }
 
 const StyledButton = styled.button<ButtonProps>`
@@ -14,13 +15,13 @@ const StyledButton = styled.button<ButtonProps>`
   border: none;
   font-size: ${(props) => props.theme.text.lg};
   color: #fff;
-  background-color: ${(props) => (props.isEnabled ? (props) => props.theme.colors.grey : (props) => props.theme.colors.primary)};
-  cursor: ${(props) => (props.isEnabled ? "pointer" : "not-allowed")};
+  background-color: ${(props) => props.disabled ? props.theme.colors.grey : props.theme.colors.primary };
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 `;
 
-const FormButton = ({ isEnabled, onClick, children }: ButtonProps) => {
+const FormButton = ({ disabled, onClick, children, type = "button" }: ButtonProps) => {
   return (
-    <StyledButton isEnabled={isEnabled} onClick={isEnabled ? onClick : () => {}}>
+    <StyledButton disabled={disabled} onClick={disabled ?  () => {} : onClick } type={type}>
       {children}
     </StyledButton>
   );
