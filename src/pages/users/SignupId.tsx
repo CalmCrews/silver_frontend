@@ -1,5 +1,4 @@
 import React from 'react';
-import SignUpForm from "../../components/SignUpForm"
 import { styled } from 'styled-components';
 import SimpleAppBar from '../../components/SimpleAppBar';
 import SignupIdForm from '../../components/user/SignupIdForm';

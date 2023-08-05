@@ -34,7 +34,7 @@ const StyledTextField = styled.div`
   padding: 0 15px;
 `;
 
-const FieldTitle = styled.h1`
+const FieldTitle = styled.h2`
   font-size: ${(props) => props.theme.text.md};
   color: ${(props) => props.theme.colors.black};
   margin: 32px 0;
@@ -181,7 +181,7 @@ const SignupPsForm = () => {
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       <FormContainer onSubmit={handleSubmit(onSubmit)}>
-        <FieldTitle>비밀번호 설정</FieldTitle>
+        <FieldTitle>비밀번호를 설정해 주세요!</FieldTitle>
         <StyledTextField style={{ marginBottom: "40px" }}>
           <StyledLabel>비밀번호</StyledLabel>
           <InputBase
@@ -200,7 +200,7 @@ const SignupPsForm = () => {
         {errors.password && (
           <FormHelperText>{errors.password.message}</FormHelperText>
         )}
-        <FieldTitle>비밀번호 확인</FieldTitle>
+        <FieldTitle>비밀번호를 다시 확인해 보아요!</FieldTitle>
         <StyledTextField>
           <StyledLabel>비밀번호</StyledLabel>
           <InputBase
