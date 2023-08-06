@@ -42,18 +42,6 @@ const Home = () => {
     setBodyFontSize(event.target.value);
   };
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(location.search);
-
-    const token = urlParams.get('token');
-
-    if (token) {
-      setLogin({ isLoggedIn: true, userId: 'kakaouser1', accessToken: token });
-      navigate('/');
-    }
-  }, [location, navigate, setLogin]);
-
-
 
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);

@@ -114,10 +114,10 @@ const SignupIdForm = () => {
         />
       </StyledTextField>
       {!isWriting && idError && (
-        <HelperText><DefaultIcon icon={Warning} name={"warning_icon"}/>중복된 아이디가 있어요!</HelperText>
+        <HelperText><DefaultIcon icon={Warning} name={"warning_icon"}/>&nbsp;중복된 아이디가 있어요!</HelperText>
       )}
       {!isWriting && !idError && (
-        <HelperText><DefaultIcon icon={Checked} name={"checked_icon"}/>확인되었어요!</HelperText>
+        <HelperText><DefaultIcon icon={Checked} name={"checked_icon"}/>&nbsp;확인되었어요!</HelperText>
       )}
       <div className="button-container" style={{width: "100%", position: "absolute", bottom: "88px"}}>
         <FormButton disabled={idError} onClick={handleNext}>

@@ -58,19 +58,7 @@ const HelperText = styled.p`
   align-items: center;
 `;
 
-type SignUpFormValues = {
-  userId: string;
-  password: string;
-  passwordConfirm: string;
-};
-
 const SignupPsForm = () => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<SignUpFormValues>();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -100,7 +88,7 @@ const SignupPsForm = () => {
     // 비밀번호 확인값이 있을 때만 검사 예약
     setPasswordsMatch(true);
     setButtonEnabled(false);
-    console.log(detectedPassword, detectedPasswordConfirm);
+    //console.log(detectedPassword, detectedPasswordConfirm);
     // console.log(getValues("passwordConfirm"));
     if (detectedPassword && detectedPasswordConfirm) {
       // 기존의 예약된 검사를 취소
@@ -131,7 +119,7 @@ const SignupPsForm = () => {
     // 비밀번호 확인값이 있을 때만 검사 예약
     setPasswordsMatch(true);
     setButtonEnabled(false);
-    console.log(detectedPasswordConfirm, detectedPassword);
+    //console.log(detectedPasswordConfirm, detectedPassword);
     if (detectedPasswordConfirm && detectedPasswordConfirm) {
       // 기존의 예약된 검사를 취소
       if (timer) {
@@ -154,16 +142,16 @@ const SignupPsForm = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<SignUpFormValues> = (data) => {
-    console.log(data);
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     axios
       .post(`${process.env.REACT_APP_API_URL}/users/register/`, {
         username: userId,
-        password: data.password,
+        password: detectedPassword,
       })
       .then((res) => {
         console.log(res);
-        if (res.data.message === "회원가입 성공") {
+        if (res.status === 200) {
           setLogin({
             isLoggedIn: true,
             userId: res.data.user.username,
@@ -180,16 +168,13 @@ const SignupPsForm = () => {
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
-      <FormContainer onSubmit={handleSubmit(onSubmit)}>
+      <FormContainer onSubmit={onSubmit}>
         <FieldTitle>비밀번호를 설정해 주세요!</FieldTitle>
         <StyledTextField style={{ marginBottom: "40px" }}>
           <StyledLabel>비밀번호</StyledLabel>
           <InputBase
-            type={showPassword ? "text" : "password"}
-            {...register("password", {
-              required: "비밀번호는 필수 입력 사항입니다.",
-            })}
-            error={Boolean(errors.password)}
+            value={detectedPassword}
+            error={!detectedPassword || !passwordsMatch}
             placeholder="여기에 입력해주세요"
             onChange={handlePasswordChange}
             sx={{ fontSize: "0.9rem", fontWeight: "600" }}
@@ -197,20 +182,12 @@ const SignupPsForm = () => {
             onBlur={() => setShowPassword(false)}
           />
         </StyledTextField>
-        {errors.password && (
-          <FormHelperText>{errors.password.message}</FormHelperText>
-        )}
         <FieldTitle>비밀번호를 다시 확인해 보아요!</FieldTitle>
         <StyledTextField>
           <StyledLabel>비밀번호</StyledLabel>
           <InputBase
-            type={showPasswordConfirm ? "text" : "password"}
-            {...register("passwordConfirm", {
-              required: "비밀번호 확인은 필수 입력 사항입니다.",
-              validate: (value) =>
-                value === watch("password") || "비밀번호가 일치하지 않습니다.",
-            })}
-            error={Boolean(errors.passwordConfirm)}
+            value={detectedPasswordConfirm}
+            error={!detectedPasswordConfirm || !passwordsMatch}
             placeholder="여기에 입력해주세요"
             onChange={handlePasswordConfirmChange}
             sx={{ fontSize: "0.9rem", fontWeight: "600" }}
@@ -220,13 +197,13 @@ const SignupPsForm = () => {
         </StyledTextField>
         {!passwordsMatch && (
           <HelperText>
-            <DefaultIcon icon={Warning} name={"warning_icon"} />
-            비밀번호가 일치하지 않습니다.
+            <DefaultIcon icon={Warning} name={"warning_icon"} />&nbsp;
+             비밀번호가 일치하지 않습니다.
           </HelperText>
         )}
         {isButtonEnabled && (
           <HelperText>
-            <DefaultIcon icon={Checked} name={"checked_icon"} />
+            <DefaultIcon icon={Checked} name={"checked_icon"} />&nbsp;
             확인되었어요!
           </HelperText>
         )}
