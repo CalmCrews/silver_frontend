@@ -11,6 +11,8 @@ import { fontSizeState } from './states/userInfo';
 import SignupId from "./pages/users/SignupId";
 import SignupPs from "./pages/users/SignupPs";
 import './fonts/pretendard.css';
+import KakaoLogin from "./pages/KakaoLogin";
+import NaverLogin from "./pages/NaverLogin";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -59,8 +61,10 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/signup/id" element={<SignupId />} />
                   <Route path="/signup/password" element={<SignupPs/>} />
-                  <Route path="/signin" element={<SignIn />} />
+                  <Route path="/login" element={<SignIn />} />
                   <Route path="/review" element={<Review />} />
+                  <Route path="/users/kakao/callback/" element={<KakaoLogin/>}/>
+                  <Route path="/users/naver/callback/" element={<NaverLogin/>}/>
                 </Routes>
               </div>
             </div>
