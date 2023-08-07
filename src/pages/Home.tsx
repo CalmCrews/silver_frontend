@@ -13,6 +13,7 @@ import DefaultIcon from "../components/shared/DefaultIcon";
 import MenuIcon from "../assets/icons/MenuIcon.png";
 import AlarmIcon from "../assets/icons/AlarmIcon.png";
 import MainDrawer from "../components/drawer/MainDrawer";
+import MainCarousel from "../components/main/MainCarousel";
 
 const Container = styled.div`
   display: flex;
@@ -59,7 +60,7 @@ const Home = () => {
           flexDirection: "column",
           width: "100%",
           height: "100vh",
-          padding: "20px 45px",
+          padding: "20px 0",
           alignItems: "center",
         }}
       >
@@ -97,6 +98,7 @@ const Home = () => {
             </Box>
           </>
         </HomeAppBar>
+        <MainCarousel/>
         {!login.isLoggedIn ? (
           <>
             <Button component={Link} to="/login">
