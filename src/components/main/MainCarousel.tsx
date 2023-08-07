@@ -93,6 +93,7 @@ const MainCarousel = () => {
     <Carousel
       sx={{ width: "100%", height: "620px" }} // Optional callback when page changes
       navButtonsAlwaysVisible // Keeps the navigation arrows always visible (optional)
+      autoPlay={false}
       indicatorIconButtonProps={{
         style: {
           color: "#D9D9D9", // Set the color of pagination dots
