@@ -1,8 +1,9 @@
 import React from "react";
 import AppBarWithDrawer from "../../components/shared/AppBarWithDrawer";
-import { Toolbar } from "@mui/material";
+import { Toolbar, Box } from "@mui/material";
 import { styled } from "styled-components";
 import VideoCard from "../../components/detail/VideoCard";
+import SellerInfoButton from "../../components/detail/SellerInfoButton";
 
 const DetailToolbar = styled(Toolbar)({
 	width: "100%",
@@ -21,6 +22,9 @@ const ProductDetail = () => {
 			<AppBarWithDrawer/>
 			<DetailToolbar>상품 상세보기</DetailToolbar>
 			<VideoCard srcUrl="" item=""/>
+			<Box sx={{width: "100%", padding: "12px"}}>
+				<SellerInfoButton sellerName="코알라" sellerProfile=""/>
+			</Box>
 		</>
 	)
 };
