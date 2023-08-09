@@ -34,7 +34,7 @@ const DetailToolbar = styled(Toolbar)({
 });
 
 const ProductDetail = () => {
-  const [isSellerOpen, setIsSellerOpen] = useState(true);
+  const [isSellerOpen, setIsSellerOpen] = useState(false);
 
   const handleSellerDrawerClose = () => {
     setIsSellerOpen(false);

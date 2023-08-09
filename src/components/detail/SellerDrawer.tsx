@@ -1,10 +1,11 @@
 import React from "react";
-import { Drawer, Box, IconButton, Link, Divider } from "@mui/material";
+import { Drawer, Box, IconButton, Link, Divider, Button } from "@mui/material";
 import { styled } from "styled-components";
 import CloseIcon from "../../assets/icons/CloseIcon.png";
 import RightArrow from "../../assets/icons/RightArrowPurple.png";
 import DefaultIcon from "../shared/DefaultIcon";
 import CustomDivider from "../shared/CustomDivider";
+import HorizontalContainer from "../shared/HorizontalContainer";
 
 interface MainDrawerProps {
   sellerName: string;
@@ -34,11 +35,14 @@ const ProfileImage = styled.img`
   object-fit: cover;
   z-index: 300;
 `;
-const CloseButton = styled(IconButton)({
-  position: "absolute",
-  top: "28px",
-  left: "calc(100% - 59px)",
-});
+
+const CloseButton = styled(IconButton)`
+  &.MuiIconButton-root {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+`
 
 const NowSellingContianer = styled.div`
   width: 350px;
@@ -58,12 +62,24 @@ const MainInfoContainer = styled.div`
   margin: 30px 0;  
 `
 
+const SubInfoContainer = styled.div`
+  width: 100%;
+  padding: 16px 5px 25px 16px;
+`
+
 const TitleText = styled.h3`
   color: ${props => props.color || '#3a3a3a'};
   font-size: 1.5rem;
   width: 100%;
   text-align: center;
   margin-bottom: 5px;
+`;
+
+const SubtitleText = styled.h3`
+  color: '#3a3a3a';
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
 `;
 
 const ContentText = styled.p<{ fontWeight?: number }>`
@@ -73,6 +89,15 @@ const ContentText = styled.p<{ fontWeight?: number }>`
   text-align: center;
   font-weight: ${props => props.fontWeight || '400'};
 `;
+
+const ProductThumbnail = styled.img`
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  background-color: #F5F1FF;
+  object-fit: cover;
+  margin-right: 14px;
+`
 
 const SellerInfo = {
   marketName: "알라마켓",
@@ -109,7 +134,7 @@ const SellerInfo = {
   ],
   sellerId: "123-12-12345",
   sellerContact: "010-1234-5678",
-  sellerEmail: "moyeo@moyoe.com",
+  sellerEmail: "moyeo@moyeo.com",
 };
 
 const SellerDrawer = ({ sellerName, open, onClose }: MainDrawerProps) => {
@@ -145,10 +170,16 @@ const SellerDrawer = ({ sellerName, open, onClose }: MainDrawerProps) => {
         <CloseButton onClick={onClose}>
           <DefaultIcon size="18px" name="close" icon={CloseIcon} />
         </CloseButton>
-        <TitleText color="#a394ff" style={{margin: "20px 0"}}>{SellerInfo.marketName}</TitleText>
+        <TitleText color="#a394ff" style={{margin: "50px 0 20px 0"}}>{SellerInfo.marketName}</TitleText>
         {SellerInfo.isSelling && 
           <NowSellingContianer>
-            <p style={{fontSize: "16px", margin: "12px 0 5px 0"}}>현재 진행 중인 공동구매 상품이 있어요!</p>
+            <p style={{fontSize: "16px", margin: "12px 0 5px 0"}}>현재 진행 중인 함께구매 상품이 있어요!</p>
+            <Link href={""} sx={{fontSize: "14px", textDecoration: "none", color: "#a394ff", margin: "5px 0 12px 0"}}>클릭하여 공구영상 보러가기 <img width={"7px"} src={RightArrow}/></Link>
+          </NowSellingContianer>
+        }
+        {!SellerInfo.isSelling && 
+          <NowSellingContianer>
+            <p style={{fontSize: "16px", margin: "12px 0 5px 0"}}>현재 진행 중인 함께구매 상품이 없어요</p>
             <Link href={""} sx={{fontSize: "14px", textDecoration: "none", color: "#a394ff", margin: "5px 0 12px 0"}}>클릭하여 공구영상 보러가기 <img width={"7px"} src={RightArrow}/></Link>
           </NowSellingContianer>
         }
@@ -164,8 +195,36 @@ const SellerDrawer = ({ sellerName, open, onClose }: MainDrawerProps) => {
           </div>
         </MainInfoContainer>
         <CustomDivider color="#f0f0f0" width="100%"/>
-        <br/>
+        <SubInfoContainer>
+          <div style={{width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px"}}>
+            <SubtitleText>판매 상품 경력</SubtitleText>
+            <Button sx={{color:"#a394ff", fontWeight: "700", fontSize: "1rem"}}>더보기&nbsp;<img width={"7px"} src={RightArrow}/></Button>
+          </div>
+          <HorizontalContainer>
+            {SellerInfo.historyList.map((product, index) => (
+              <ProductThumbnail src={product.thumbnail} alt={product.productName} key={index}/>
+            ))}
+          </HorizontalContainer>
+        </SubInfoContainer>
         <CustomDivider color="#f0f0f0" width="100%"/>
+        <SubInfoContainer>
+          <div style={{width: "100%", display: "flex", alignItems: "center", marginBottom: "20px"}}>
+            <SubtitleText>판매자 정보</SubtitleText>
+          </div>
+          <p style={{display: "flex", fontSize: "1rem", color: "#3a3a3a", fontWeight: "600", marginBottom: "1rem"}}>
+            <span style={{color: "#909090", width: "30%"}}>사업자 번호</span>
+            {SellerInfo.sellerId}
+          </p>
+          <p style={{display: "flex", fontSize: "1rem", color: "#3a3a3a", fontWeight: "600", marginBottom: "1rem"}}>
+            <span style={{color: "#909090", width: "30%"}}>고객센터</span>
+            {SellerInfo.sellerContact}
+          </p>
+          <p style={{display: "flex", fontSize: "1rem", color: "#3a3a3a", fontWeight: "600", marginBottom: "1rem"}}>
+            <span style={{color: "#909090", width: "30%"}}>이메일</span>
+            {SellerInfo.sellerEmail}
+          </p>
+          
+        </SubInfoContainer>
       </Container>
     </Drawer>
   );

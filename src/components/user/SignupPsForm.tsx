@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  TextField,
-  Button,
-  InputBase,
-  FormHelperText,
-  Typography,
-} from "@mui/material";
+import { InputBase } from "@mui/material";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { useCookies } from "react-cookie";
@@ -59,7 +53,6 @@ const HelperText = styled.p`
 `;
 
 const SignupPsForm = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
   const { userId } = location.state || {};
@@ -151,7 +144,7 @@ const SignupPsForm = () => {
       })
       .then((res) => {
         console.log(res);
-        if (res.status === 200) {
+        if (res.status >= 200 && res.status < 300) {
           setLogin({
             isLoggedIn: true,
             userId: res.data.user.username,
@@ -173,6 +166,7 @@ const SignupPsForm = () => {
         <StyledTextField style={{ marginBottom: "40px" }}>
           <StyledLabel>비밀번호</StyledLabel>
           <InputBase
+            type={showPassword ? "text" : "password"}
             value={detectedPassword}
             error={!detectedPassword || !passwordsMatch}
             placeholder="여기에 입력해주세요"
@@ -186,6 +180,7 @@ const SignupPsForm = () => {
         <StyledTextField>
           <StyledLabel>비밀번호</StyledLabel>
           <InputBase
+            type={showPasswordConfirm ? "text" : "password"}
             value={detectedPasswordConfirm}
             error={!detectedPasswordConfirm || !passwordsMatch}
             placeholder="여기에 입력해주세요"
@@ -197,14 +192,14 @@ const SignupPsForm = () => {
         </StyledTextField>
         {!passwordsMatch && (
           <HelperText>
-            <DefaultIcon icon={Warning} name={"warning_icon"} />&nbsp;
-             비밀번호가 일치하지 않습니다.
+            <DefaultIcon icon={Warning} name={"warning_icon"} />
+            &nbsp; 비밀번호가 일치하지 않습니다.
           </HelperText>
         )}
         {isButtonEnabled && (
           <HelperText>
-            <DefaultIcon icon={Checked} name={"checked_icon"} />&nbsp;
-            확인되었어요!
+            <DefaultIcon icon={Checked} name={"checked_icon"} />
+            &nbsp; 확인되었어요!
           </HelperText>
         )}
         <div
