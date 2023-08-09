@@ -180,7 +180,7 @@ const SellerDrawer = ({ sellerName, open, onClose }: MainDrawerProps) => {
         {!SellerInfo.isSelling && 
           <NowSellingContianer>
             <p style={{fontSize: "16px", margin: "12px 0 5px 0"}}>현재 진행 중인 함께구매 상품이 없어요</p>
-            <Link href={""} sx={{fontSize: "14px", textDecoration: "none", color: "#a394ff", margin: "5px 0 12px 0"}}>클릭하여 공구영상 보러가기 <img width={"7px"} src={RightArrow}/></Link>
+            <Link href={""} sx={{fontSize: "14px", textDecoration: "none", color: "#a394ff", margin: "5px 0 12px 0"}}>진행 중인 추천 상품 보러가기 <img width={"7px"} src={RightArrow}/></Link>
           </NowSellingContianer>
         }
         <MainInfoContainer>
