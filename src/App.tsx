@@ -13,6 +13,7 @@ import SignupPs from "./pages/users/SignupPs";
 import './fonts/pretendard.css';
 import KakaoLogin from "./pages/KakaoLogin";
 import NaverLogin from "./pages/NaverLogin";
+import ProductDetail from "./pages/detail/ProductDetail";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -65,6 +66,7 @@ function App() {
                   <Route path="/review" element={<Review />} />
                   <Route path="/users/kakao/callback/" element={<KakaoLogin/>}/>
                   <Route path="/users/naver/callback/" element={<NaverLogin/>}/>
+                  <Route path="/products/detail" element={<ProductDetail/>}/>
                 </Routes>
               </div>
             </div>

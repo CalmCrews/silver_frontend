@@ -7,13 +7,10 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { fontSizeState } from "../states/userInfo";
 import { styled } from "styled-components";
-import HomeAppBar from "../components/shared/HomeAppBar";
 import { Box, CssBaseline, Toolbar, IconButton } from "@mui/material";
-import DefaultIcon from "../components/shared/DefaultIcon";
-import MenuIcon from "../assets/icons/MenuIcon.png";
-import AlarmIcon from "../assets/icons/AlarmIcon.png";
 import MainDrawer from "../components/drawer/MainDrawer";
 import MainCarousel from "../components/main/MainCarousel";
+import AppBarWithDrawer from "../components/shared/AppBarWithDrawer";
 
 const Container = styled.div`
   display: flex;
@@ -66,38 +63,7 @@ const Home = () => {
       >
         <CssBaseline />
         <Toolbar sx={{ height: "60px" }} />
-        <HomeAppBar>
-          <>
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                padding: "22px",
-                justifyContent: "space-between",
-              }}
-            >
-              <IconButton
-                sx={{ width: "40px", height: "40px" }}
-                onClick={handleDrawerOpen}
-              >
-                <DefaultIcon
-                  icon={MenuIcon}
-                  width={"32px"}
-                  height={"22px"}
-                  name={"menu_icon"}
-                />
-              </IconButton>
-              <p>모여</p>
-              <IconButton sx={{ width: "40px", height: "40px" }}>
-                <DefaultIcon
-                  icon={AlarmIcon}
-                  size={"32px"}
-                  name={"menu_icon"}
-                />
-              </IconButton>
-            </Box>
-          </>
-        </HomeAppBar>
+        <AppBarWithDrawer/>
         <MainCarousel/>
         {!login.isLoggedIn ? (
           <>
@@ -117,7 +83,6 @@ const Home = () => {
           <option value="20px">20px</option>
         </select>
       </Box>
-      <MainDrawer open={isDrawerOpen} onClose={handleDrawerClose}></MainDrawer>
     </>
   );
 };
