@@ -33,7 +33,7 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ title, imageUrl } : CategoryCardProps ) => {
   return (
-    <StyledCard sx={{ maxWidth: 345 }}>
+    <StyledCard sx={{ maxWidth: "170px" }}>
       <CardContent sx={{ width : "86px", padding: "16px 0 0 16px" }}>
         <StyledTypo gutterBottom variant="h5">
           {title}
