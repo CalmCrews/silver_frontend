@@ -96,14 +96,14 @@ const MainCarousel = () => {
       autoPlay={false}
       indicatorIconButtonProps={{
         style: {
-          color: "#D9D9D9", // Set the color of pagination dots
-          padding: "5px",
+          color: "#D9D9D9",
+          padding: "2px",
         },
       }}
       activeIndicatorIconButtonProps={{
         style: {
           color: "#a394ff", // Set the color of active pagination dot
-          backgroundColor: "transparent", // Remove the background color of active dot
+          backgroundColor: "transparent", // Remove the background color
         },
       }}
       indicatorContainerProps={{

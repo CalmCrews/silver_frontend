@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppBarWithDrawer from "../../components/shared/AppBarWithDrawer";
 import { Toolbar, Box, Divider } from "@mui/material";
 import { styled } from "styled-components";
@@ -6,6 +6,7 @@ import SellerInfoButton from "../../components/detail/SellerInfoButton";
 import CustomDivider from "../../components/shared/CustomDivider";
 import SellerDrawer from "../../components/detail/SellerDrawer";
 import VideoPlayer from "../../components/detail/VideoPlayer";
+import { useParams } from 'react-router-dom';
 
 //임시 데이터
 const ProductInfo = {
@@ -36,7 +37,12 @@ const DetailToolbar = styled(Toolbar)({
 });
 
 const ProductDetail = () => {
+  const { productId } = useParams();
   const [isSellerOpen, setIsSellerOpen] = useState(false);
+
+  useEffect(() => {
+    console.log(productId);
+  }, [])
 
   const handleSellerDrawerClose = () => {
     setIsSellerOpen(false);
