@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import SimpleAppBar from '../../components/SimpleAppBar';
+import SimpleAppBar from '../../components/shared/SimpleAppBar';
 import SignupIdForm from '../../components/user/SignupIdForm';
 
 const Container = styled.div`

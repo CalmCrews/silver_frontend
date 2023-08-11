@@ -63,7 +63,7 @@ const SignupIdForm = () => {
         })
         .then((res) => {
           console.log(res);
-          if (res.status === 200) {
+          if (res.status >= 200 && res.status < 300) {
             setIdError(false);
           }
         })

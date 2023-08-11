@@ -20,6 +20,7 @@ import MakeClubKeywords from "./pages/club/MakeClubKeywords";
 import MakeClubProfile from "./pages/club/MakeClubProfile";
 import MakeClubRegister from "./pages/club/MakeClubRegister";
 
+
 const GlobalStyle = createGlobalStyle`
   * {
     font-family: 'Pretendard';
@@ -69,6 +70,8 @@ function App() {
                 <Route path="/login" element={<SignIn />} />
                 <Route path="/review" element={<Review />} />
                 <Route path="/users/kakao/callback/" element={<KakaoLogin />} />
+                <Route path="/users/naver/callback/" element={<NaverLogin/>}/>
+                <Route path="/products/detail" element={<ProductDetail/>}/>
                 <Route path="/club/start" element={<ClubFirstStep />} />
                 <Route path="/club/naming" element={<MakeClubNaming />}></Route>
                 <Route
@@ -88,6 +91,7 @@ function App() {
                   element={<MakeClubRegister />}
                 ></Route>
               </Routes>
+
             </div>
           </div>
         </div>
