@@ -10,6 +10,9 @@ import {
 } from "@mui/material";
 import ClubStartBase from "../../components/club/ClubStartBase";
 import FormButton from "../../components/shared/FormButton";
+import classes from "./MakeClubNaming.module.css";
+
+import QuestionMark from "../../assets/icons/QuestionMark.png";
 
 const Title = styled.h1`
   color: ${(props) => props.theme.colors.primary};
@@ -44,6 +47,7 @@ const StyledLabel = styled.label`
 
 const MakeClubNaming = () => {
   const [clubName, setClubName] = useState("");
+  const [isClickDesc, setIsClickDesc] = useState(false);
   const navigate = useNavigate();
 
   const inutRef = useRef<HTMLInputElement | null>(null);
@@ -56,6 +60,10 @@ const MakeClubNaming = () => {
   };
   const handleNext = () => {
     return navigate("/club/description", { state: { clubName: clubName } });
+  };
+
+  const handleisClickDesc = (event: React.MouseEvent) => {
+    setIsClickDesc((pre) => !pre);
   };
 
   return (
@@ -80,6 +88,25 @@ const MakeClubNaming = () => {
           />
           <StyledLabel>{clubName.length}/20자</StyledLabel>
         </StyledTextField>
+        <div onClick={handleisClickDesc} className={classes["info-outer-div"]}>
+          <img
+            src={QuestionMark}
+            alt="물음표-아이콘"
+            className={classes["question-mark"]}
+          />
+          <div className={classes["info-inner-div"]}>예시가 필요해요!</div>
+        </div>
+        {isClickDesc && (
+          <div className={classes.bubble}>
+            <span className={classes["bubble-span"]}>예시)</span>
+            <span className={classes["bubble-span"]}>
+              "이글이글 6070 파크골프"
+            </span>
+            <span className={classes["bubble-span"]}>
+              "60대 꽃다운 나이 산악회"
+            </span>
+          </div>
+        )}
         <div
           className="button-container"
           style={{ width: "100%", position: "absolute", bottom: "88px" }}

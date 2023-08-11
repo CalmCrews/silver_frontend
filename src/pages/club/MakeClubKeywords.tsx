@@ -43,7 +43,7 @@ const MakeClubKeywords = () => {
   };
   const handleNext = () => {
     // 이제 여기에서 별명 있는지 확인하기
-    return navigate("/club/keywords", {
+    return navigate("/club/profile", {
       state: {
         clubName: clubName,
         description: description,
