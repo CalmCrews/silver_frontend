@@ -12,6 +12,7 @@ import MainCarousel from "../components/main/MainCarousel";
 import AppBarWithDrawer from "../components/shared/AppBarWithDrawer";
 import MyBuyingCard from "../components/main/MyBuyingCard";
 import CustomDivider from "../components/shared/CustomDivider";
+import { axiosInstance } from "../utils/axiosInterceptor";
 
 
 const MyBuyingData = [
@@ -39,7 +40,7 @@ const MyBuyingData = [
   {
     id: 2,
     end_at: "2023-08-14 / 14",
-    name: "설국열차 팔토시",
+    name: "설국열차 팔토시 짱 시원함",
     thumbnail: "",
     accomplished: 20,
     participants: [
@@ -113,6 +114,10 @@ const SectionTitle = styled.h2`
   font-size: 1.5rem;
   font-weight: 700;
 `
+interface FormData {
+  name: string;
+  intro: string;
+}
 
 const Home = () => {
   const [login, setLogin] = useRecoilState(loginState);
@@ -132,6 +137,31 @@ const Home = () => {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setBodyFontSize(event.target.value);
+  };
+
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    intro: ''
+  });
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    try {
+      const apiUrl = `${process.env.REACT_APP_API_URL}clubs/`;
+      const response = await axiosInstance.post(apiUrl, formData);
+      console.log('POST 요청 성공:', response.data);
+    } catch (error) {
+      console.error('POST 요청 실패:', error);
+    }
   };
 
   return (
@@ -166,6 +196,17 @@ const Home = () => {
             <option value="18px">18px</option>
             <option value="20px">20px</option>
           </select>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Name:</label>
+              <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
+            </div>
+            <div>
+              <label>Intro:</label>
+              <input type="text" name="intro" value={formData.intro} onChange={handleInputChange} />
+            </div>
+            <button type="submit">전송</button>
+          </form>
         </MainDiv>
       </Container>
     </>
