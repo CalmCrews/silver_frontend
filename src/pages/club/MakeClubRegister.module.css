@@ -1,0 +1,61 @@
+.bubble {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 25px auto 0 auto;
+  position: relative;
+  background: rgba(245, 241, 255, 1);
+  border: 1px solid rgba(235, 228, 255, 1);
+  font-family: Arial;
+  font-size: 20px;
+  text-align: center;
+  width: 306px;
+  height: 140px;
+  border-radius: 20px;
+  padding: 0px;
+  flex-direction: column;
+  gap: 8px;
+}
+.bubble-span {
+  color: rgba(58, 58, 58, 1);
+  font-size: 16px;
+}
+.bubble:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 0;
+  z-index: 1;
+  border-style: solid;
+  border-color: rgba(245, 241, 255, 1) transparent;
+  border-width: 0 20px 20px;
+  top: -20px;
+  left: 50%;
+  margin-left: -20px;
+}
+.question-mark {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  flex-shrink: 0;
+}
+.info-outer-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  width: 180px;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background-color: rgba(245, 241, 255, 1);
+  margin: 20px auto 0 auto;
+  cursor: pointer;
+}
+.info-inner-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}

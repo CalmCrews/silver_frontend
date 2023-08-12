@@ -1,0 +1,35 @@
+.outer-div {
+  border-radius: 30px;
+  padding: 15px 25px;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+
+  background: rgba(240, 240, 240, 1);
+  color: rgba(58, 58, 58, 1);
+  margin-top: 10px;
+}
+.outer-div:hover {
+  cursor: pointer;
+}
+
+.outer-div-clicked {
+  border-radius: 30px;
+  padding: 15px 25px;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+
+  background: rgba(163, 148, 255, 1);
+  color: white;
+  margin-top: 10px;
+}
+.outer-div-clicked:hover {
+  cursor: pointer;
+}
