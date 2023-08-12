@@ -84,10 +84,11 @@ function SignInForm() {
       .then((res) => {
         console.log(res);
         if (res.status) {
+          console.log(res.data)
           setLogin({
             isLoggedIn: true,
             userId: res.data.user.username,
-            accessToken: res.data.accessToken,
+            accessToken: res.data.token.access,
           });
           setCookie("refreshToken", res.data.refreshToken, { path: "/" });
           navigate("/");
@@ -138,6 +139,7 @@ function SignInForm() {
           <Button onClick={handleClose}>확인</Button>
         </DialogActions>
       </Dialog>
+      
     </div>
   );
 }

@@ -91,7 +91,6 @@ function App() {
                   element={<MakeClubRegister />}
                 ></Route>
               </Routes>
-
             </div>
           </div>
         </div>

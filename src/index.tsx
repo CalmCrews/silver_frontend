@@ -4,16 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
-
+import { AxiosInterceptor } from './utils/axiosInterceptor';
 
 const Root = () => {
   
   return (
-    <React.StrictMode>
-      <RecoilRoot>
+    <RecoilRoot>
+      <AxiosInterceptor>
         <App />
-      </RecoilRoot>
-    </React.StrictMode>
+      </AxiosInterceptor>
+    </RecoilRoot>
   );
 };
 
