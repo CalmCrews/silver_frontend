@@ -19,6 +19,8 @@ import MakeClubDes from "./pages/club/MakeClubDes";
 import MakeClubKeywords from "./pages/club/MakeClubKeywords";
 import MakeClubProfile from "./pages/club/MakeClubProfile";
 import MakeClubRegister from "./pages/club/MakeClubRegister";
+import JoinClubRegister from "./pages/club/JoinClubRegister";
+import JoinClubProfile from "./pages/club/JoinClubProfile";
 
 
 const GlobalStyle = createGlobalStyle`
@@ -89,6 +91,11 @@ function App() {
                 <Route
                   path="/club/register"
                   element={<MakeClubRegister />}
+                ></Route>
+                <Route path="/club/join" element={<JoinClubRegister />}></Route>
+                <Route
+                  path="/club/join/profile"
+                  element={<JoinClubProfile />}
                 ></Route>
               </Routes>
             </div>

@@ -59,7 +59,7 @@ const HelperText = styled.p`
   align-items: center;
 `;
 
-const MakeClubProfile = () => {
+const JoinClubProfile = () => {
   const [nickname, setNickname] = useState("");
   const [nicknameStatus, setNicknameStatus] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -69,7 +69,7 @@ const MakeClubProfile = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { clubName, description, keywordsList } = location.state || {};
+  const { clubName, description } = location.state || {};
 
   const handleNickname = (event: React.ChangeEvent) => {
     const nicknameInputValue = nicknameRef.current
@@ -183,11 +183,8 @@ const MakeClubProfile = () => {
   const handleNext = () => {
     // handleImageUpload();
     // 여기에서 생성을 성공하면? 다음 페이지로 넘어가기
-    return navigate("/club/register", {
-      state: {
-        clubName: clubName,
-      },
-    });
+    // return navigate("/club/register"
+    // );
   };
 
   return (
@@ -276,4 +273,4 @@ const MakeClubProfile = () => {
   );
 };
 
-export default MakeClubProfile;
+export default JoinClubProfile;

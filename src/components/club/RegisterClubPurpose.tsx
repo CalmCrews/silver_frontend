@@ -32,7 +32,7 @@ const RegisterClubPurpose = () => {
       return navigate("/club/naming");
     }
     if (isCliced === 2) {
-      return navigate("/club/naming");
+      return navigate("/club/join");
     }
   };
 
