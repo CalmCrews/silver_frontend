@@ -4,9 +4,10 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  CssBaseline,
 } from "@mui/material";
 import { styled } from "styled-components";
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import Person2RoundedIcon from '@mui/icons-material/Person2Rounded';
 
 function formatDate(input: string) {
   const [datePart, timePart] = input.split(" / ");
@@ -22,7 +23,7 @@ function formatDate(input: string) {
 }
 
 const BuyingCard = styled(Card)({
-  width: "400px",
+  width: "100%",
   marginBottom: "16px",
   position: "relative",
   "&.MuiPaper-root": {
@@ -98,12 +99,65 @@ const CurrentPoint = styled.div<PointProp>`
 	background-color: #A394FF;
 `
 
+const ParticipantsContainer = styled.div`
+	display: flex;
+	position: absolute;
+	width: 110px;
+	height: 49px;
+	top: 25px;
+	right: 0;
+`
+
+type ProfileProp = {
+	index: number;
+}
+
+const MiniProfile = styled.img<ProfileProp>`
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	overflow: hidden;
+	border-radius: 20px;
+	border: 2px solid #fff;
+	object-fit: cover;
+	left: ${props => props.index * 15}px;
+	z-index: ${props => 3000 - props.index};
+	background-color: #d9d9d9;
+`
+
+const NoneProfile = styled.div<ProfileProp>`
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	overflow: hidden;
+	border-radius: 20px;
+	border: 2px solid #fff;
+	left: ${props => props.index * 15}px;
+	z-index: ${props => 3000 - props.index};
+	background-color: #d9d9d9;
+`
+
+const Participating = styled.div`
+	display: flex;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	font-size: 0.9rem;
+	color: #3a3a3a;
+	font-weight: 600;
+`
+
 type CardProps = {
   id: number;
   end_at: string;
   name: string;
   thumbnail: string;
   accomplished: number;
+	participantsNum: number;
   participants: { name: string; profile: string }[];
 };
 
@@ -113,13 +167,14 @@ const MyBuyingCard = ({
   name,
   thumbnail,
   accomplished,
+	participantsNum,
   participants,
 }: CardProps) => {
   return (
     <BuyingCard>
       <CardActionArea
         href={`/products/detail/${id}`}
-        sx={{ width: "100%", height: "100%", padding: "9px" }}
+        sx={{ width: "100%", height: "100%", padding: "15px" }}
       >
         <header style={{ display: "flex" }}>
           <EndDate>
@@ -165,6 +220,19 @@ const MyBuyingCard = ({
 							<CurrentPoint point={`${accomplished}%`}>{accomplished}%</CurrentPoint>
             </Accomplishment>
           </div>
+					<ParticipantsContainer>
+						<div style={{width: "100%", height: "100%", position: "relative"}}>
+							{participants.map((participant, index) => (
+								participant.profile ? (
+									<MiniProfile src={participant.profile} alt={participant.name} index={index}/>
+								) : (
+									<NoneProfile index={index}><Person2RoundedIcon sx={{color: "#fff", width: "17px"}}/></NoneProfile>
+								)
+							))}
+							<AddRoundedIcon sx={{position: "absolute", left:"55px", width: "22px", color: "#d9d9d9", fontWeight: "700"}}/>
+							<Participating><p style={{color: "#a394ff"}}>{participantsNum}명</p>&nbsp;참여중</Participating>
+						</div>
+					</ParticipantsContainer>
         </CardContent>
       </CardActionArea>
     </BuyingCard>

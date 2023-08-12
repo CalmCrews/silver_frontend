@@ -22,6 +22,7 @@ const MyBuyingData = [
     name: "설국열차 팔토시",
     thumbnail: "",
     accomplished: 100,
+    participantsNum: 500,
     participants: [
       {
         name: "코알1",
@@ -43,6 +44,7 @@ const MyBuyingData = [
     name: "설국열차 팔토시 짱 시원함",
     thumbnail: "",
     accomplished: 20,
+    participantsNum: 10,
     participants: [
       {
         name: "코알1",
@@ -64,6 +66,7 @@ const MyBuyingData = [
     name: "설국열차 팔토시",
     thumbnail: "",
     accomplished: 40,
+    participantsNum: 34,
     participants: [
       {
         name: "코알1",
