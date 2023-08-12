@@ -50,16 +50,17 @@ const ProductName = styled.div`
   color: #3a3a3a;
   font-size: 18px;
   font-weight: 600;
-  padding: 3px 0 10px 0;
+  padding: 3px 0 7px 10px;
 	overflow: hidden;
   text-overflow: ellipsis;
 `;
 
 const Accomplishment = styled.div`
-  width: 100%;
+  width: calc(100% - 25px);
   height: 15px;
   position: relative;
-	padding-top: 7px;
+	padding: 7px 0 0 0;
+	margin-left: 10px;
 `;
 
 type GraphProps = {
@@ -77,8 +78,24 @@ const GraphDiv = styled.div<GraphProps>`
   border-radius: 10px;
 `;
 
-const CurrentPoint = styled.div`
-	
+type PointProp = {
+	point: string
+}
+
+const CurrentPoint = styled.div<PointProp>`
+	position: absolute;
+  left: calc(${props => props.point} - 30px);
+  bottom: -1px;
+	width: 53px;
+	height: 24px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	font-size: 12px;
+	font-weight: 700;
+	border-radius: 30px;
+	background-color: #A394FF;
 `
 
 type CardProps = {
@@ -139,12 +156,13 @@ const MyBuyingCard = ({
                 backgroundColor: "#E7DEFF",
               }}
             />
-						<div style={{ fontSize: "0.875rem", color: "#3a3a3a", margin:"9px 0" }}>
+						<div style={{ fontSize: "0.875rem", color: "#3a3a3a", margin:"9px 0 9px 10px" }}>
 							현재 달성률
 						</div>
             <Accomplishment>
               <GraphDiv width="100%" color="#D9D9D9" />
               <GraphDiv width={`${accomplished}%`} color="#A394FF" />
+							<CurrentPoint point={`${accomplished}%`}>{accomplished}%</CurrentPoint>
             </Accomplishment>
           </div>
         </CardContent>

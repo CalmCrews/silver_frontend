@@ -21,7 +21,7 @@ const MyBuyingData = [
     end_at: "2023-08-04 / 20",
     name: "설국열차 팔토시",
     thumbnail: "",
-    accomplished: 79,
+    accomplished: 100,
     participants: [
       {
         name: "코알1",
