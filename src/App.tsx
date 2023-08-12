@@ -21,6 +21,7 @@ import MakeClubProfile from "./pages/club/MakeClubProfile";
 import MakeClubRegister from "./pages/club/MakeClubRegister";
 import JoinClubRegister from "./pages/club/JoinClubRegister";
 import JoinClubProfile from "./pages/club/JoinClubProfile";
+import ProductDetail from "./pages/detail/ProductDetail";
 
 
 const GlobalStyle = createGlobalStyle`

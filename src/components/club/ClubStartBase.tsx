@@ -1,5 +1,5 @@
 import React from "react";
-import SimpleAppBar from "../../components/SimpleAppBar";
+import SimpleAppBar from "../shared/SimpleAppBar";
 import { styled } from "styled-components";
 
 const Container = styled.div`
