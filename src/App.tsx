@@ -100,7 +100,7 @@ function App() {
                   path="/club/join/profile"
                   element={<JoinClubProfile />}
                 ></Route>
-                <Route path="/chargeCash" element={<AutoComplete/>}/>
+                <Route path="/chargeCash" element={<ChargeCash />}/> 
               </Routes>
             </div>
           </div>
