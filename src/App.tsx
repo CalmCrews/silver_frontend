@@ -22,6 +22,8 @@ import MakeClubRegister from "./pages/club/MakeClubRegister";
 import JoinClubRegister from "./pages/club/JoinClubRegister";
 import JoinClubProfile from "./pages/club/JoinClubProfile";
 import ProductDetail from "./pages/detail/ProductDetail";
+import ChargeCash from "./pages/ChargeCash";
+import AutoComplete from "./pages/AutoComplete";
 
 
 const GlobalStyle = createGlobalStyle`
@@ -98,6 +100,7 @@ function App() {
                   path="/club/join/profile"
                   element={<JoinClubProfile />}
                 ></Route>
+                <Route path="/chargeCash" element={<AutoComplete/>}/>
               </Routes>
             </div>
           </div>
