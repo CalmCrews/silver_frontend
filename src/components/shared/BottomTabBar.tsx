@@ -29,15 +29,20 @@ const BottomTabBar = () => {
         bottom: "0",
         display: "flex",
         justifyContent: "space-evenly",
-        padding: "13px",
+        padding: "4px",
+        boxShadow: "0px -2px 6px 2px rgba(163, 148, 255, 0.40)",
+        "& .MuiButtonBase-root": {
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "9px", // 아이콘과 레이블 사이의 간격 설정
+          color: "#A394FF",
+          fontSize: "1rem",
+          fontWeight: "600"
+        },
       }}
     >
       <Tab
-      sx={{
-        color: '#A394FF',
-        fontSize: "1rem",
-        fontWeight: "600",
-      }}
         icon={
           <DefaultIcon
             icon={HomeIcon}
