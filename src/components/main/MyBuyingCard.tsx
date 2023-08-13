@@ -4,6 +4,8 @@ import { styled } from "styled-components";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
 import * as style from "./MyBuyingCardComponents";
+import Flaming from "../../assets/icons/flaming.gif"
+import DefaultIcon from "../shared/DefaultIcon";
 
 function formatDate(input: string) {
   const [datePart, timePart] = input.split(" / ");
@@ -91,9 +93,10 @@ const MyBuyingCard = ({
               <style.GraphDiv width="100%" color="#D9D9D9" />
               <style.GraphDiv width={`${accomplished}%`} color="#A394FF" />
               <style.CurrentPoint point={`${accomplished}%`}>
-                {accomplished}%
+                <DefaultIcon icon={Flaming} name="flaming_icon" height="100%" width="100%"/>
               </style.CurrentPoint>
             </style.Accomplishment>
+            <style.CurrentValue>{accomplished}%</style.CurrentValue>
           </div>
           <style.ParticipantsContainer>
             <div

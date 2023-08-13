@@ -50,7 +50,7 @@ export const ProductName = styled.div`
 `;
 
 export const Accomplishment = styled.div`
-  width: calc(100% - 25px);
+  width: calc(100% - 55px);
   height: 15px;
   position: relative;
   padding: 7px 0 0 0;
@@ -78,19 +78,24 @@ type PointProp = {
 
 export const CurrentPoint = styled.div<PointProp>`
   position: absolute;
-  left: calc(${(props) => props.point} - 30px);
-  bottom: -1px;
-  width: 53px;
-  height: 24px;
+  left: calc(${(props) => props.point} - 22px);
+  bottom: -4px;
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 12px;
-  font-weight: 700;
-  border-radius: 30px;
-  background-color: #a394ff;
 `;
+
+export const CurrentValue = styled.div`
+  color: #A394FF;
+  font-size: 1rem;
+  font-weight: 700;
+  position: relative;
+  left: calc(100% - 37px);
+  bottom: 20px;
+`
 
 export const ParticipantsContainer = styled.div`
   display: flex;
