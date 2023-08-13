@@ -13,6 +13,7 @@ import AppBarWithDrawer from "../components/shared/AppBarWithDrawer";
 import MyBuyingCard from "../components/main/MyBuyingCard";
 import CustomDivider from "../components/shared/CustomDivider";
 import { axiosInstance } from "../utils/axiosInterceptor";
+import BottomTabBar from "../components/shared/BottomTabBar";
 
 
 const MyBuyingData = [
@@ -91,7 +92,7 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   height: 100vh;
-  padding: 20px 0;
+  padding: 20px 0 90px 0;
 `;
 
 const MainDiv = styled.div`
@@ -211,6 +212,7 @@ const Home = () => {
             <button type="submit">전송</button>
           </form>
         </MainDiv>
+        <BottomTabBar/>
       </Container>
     </>
   );
