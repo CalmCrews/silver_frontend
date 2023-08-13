@@ -150,36 +150,22 @@ const MakeClubProfile = () => {
 
       const response = await axiosInstance.post(
         `${process.env.REACT_APP_API_URL}clubs/`,
-        JSON.stringify({
+        {
           name: clubName,
           intro: description,
-          tag: keywordsList,
-        })
+          tag: JSON.stringify(keywordsList),
+        }
       );
     } catch (error) {
       console.error("Error register clubName, description:", error);
     }
 
-    // try {
-    //   const response = await axios.post(
-    //     `${process.env.REACT_APP_API_URL}clubs/join/`,
-    //     JSON.stringify({ club_code: keywordsList }),
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-    // } catch (error) {
-    //   console.error("Error register keywordsList :", error);
-    // }
-
     const formData = new FormData();
     formData.append("nickname", nickname);
-    formData.append("image", selectedImage);
+    formData.append("profile_image", selectedImage);
 
     try {
-      await axios.post(
+      await axiosInstance.put(
         `${process.env.REACT_APP_API_URL}users/nickname/`,
         formData,
         {
