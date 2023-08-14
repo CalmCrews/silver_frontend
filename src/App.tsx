@@ -26,8 +26,6 @@ import ChargeCash from "./pages/ChargeCash";
 import Club from "./pages/club/Club";
 import MyInfo from "./pages/myinfo/MyInfo";
 
-import AutoComplete from "./pages/AutoComplete";
-
 const GlobalStyle = createGlobalStyle`
   * {
     font-family: 'Pretendard';
