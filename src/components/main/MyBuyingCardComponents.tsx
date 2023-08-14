@@ -118,8 +118,8 @@ export const MiniProfile = styled.img<ProfileProp>`
   border-radius: 20px;
   border: 2px solid #fff;
   object-fit: cover;
-  left: ${(props) => props.index * 15}px;
-  z-index: ${(props) => 3000 - props.index};
+  left: ${(props) => props.index * 15 + 15}px;
+  z-index: ${(props) => 1000 - props.index};
   background-color: #d9d9d9;
 `;
 
@@ -133,8 +133,8 @@ export const NoneProfile = styled.div<ProfileProp>`
   overflow: hidden;
   border-radius: 20px;
   border: 2px solid #fff;
-  left: ${(props) => props.index * 15}px;
-  z-index: ${(props) => 3000 - props.index};
+  left: ${(props) => props.index * 15 + 15}px;
+  z-index: ${(props) => 1000 - props.index};
   background-color: #d9d9d9;
 `;
 

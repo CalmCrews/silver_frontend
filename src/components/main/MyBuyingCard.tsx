@@ -118,7 +118,7 @@ const MyBuyingCard = ({
               <AddRoundedIcon
                 sx={{
                   position: "absolute",
-                  left: "55px",
+                  left: "67px",
                   width: "22px",
                   color: "#d9d9d9",
                   fontWeight: "700",
