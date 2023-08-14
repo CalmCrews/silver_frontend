@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 import { styled } from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
+import { atom, useRecoilState } from "recoil";
 
 import ClubStartBase from "../../components/club/ClubStartBase";
 import FormButton from "../../components/shared/FormButton";
 import KeywordComponet from "../../components/club/KeywordComponet";
+import { loginState } from "../../states/userInfo";
+import { axiosInstance } from "../../utils/axiosInterceptor";
 
 const Title = styled.h1`
   color: ${(props) => props.theme.colors.primary};
@@ -26,6 +29,7 @@ const KeywordsDiv = styled.div`
 `;
 
 const MakeClubKeywords = () => {
+  const [login, setLogin] = useRecoilState(loginState);
   const [totalCountList, setTotalCountList] = useState<string[]>([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,13 +45,56 @@ const MakeClubKeywords = () => {
       }
     });
   };
-  const handleNext = () => {
+  const getUserNikcknamme = async () => {
+    try {
+      const { user_id } = login;
+      const apiUrl = `${process.env.REACT_APP_API_URL}users/${user_id}/charge/`;
+      const response = await axiosInstance.get(apiUrl, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const returnData = response.data.nickname;
+      return returnData;
+    } catch (error) {
+      console.error("Error getting user's nickname :", error);
+      return "";
+    }
+  };
+
+  const handleNext = async () => {
     // 이제 여기에서 별명 있는지 확인하기
-    return navigate("/club/profile", {
+    const nickname = await getUserNikcknamme();
+    if (nickname === "") {
+      return navigate("/club/profile", {
+        state: {
+          clubName: clubName,
+          description: description,
+          keywordsList: totalCountList,
+        },
+      });
+    }
+    let club_code;
+    try {
+      const response = await axiosInstance.post(
+        `${process.env.REACT_APP_API_URL}clubs/`,
+        {
+          name: clubName,
+          intro: description,
+          tag: JSON.stringify(totalCountList),
+        }
+      );
+      club_code = response.data["code"];
+    } catch (error) {
+      console.error("Error register clubName, description:", error);
+    }
+    return navigate("/club/register", {
       state: {
         clubName: clubName,
         description: description,
         keywordsList: totalCountList,
+        clubCode: club_code,
       },
     });
   };
