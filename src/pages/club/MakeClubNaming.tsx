@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import ClubStartBase from "../../components/club/ClubStartBase";
 import FormButton from "../../components/shared/FormButton";
-import classes from "./MakeClubNaming.module.css";
+import classes from "./style/MakeClubNaming.module.css";
 
 import QuestionMark from "../../assets/icons/QuestionMark.png";
 

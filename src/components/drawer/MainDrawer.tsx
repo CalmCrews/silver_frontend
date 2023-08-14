@@ -7,6 +7,18 @@ import { styled } from "styled-components";
 import SearchBar from "./SearchBar";
 import CategoryCard from "./CategoryCard";
 
+import Fashion from "../../assets/categoryImages/fashion.png"
+import Digital from "../../assets/categoryImages/digital.png"
+import Furniture from "../../assets/categoryImages/funiture.png"
+import Food from "../../assets/categoryImages/food.png"
+import Aniplant from "../../assets/categoryImages/aniplant.png"
+import Sports from "../../assets/categoryImages/sports.png"
+import Hobby from "../../assets/categoryImages/hobby.png"
+import Travel from "../../assets/categoryImages/travel.png"
+import Overseas from "../../assets/categoryImages/overseas.png"
+import Coupon from "../../assets/categoryImages/coupon.png"
+import Life from "../../assets/categoryImages/life.png"
+
 interface MainDrawerProps {
   open: boolean;
   onClose: () => void;
@@ -17,18 +29,19 @@ const DrawerTitle = styled.h1`
   color: ${(props) => props.theme.colors.primary};
 `;
 
+
 const categories = [
-  {title: "패션뷰티"},
-  {title: "디지털/가전"},
-  {title: "가구"},
-  {title: "식품"},
-  {title: "동식물"},
-  {title: "스포츠"},
-  {title: "취미"},
-  {title: "여행"},
-  {title: "해외직구"},
-  {title: "이용권/ e쿠폰"},
-  {title: "생활"},
+  {title: "패션뷰티", img: Fashion},
+  {title: "디지털/가전", img: Digital},
+  {title: "가구", img: Furniture},
+  {title: "식품", img: Food},
+  {title: "동식물", img: Aniplant},
+  {title: "스포츠", img: Sports},
+  {title: "취미", img: Hobby},
+  {title: "여행", img: Travel},
+  {title: "해외직구", img: Overseas},
+  {title: "이용권/ e쿠폰", img: Coupon},
+  {title: "생활", img: Life},
 ];
 
 const MainDrawer = ({ open, onClose }: MainDrawerProps) => {
@@ -88,16 +101,16 @@ const MainDrawer = ({ open, onClose }: MainDrawerProps) => {
           alignItems: "center",
           width: "100%",
           height: "calc(100% - 80px)",
-          padding: "25px",
+          padding: "22px 12px",
           overflowY: "scroll",
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
         <SearchBar />
-        <Grid container flex={1} spacing={1} sx={{padding: "30px 5px"}}>
+        <Grid container flex={1} spacing={1} sx={{padding: "10px 5px"}}>
           {categories.map((category, index) => (
-            <Grid item xs={6} key={index} sx={{marginBottom: "10px"}}>
-              <CategoryCard title={category.title} imageUrl=""/>
+            <Grid item xs={6} key={index} sx={{marginBottom: "10px", display: "flex", justifyContent: "center"}}>
+              <CategoryCard title={category.title} imageUrl={category.img}/>
             </Grid>
           ))}
         </Grid>

@@ -10,7 +10,7 @@ import xIcon from "../../assets/icons/xIcon.png";
 import NaverBandIcon from "../../assets/icons/NaverBandIcon.png";
 import KaKaoIcon from "../../assets/icons/KaKaoSquareIcon.png";
 
-import classes from "./MakeClubRegister.module.css";
+import classes from "./style/MakeClubRegister.module.css";
 
 const Title = styled.h1`
   color: ${(props) => props.theme.colors.primary};

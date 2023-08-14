@@ -10,14 +10,18 @@ const StyledCard = styled(Card)({
   background: "linear-gradient(180deg, #A394FF 0%, rgba(163, 148, 255, 0.67) 42.71%)",
 })
 
-const StyledMedia = styled("img")({
+const StyledMedia = styled("div")({
   position: "absolute",
   width: "90px",
   height: "90px",
   borderRadius: "50px",
-  backgroundColor: "#fff",
   right: "5px",
-  bottom: "5px"
+  bottom: "5px",
+  padding: "20px",
+  backgroundColor: "#fff",
+  display: "flex",
+  alignContent: "center",
+  justifyContent: "center",
 })
 
 const StyledTypo = styled(Typography)({
@@ -39,7 +43,9 @@ const CategoryCard = ({ title, imageUrl } : CategoryCardProps ) => {
           {title}
         </StyledTypo>
       </CardContent>
-      <StyledMedia src={imageUrl} alt="Image" />
+      <StyledMedia>
+        <img src={imageUrl} alt="Image" style={{height: "100%", width: "auto"}}/>
+      </StyledMedia>
     </StyledCard>
   );
 };

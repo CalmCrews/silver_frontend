@@ -17,7 +17,7 @@ import Warning from "../../assets/icons/WarningIcon.png";
 import Checked from "../../assets/icons/CheckedIcon.png";
 import Plus from "../../assets/icons/Plus.png";
 
-import classes from "./MakeClubProfile.module.css";
+import classes from "./style/MakeClubProfile.module.css";
 
 const Title = styled.h1`
   color: ${(props) => props.theme.colors.primary};

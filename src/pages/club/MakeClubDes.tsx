@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import ClubStartBase from "../../components/club/ClubStartBase";
 import FormButton from "../../components/shared/FormButton";
-import classes from "./MakeClubDes.module.css";
+import classes from "./style/MakeClubDes.module.css";
 
 const Title = styled.h1`
   color: ${(props) => props.theme.colors.primary};

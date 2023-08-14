@@ -10,7 +10,10 @@ const HomeAppBar = ({ children }: HomeAppBarProps) => {
   return (
     <AppBar
       sx={{
-        position: "absolute",
+        position: "fixed",
+        maxWidth: "430px",
+        left: "auto",
+        right: "auto",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

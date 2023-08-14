@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import { atom, useRecoilState } from "recoil";
 import Button from "@mui/material/Button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { loginState } from "../states/userInfo";
+import { loginState } from "../../states/userInfo";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { fontSizeState } from "../states/userInfo";
+import { fontSizeState } from "../../states/userInfo";
 import { styled } from "styled-components";
 import { Box, CssBaseline, Toolbar, IconButton } from "@mui/material";
-import MainCarousel from "../components/main/MainCarousel";
-import AppBarWithDrawer from "../components/shared/AppBarWithDrawer";
-import MyBuyingCard from "../components/main/MyBuyingCard";
-import CustomDivider from "../components/shared/CustomDivider";
-import { axiosInstance } from "../utils/axiosInterceptor";
+import MainCarousel from "../../components/main/MainCarousel";
+import AppBarWithDrawer from "../../components/shared/AppBarWithDrawer";
+import MyBuyingCard from "../../components/main/MyBuyingCard";
+import CustomDivider from "../../components/shared/CustomDivider";
+import { axiosInstance } from "../../utils/axiosInterceptor";
+import BottomTabBar from "../../components/shared/BottomTabBar";
+import DefaultContainer from "../../components/shared/DefaultContainer";
 
 
 const MyBuyingData = [
@@ -83,16 +85,6 @@ const MyBuyingData = [
     ],
   },
 ]
-
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  padding: 20px 0;
-`;
 
 const MainDiv = styled.div`
   width: 100%;
@@ -169,7 +161,7 @@ const Home = () => {
 
   return (
     <>
-      <Container>
+      <DefaultContainer>
         <Toolbar sx={{ height: "60px" }} />
         <AppBarWithDrawer/>
         <MainDiv>
@@ -211,7 +203,8 @@ const Home = () => {
             <button type="submit">전송</button>
           </form>
         </MainDiv>
-      </Container>
+        <BottomTabBar currentPage="home"/>
+      </DefaultContainer>
     </>
   );
 };

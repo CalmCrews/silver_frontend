@@ -11,6 +11,7 @@ const SearchContainer = styled("div")({
   width: "100%",
   height: "3.2rem",
   padding: "16px 0px",
+  marginBottom: "15px",
 });
 
 const SearchInput = styled(InputBase)({
