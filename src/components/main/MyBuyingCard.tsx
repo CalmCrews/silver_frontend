@@ -65,6 +65,7 @@ const MyBuyingCard = ({
             image={thumbnail}
             alt={name}
             sx={{
+              marginTop: "8px",
               width: "90px",
               height: "90px",
               borderRadius: "12px",
