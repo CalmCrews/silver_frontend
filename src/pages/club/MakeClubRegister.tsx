@@ -9,6 +9,7 @@ import ParticipateCodeInput from "../../components/club/ParticipateCodeInput";
 import xIcon from "../../assets/icons/xIcon.png";
 import NaverBandIcon from "../../assets/icons/NaverBandIcon.png";
 import KaKaoIcon from "../../assets/icons/KaKaoSquareIcon.png";
+import { axiosInstance } from "../../utils/axiosInterceptor";
 
 import classes from "./style/MakeClubRegister.module.css";
 
@@ -30,13 +31,12 @@ const myComponentStyle = {
 };
 
 const MakeClubRegister = () => {
-  // 임시로 3333 해놓음
   const [participateCodeNum, setParticipateCodeNum] = useState("3333");
   const [isClickDesc, setIsClickDesc] = useState(false);
   const [isClickShare, setIsClickShare] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const { clubName } = location.state || {};
+  const { clubName, clubCode } = location.state || {};
 
   const handleisClickDesc = (event: React.MouseEvent) => {
     setIsClickDesc((pre) => !pre);
@@ -55,8 +55,16 @@ const MakeClubRegister = () => {
   const handleBandBtn = () => {};
   const handleLinkCopyBtn = () => {};
 
+  const getClubCodeFunc = async () => {
+    const url = ``;
+    const response = await axiosInstance.get(url);
+  };
+
   // 참여코드 가져오는 코드 여기에 함수로 작성해야함
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(clubName, clubCode);
+    setParticipateCodeNum(clubCode);
+  }, [clubCode]);
 
   const handleNext = () => {};
 

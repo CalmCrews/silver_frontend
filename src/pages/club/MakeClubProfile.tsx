@@ -63,6 +63,7 @@ const HelperText = styled.p`
 const MakeClubProfile = () => {
   const [nickname, setNickname] = useState("");
   const [nicknameStatus, setNicknameStatus] = useState("");
+  const [clubCode, setClubCode] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const nicknameRef = useRef<HTMLInputElement | null>(null);
@@ -133,21 +134,6 @@ const MakeClubProfile = () => {
       return;
     }
     try {
-      console.log("clubName", typeof clubName, clubName);
-      console.log("description", typeof description, description);
-      console.log(
-        "keywordsList",
-        typeof JSON.stringify(keywordsList),
-        JSON.stringify(keywordsList)
-      );
-      console.log(
-        typeof JSON.stringify({
-          name: clubName,
-          intro: description,
-          tag: keywordsList,
-        })
-      );
-
       const response = await axiosInstance.post(
         `${process.env.REACT_APP_API_URL}clubs/`,
         {
@@ -156,6 +142,8 @@ const MakeClubProfile = () => {
           tag: JSON.stringify(keywordsList),
         }
       );
+      const club_code = response.data.code;
+      setClubCode(club_code);
     } catch (error) {
       console.error("Error register clubName, description:", error);
     }
@@ -174,7 +162,6 @@ const MakeClubProfile = () => {
           },
         }
       );
-      console.log("Image uploaded successfully");
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -187,9 +174,11 @@ const MakeClubProfile = () => {
   const handleNext = () => {
     handleImageUpload();
     // 여기에서 생성을 성공하면? 다음 페이지로 넘어가기
+    console.log("clubCode :", clubCode);
     return navigate("/club/register", {
       state: {
         clubName: clubName,
+        clubCode: clubCode,
       },
     });
   };
