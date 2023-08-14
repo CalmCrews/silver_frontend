@@ -5,16 +5,46 @@ import ClubIcon from "../../assets/icons/ClubIcon.png";
 import MyIcon from "../../assets/icons/MyIcon.png";
 import DefaultIcon from "./DefaultIcon";
 import { styled } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const StyledTab = styled(Tab)`
   
 `
 
-const BottomTabBar = () => {
-  const [value, setValue] = React.useState("");
+const BottomTabBar = ({currentPage}: {currentPage : string}) => {
+  const navigate = useNavigate();
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const initialValue = (() => {
+    switch (currentPage) {
+      case 'home':
+        return 0;
+      case 'club':
+        return 1;
+      case 'myinfo':
+        return 2;
+      default: 
+        return 0;
+    }
+  })
+
+  const [value, setValue] = React.useState<number>(initialValue);
+
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    switch (newValue) {
+      case 0:
+        navigate("/");
+        return ;
+      case 1:
+        navigate("/club");
+        return ;
+      case 2:
+        navigate("/my");
+        return ;
+      default:
+        return ;
+    }
   };
 
   return (
@@ -38,7 +68,13 @@ const BottomTabBar = () => {
           gap: "9px", // 아이콘과 레이블 사이의 간격 설정
           color: "#A394FF",
           fontSize: "1rem",
-          fontWeight: "600"
+          fontWeight: "600",
+          "&.MuiTab-textColorPrimary": {
+            color: "#A394FF",
+          },
+        },
+        "& .MuiTabs-indicator": {
+          backgroundColor: "#A394FF",
         },
       }}
     >

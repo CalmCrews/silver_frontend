@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 import Review from "./pages/testing/Review";
 import "./App.css";
 import { useRecoilState } from "recoil";
@@ -23,8 +23,10 @@ import JoinClubRegister from "./pages/club/JoinClubRegister";
 import JoinClubProfile from "./pages/club/JoinClubProfile";
 import ProductDetail from "./pages/detail/ProductDetail";
 import ChargeCash from "./pages/ChargeCash";
-import AutoComplete from "./pages/AutoComplete";
+import Club from "./pages/club/Club";
+import MyInfo from "./pages/myinfo/MyInfo";
 
+import AutoComplete from "./pages/AutoComplete";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -82,25 +84,22 @@ function App() {
                 <Route
                   path="/club/description"
                   element={<MakeClubDes />}
-                ></Route>
+                />
                 <Route
                   path="/club/keywords"
-                  element={<MakeClubKeywords />}
-                ></Route>
+                  element={<MakeClubKeywords />}/>
                 <Route
                   path="/club/profile"
-                  element={<MakeClubProfile />}
-                ></Route>
+                  element={<MakeClubProfile />}/>
                 <Route
                   path="/club/register"
-                  element={<MakeClubRegister />}
-                ></Route>
-                <Route path="/club/join" element={<JoinClubRegister />}></Route>
+                  element={<MakeClubRegister />}/>
+                <Route path="/club/join" element={<JoinClubRegister />}/>
                 <Route
                   path="/club/join/profile"
-                  element={<JoinClubProfile />}
-                ></Route>
-                <Route path="/chargeCash" element={<ChargeCash />}/> 
+                  element={<JoinClubProfile />}/>
+                <Route path="/club" element={<Club />}/>
+                <Route path="/my" element={<MyInfo />}/>
               </Routes>
             </div>
           </div>
