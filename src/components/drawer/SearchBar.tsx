@@ -1,6 +1,8 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
-import { InputBase, IconButton } from "@mui/material";
+import { InputBase, Autocomplete, TextField } from "@mui/material";
+import { includesByCho, makeRegexByCho } from 'hangul-util';
+
 
 const SearchContainer = styled("div")({
   display: "flex",
@@ -10,7 +12,6 @@ const SearchContainer = styled("div")({
   background: "white",
   width: "100%",
   height: "3.2rem",
-  padding: "16px 0px",
   marginBottom: "15px",
 });
 
@@ -33,15 +34,67 @@ const SearchButton = styled("button")({
   cursor: "pointer",
 });
 
-const SearchBar: React.FC = () => {
+interface DataType {
+  label: string;
+}
+
+const SearchBar = () => {
+  const dataList: readonly DataType[] = [
+   {label: "빨간색"}, {label: "빨간맛"}, {label: "파란색"}, {label: "노란색"}, {label: "검정색"}, {label: "Hello"}
+  ];
+  const [searchValue, setSearchValue] = React.useState<string>('');
+
   const handleSearch = () => {
     // Implement your search logic here
-    console.log("Search button clicked!");
+    console.log(searchValue);
+  };
+
+  const filterOptions = (options: DataType[], { inputValue }: { inputValue: string }) => {
+    const lowerInputValue = inputValue.toLowerCase();
+    return lowerInputValue
+      ? options.filter((option) => includesByCho(lowerInputValue, option.label.toLowerCase()))
+      : options;
   };
 
   return (
     <SearchContainer>
-      <SearchInput placeholder="검색어를 입력해주세요" />
+      <Autocomplete
+        freeSolo
+        options={dataList}
+        inputValue={searchValue}
+        onInputChange={(event, newValue) => setSearchValue(newValue)}
+        filterOptions={filterOptions}
+        renderInput={(params) => (
+          <TextField 
+            {...params} 
+            placeholder="검색어를 입력해주세요"
+            sx={{
+              padding: "0",
+              width: "100%",
+              height: "100%",
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  border: 'none',
+                },
+                '&:hover fieldset': {
+                  border: 'none',
+                },
+                '&.Mui-focused fieldset': {
+                  border: 'none',
+                },
+              }
+            }} 
+          />
+        )}
+        sx={{
+          "& .MuiInputBase-root" : {
+            marginLeft: "8px",
+            padding: '0',
+            height: "100%",
+          },
+          width: "calc(100% - 16px)", 
+        }}
+      />
       <SearchButton onClick={handleSearch} aria-label="search">
         검색
       </SearchButton>
