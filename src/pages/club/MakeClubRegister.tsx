@@ -10,8 +10,10 @@ import xIcon from "../../assets/icons/xIcon.png";
 import NaverBandIcon from "../../assets/icons/NaverBandIcon.png";
 import KaKaoIcon from "../../assets/icons/KaKaoSquareIcon.png";
 import { axiosInstance } from "../../utils/axiosInterceptor";
+import KakaoTemper_image from "../../assets/temperImages/Group 436.png";
 
 import classes from "./style/MakeClubRegister.module.css";
+const kakao = (window as any).Kakao;
 
 const Title = styled.h1`
   color: ${(props) => props.theme.colors.primary};
@@ -51,14 +53,37 @@ const MakeClubRegister = () => {
     setIsClickDesc(false);
     setIsClickShare((prev) => !prev);
   };
-  const handleKaKaoBtn = () => {};
+  const handleKaKaoBtn = () => {
+    console.log(kakao.isInitialized());
+    if (!kakao.isInitialized()) {
+      kakao.init(`${process.env.REACT_APP_JAVASCRIPT_KEY}`);
+    }
+    try {
+      // 모임 접속 url, 이미지 url 수정해야함
+      kakao.Share.sendDefault({
+        objectType: "feed",
+        content: {
+          title: "모여",
+          imageUrl:
+            "https://qi-b.qoo10cdn.com/partner/goods_image/5/0/6/3/349035063g.jpg",
+          link: { webUrl: "http://101.101.209.172" },
+          description: `${clubName} 모임에 초대되었어요!\n링크를 접속해 공유된 참여코드를 입력해주세요!\n참여코드:[${clubCode}]`,
+        },
+        buttons: [
+          {
+            title: "모여 시작하기!",
+            link: {
+              webUrl: "http://101.101.209.172",
+            },
+          },
+        ],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleBandBtn = () => {};
   const handleLinkCopyBtn = () => {};
-
-  const getClubCodeFunc = async () => {
-    const url = ``;
-    const response = await axiosInstance.get(url);
-  };
 
   // 참여코드 가져오는 코드 여기에 함수로 작성해야함
   useEffect(() => {
@@ -89,17 +114,17 @@ const MakeClubRegister = () => {
               공유하기
             </div>
             <div className={classes["sns-wrapper-div"]}>
-              <div
-                className={classes["sns-wrapper-outer-div "]}
-                onClick={handleKaKaoBtn}
-              >
-                <div className={classes["sns-wrapper-inner-div"]}>
+              <div className={classes["sns-wrapper-outer-div "]}>
+                <button
+                  onClick={handleKaKaoBtn}
+                  className={classes["sns-wrapper-inner-div"]}
+                >
                   <img
                     src={KaKaoIcon}
                     alt="KaKaoIcon"
                     className={classes["sns-icon-img"]}
                   />
-                </div>
+                </button>
                 <span className={classes["sns-icon-text"]}>카카오톡</span>
               </div>
               <div
