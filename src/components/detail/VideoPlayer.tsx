@@ -4,6 +4,9 @@ import { PlayArrow, Pause, Close, SettingsOutlined } from "@mui/icons-material";
 import { Modal, Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
 import { styled } from "styled-components";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FullScreenIcon from "../../assets/icons/FullScreen.png"
+import DefaultIcon from "../shared/DefaultIcon";
+
 
 interface VideoComponentProps {
   sellerProfile: string;
@@ -146,17 +149,15 @@ const VideoPlayer = ({
             )}
           </IconButton>
         )}
-        <Button
-          variant="contained"
-          color="primary"
+        <IconButton
           onClick={() => {
             setIsPlaying(false);
             setIsFullscreenOpen(true);
           }}
-          sx={{ position: "absolute", top: "0", right: "0" }}
+          sx={{ position: "absolute", bottom: "10px", left: "10px" }}
         >
-          크게보기
-        </Button>
+          <DefaultIcon icon={FullScreenIcon} name="fullscreen-icon" width="75px" height="auto"/>
+        </IconButton>
       </div>
 
       {/* 전체보기 모달 */}
@@ -227,7 +228,6 @@ const VideoPlayer = ({
                 "& .MuiPopover-paper": {
                   backgroundColor: "transparent",
                   boxShadow: "none",
-                  
                 },
               }}
             >

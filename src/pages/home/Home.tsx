@@ -15,7 +15,8 @@ import CustomDivider from "../../components/shared/CustomDivider";
 import { axiosInstance } from "../../utils/axiosInterceptor";
 import BottomTabBar from "../../components/shared/BottomTabBar";
 import DefaultContainer from "../../components/shared/DefaultContainer";
-
+import ClubBuyingCard from "../../components/main/ClubBuyingCard";
+import HorizontalContainer from "../../components/shared/HorizontalContainer";
 
 const MyBuyingData = [
   {
@@ -86,6 +87,82 @@ const MyBuyingData = [
   },
 ]
 
+
+const ClubBuyingData = [
+  {
+    id: 1,
+    end_at: "2023-08-04 / 20",
+    name: "설국열차 팔토시",
+    thumbnail: "",
+    discountRate: 22,
+    price: 5000,
+    score: 4.7,
+    participantsNum: 500,
+    participants: [
+      {
+        name: "코알1",
+        profile: "",
+      },
+      {
+        name: "코알2",
+        profile: "",
+      },
+      {
+        name: "코알3",
+        profile: "",
+      },
+    ],
+  },
+  {
+    id: 2,
+    end_at: "2023-08-14 / 14",
+    name: "설국열차 팔토시",
+    thumbnail: "",
+    discountRate: 15,
+    price: 2200,
+    score: 3,
+    participantsNum: 20,
+    participants: [
+      {
+        name: "코알1",
+        profile: "",
+      },
+      {
+        name: "코알2",
+        profile: "",
+      },
+      {
+        name: "코알3",
+        profile: "",
+      },
+    ],
+  },
+  {
+    id: 3,
+    end_at: "2023-08-15 / 17",
+    name: "설국열차 팔토시",
+    thumbnail: "",
+    discountRate: 25,
+    price: 19900,
+    score: 4.2,
+    participantsNum: 120,
+    participants: [
+      {
+        name: "코알1",
+        profile: "",
+      },
+      {
+        name: "코알2",
+        profile: "",
+      },
+      {
+        name: "코알3",
+        profile: "",
+      },
+    ],
+  },
+]
+
 const MainDiv = styled.div`
   width: 100%;
   overflow-y: scroll;
@@ -119,33 +196,19 @@ const Home = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const navigate = useNavigate();
   const location = useLocation();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleLogout = () => {
     setLogin({ isLoggedIn: false, userId: "", accessToken: "" });
     removeCookie("refreshToken");
   };
 
-  const [bodyFontSize, setBodyFontSize] = useRecoilState(fontSizeState);
 
-  const handleFontSizeChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setBodyFontSize(event.target.value);
-  };
 
   const [formData, setFormData] = useState<FormData>({
     name: '',
     intro: ''
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -174,6 +237,20 @@ const Home = () => {
             <br/>
             <CustomDivider color="#F0F0F0" width="100%"/>
           </SectionBox>
+
+          <SectionBox>
+            <SectionTitle>내 모임에서 진행 중인 함께구매</SectionTitle>
+            <HorizontalContainer>
+              {ClubBuyingData.map(product => (
+                <ClubBuyingCard key={product.id} {...product}/>
+              ))}
+            </HorizontalContainer>
+            <br/>
+            <CustomDivider color="#F0F0F0" width="100%"/>
+          </SectionBox>
+
+
+
           {!login.isLoggedIn ? (
             <>
               <Button component={Link} to="/login">
@@ -186,22 +263,6 @@ const Home = () => {
               <Button onClick={handleLogout}>로그아웃</Button>
             </>
           )}
-          <select value={bodyFontSize} onChange={handleFontSizeChange}>
-            <option value="16px">16px</option>
-            <option value="18px">18px</option>
-            <option value="20px">20px</option>
-          </select>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Name:</label>
-              <input type="text" name="name" value={formData.name} onChange={handleInputChange} />
-            </div>
-            <div>
-              <label>Intro:</label>
-              <input type="text" name="intro" value={formData.intro} onChange={handleInputChange} />
-            </div>
-            <button type="submit">전송</button>
-          </form>
         </MainDiv>
         <BottomTabBar currentPage="home"/>
       </DefaultContainer>
