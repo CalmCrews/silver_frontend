@@ -23,8 +23,9 @@ import JoinClubRegister from "./pages/club/JoinClubRegister";
 import JoinClubProfile from "./pages/club/JoinClubProfile";
 import ProductDetail from "./pages/detail/ProductDetail";
 import ChargeCash from "./pages/ChargeCash";
-import Club from "./pages/club/Club";
+import MyClubs from "./pages/club/MyClubs";
 import MyInfo from "./pages/myinfo/MyInfo";
+import ClubDetail from "./pages/club/ClubDetail";
 import FontSetting from "./pages/myinfo/FontSetting";
 
 const GlobalStyle = createGlobalStyle`
@@ -76,30 +77,26 @@ function App() {
                 <Route path="/login" element={<SignIn />} />
                 <Route path="/review" element={<Review />} />
                 <Route path="/users/kakao/callback/" element={<KakaoLogin />} />
-                <Route path="/users/naver/callback/" element={<NaverLogin/>}/>
-                <Route path="/products/detail/:productId" element={<ProductDetail/>}/>
+                <Route path="/users/naver/callback/" element={<NaverLogin />} />
+                <Route
+                  path="/products/detail/:productId"
+                  element={<ProductDetail />}
+                />
                 <Route path="/club/start" element={<ClubFirstStep />} />
                 <Route path="/club/naming" element={<MakeClubNaming />}></Route>
-                <Route
-                  path="/club/description"
-                  element={<MakeClubDes />}
-                />
-                <Route
-                  path="/club/keywords"
-                  element={<MakeClubKeywords />}/>
-                <Route
-                  path="/club/profile"
-                  element={<MakeClubProfile />}/>
-                <Route
-                  path="/club/register"
-                  element={<MakeClubRegister />}/>
-                <Route path="/club/join" element={<JoinClubRegister />}/>
+                <Route path="/club/description" element={<MakeClubDes />} />
+                <Route path="/club/keywords" element={<MakeClubKeywords />} />
+                <Route path="/club/profile" element={<MakeClubProfile />} />
+                <Route path="/club/register" element={<MakeClubRegister />} />
+                <Route path="/club/join" element={<JoinClubRegister />} />
                 <Route
                   path="/club/join/profile"
-                  element={<JoinClubProfile />}/>
-                <Route path="/club" element={<Club />}/>
-                <Route path="/my" element={<MyInfo />}/>
-                <Route path="/fontsetting" element={<FontSetting />}/>
+                  element={<JoinClubProfile />}
+                />
+                <Route path="/club/myClubs" element={<MyClubs />} />
+                <Route path="/club/detail/:id" element={<ClubDetail />} />
+                <Route path="/my" element={<MyInfo />} />
+                <Route path="/fontsetting" element={<FontSetting />} />
               </Routes>
             </div>
           </div>

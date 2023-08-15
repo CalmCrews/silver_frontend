@@ -88,16 +88,13 @@ function SignInForm() {
         password: data.password,
       })
       .then((res) => {
-        console.log(res);
         if (res.status) {
-          console.log(res.data);
           setLogin({
             isLoggedIn: true,
             userId: res.data.user.username,
             accessToken: res.data.token.access,
             user_id: res.data.user.id,
           });
-
           setCookie("refreshToken", res.data.token.refresh, { path: "/" });
           navigate("/");
         }
