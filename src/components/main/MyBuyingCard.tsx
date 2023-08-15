@@ -43,7 +43,7 @@ const MyBuyingCard = ({
     <style.BuyingCard>
       <CardActionArea
         href={`/products/detail/${id}`}
-        sx={{ width: "100%", height: "100%", padding: "15px" }}
+        sx={{ width: "100%", height: "100%", padding: "15px 15px 5px 15px" }}
       >
         <header style={{ display: "flex" }}>
           <style.EndDate>
@@ -65,13 +65,14 @@ const MyBuyingCard = ({
             image={thumbnail}
             alt={name}
             sx={{
+              marginTop: "8px",
               width: "90px",
               height: "90px",
               borderRadius: "12px",
               boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
             }}
           />
-          <div style={{ marginLeft: "8px", width: "calc(100% - 100px)" }}>
+          <div style={{ margin: "10px 0 0 8px", width: "calc(100% - 100px)" }}>
             <style.ProductName>{name}</style.ProductName>
             <div
               style={{
@@ -118,7 +119,7 @@ const MyBuyingCard = ({
               <AddRoundedIcon
                 sx={{
                   position: "absolute",
-                  left: "67px",
+                  left: "57px",
                   width: "22px",
                   color: "#d9d9d9",
                   fontWeight: "700",

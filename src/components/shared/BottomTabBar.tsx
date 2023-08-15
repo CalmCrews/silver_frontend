@@ -17,6 +17,7 @@ const StyledTabs = styled(Tabs)({
   boxShadow: "0px -2px 6px 2px rgba(163, 148, 255, 0.40)",
   "&.MuiTabs-root":{
     width: "100%",
+    backgroundColor: "#fff",
   },
   "& .MuiButtonBase-root": {
     display: "flex",
