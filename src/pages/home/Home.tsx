@@ -86,6 +86,82 @@ const MyBuyingData = [
   },
 ]
 
+
+const ClubBuyingData = [
+  {
+    id: 1,
+    end_at: "2023-08-04 / 20",
+    name: "설국열차 팔토시",
+    thumbnail: "",
+    discountRate: 22,
+    price: 5000,
+    score: 4.7,
+    participantsNum: 500,
+    participants: [
+      {
+        name: "코알1",
+        profile: "",
+      },
+      {
+        name: "코알2",
+        profile: "",
+      },
+      {
+        name: "코알3",
+        profile: "",
+      },
+    ],
+  },
+  {
+    id: 2,
+    end_at: "2023-08-14 / 14",
+    name: "설국열차 팔토시",
+    thumbnail: "",
+    discountRate: 15,
+    price: 2200,
+    score: 4.7,
+    participantsNum: 20,
+    participants: [
+      {
+        name: "코알1",
+        profile: "",
+      },
+      {
+        name: "코알2",
+        profile: "",
+      },
+      {
+        name: "코알3",
+        profile: "",
+      },
+    ],
+  },
+  {
+    id: 3,
+    end_at: "2023-08-15 / 17",
+    name: "설국열차 팔토시",
+    thumbnail: "",
+    discountRate: 25,
+    price: 19900,
+    score: 4.7,
+    participantsNum: 120,
+    participants: [
+      {
+        name: "코알1",
+        profile: "",
+      },
+      {
+        name: "코알2",
+        profile: "",
+      },
+      {
+        name: "코알3",
+        profile: "",
+      },
+    ],
+  },
+]
+
 const MainDiv = styled.div`
   width: 100%;
   overflow-y: scroll;
@@ -160,6 +236,18 @@ const Home = () => {
             <br/>
             <CustomDivider color="#F0F0F0" width="100%"/>
           </SectionBox>
+
+          <SectionBox>
+            <SectionTitle>내 모임에서 진행 중인 함께구매</SectionTitle>
+            {MyBuyingData.map(product => (
+              <MyBuyingCard key={product.id} {...product}/>
+            ))}
+            <br/>
+            <CustomDivider color="#F0F0F0" width="100%"/>
+          </SectionBox>
+
+
+
           {!login.isLoggedIn ? (
             <>
               <Button component={Link} to="/login">

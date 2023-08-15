@@ -51,7 +51,7 @@ const StyledButton = styled(Button)({
   "&.MuiButton-root" : {
     width: "100%",
     fontSize: "20px",
-    fontWeight: "600",
+    fontWeight: "700",
     color: "#3a3a3a",
     marginBottom: "18px",
     border: "2px solid #a394ff",
