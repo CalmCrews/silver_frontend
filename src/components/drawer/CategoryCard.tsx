@@ -8,6 +8,7 @@ const StyledCard = styled(Card)({
   height: "130px",
   borderRadius: "15px 15px 50px 15px",
   background: "linear-gradient(180deg, #A394FF 0%, rgba(163, 148, 255, 0.67) 42.71%)",
+  boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
 })
 
 const StyledMedia = styled("div")({

@@ -6,6 +6,7 @@ import BottomTabBar from "../../components/shared/BottomTabBar";
 
 
 const Club = () => {
+	
 	return (
 		<>
 			<DefaultContainer>

@@ -15,7 +15,8 @@ import CustomDivider from "../../components/shared/CustomDivider";
 import { axiosInstance } from "../../utils/axiosInterceptor";
 import BottomTabBar from "../../components/shared/BottomTabBar";
 import DefaultContainer from "../../components/shared/DefaultContainer";
-
+import ClubBuyingCard from "../../components/main/ClubBuyingCard";
+import HorizontalContainer from "../../components/shared/HorizontalContainer";
 
 const MyBuyingData = [
   {
@@ -119,7 +120,7 @@ const ClubBuyingData = [
     thumbnail: "",
     discountRate: 15,
     price: 2200,
-    score: 4.7,
+    score: 3,
     participantsNum: 20,
     participants: [
       {
@@ -143,7 +144,7 @@ const ClubBuyingData = [
     thumbnail: "",
     discountRate: 25,
     price: 19900,
-    score: 4.7,
+    score: 4.2,
     participantsNum: 120,
     participants: [
       {
@@ -239,9 +240,11 @@ const Home = () => {
 
           <SectionBox>
             <SectionTitle>내 모임에서 진행 중인 함께구매</SectionTitle>
-            {MyBuyingData.map(product => (
-              <MyBuyingCard key={product.id} {...product}/>
-            ))}
+            <HorizontalContainer>
+              {ClubBuyingData.map(product => (
+                <ClubBuyingCard key={product.id} {...product}/>
+              ))}
+            </HorizontalContainer>
             <br/>
             <CustomDivider color="#F0F0F0" width="100%"/>
           </SectionBox>
