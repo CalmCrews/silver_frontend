@@ -1,18 +1,41 @@
 import React from "react";
 import DefaultContainer from "../../components/shared/DefaultContainer";
-import { Toolbar, Button, ButtonGroup } from "@mui/material";
+import { Toolbar, Button, ButtonGroup, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import AppBarWithDrawer from "../../components/shared/AppBarWithDrawer";
 import BottomTabBar from "../../components/shared/BottomTabBar";
 import MyInfoCard from "../../components/myinfo/MyInfoCard";
 import CustomDivider from "../../components/shared/CustomDivider";
 import { styled } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { styled as muiStyled } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { loginState } from "../../states/userInfo";
+import { useCookies } from "react-cookie";
 
 const UserInfo = {
   name: "코알라",
   userId: 1,
   profile: "",
 };
+
+const LinkButton = muiStyled(Button)(({ theme }) => ({
+  padding: "15px",
+  color: "#fff",
+	width: "160px",
+  fontSize: "1rem",
+  fontWeight: "600",
+  borderRadius: "12px",
+  margin: "18px",
+  backgroundColor: "#a394ff",
+  "&:hover": {
+    backgroundColor: "#a394ff",
+  },
+  "&:active": {
+    backgroundColor: "#a394ff",
+  },
+  "&:focus": {
+    backgroundColor: "#a394ff",
+  },
+}));
 
 const GridButton = styled.button`
   border-radius: 0;
@@ -29,7 +52,7 @@ const GridButton = styled.button`
 `;
 
 const RowButton = styled.button`
-	text-align: left;
+  text-align: left;
   border-radius: 0;
   border: 1.5px solid #d9d9d9;
   color: #3a3a3a;
@@ -44,7 +67,27 @@ const RowButton = styled.button`
 `;
 
 const MyInfo = () => {
-	const navigate = useNavigate();
+	const [login, setLogin] = useRecoilState(loginState);
+	const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+	const [openDialog, setOpenDialog] = React.useState(false);
+
+  const handleLogout = () => {
+    setLogin({ isLoggedIn: false, userId: "", accessToken: "" });
+    removeCookie("refreshToken");
+  };
+
+	const handleLogoutClick = () => {
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const handleConfirmLogout = () => {
+    handleLogout();
+    setOpenDialog(false);
+  };
 
   return (
     <>
@@ -54,30 +97,14 @@ const MyInfo = () => {
         <MyInfoCard userInfo={UserInfo} />
         <br />
         <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
-        <Button
-          href=""
-          variant="contained"
-          sx={{
-            padding: "12px 28px",
-            color: "#fff",
-            fontSize: "1.25rem",
-            fontWeight: "600",
-            borderRadius: "100px",
-            margin: "18px",
-            backgroundColor: "#a394ff",
-            "&:hover": {
-              backgroundColor: "#a394ff",
-            },
-            "&:active": {
-              backgroundColor: "#a394ff",
-            },
-            "&:focus": {
-              backgroundColor: "#a394ff",
-            },
-          }}
-        >
-          나의 모임 바로가기
-        </Button>
+        <div style={{display: "flex"}}>
+          <LinkButton href="" variant="contained">
+            결제 수단 관리
+          </LinkButton>
+          <LinkButton href="/club" variant="contained">
+            나의 모임 바로가기
+          </LinkButton>
+        </div>
 
         <BottomTabBar currentPage="myinfo" />
         <ButtonGroup
@@ -88,10 +115,10 @@ const MyInfo = () => {
             gridTemplateColumns: "repeat(3, 1fr)",
             gap: "0px",
             width: "100%",
-						boxShadow: "0px 2px 6px 2px rgba(0, 0, 0, 0.25)",
-						borderTop: "1px solid #f0f0f0",
-						borderRadius: "0",
-						marginBottom: "10px",
+            boxShadow: "0px 2px 6px 2px rgba(0, 0, 0, 0.25)",
+            borderTop: "1px solid #f0f0f0",
+            borderRadius: "0",
+            marginBottom: "10px",
           }}
         >
           <GridButton>구매현황</GridButton>
@@ -101,21 +128,32 @@ const MyInfo = () => {
           <GridButton>정보수정</GridButton>
           <GridButton>문의하기</GridButton>
         </ButtonGroup>
-				<br/>
-				<ButtonGroup
-					orientation="vertical"
-					sx={{
+        <br />
+        <ButtonGroup
+          orientation="vertical"
+          sx={{
             width: "100%",
-						border: "1px solid #f0f0f0",
-						borderRadius: "0",
+            border: "1px solid #f0f0f0",
+            borderRadius: "0",
           }}
-				>
-          <RowButton onClick={() => navigate("/fontsetting")}>글씨 크기 바꾸기</RowButton>
-					<RowButton>자주 묻는 질문</RowButton>
-          <RowButton>로그아웃</RowButton>
+        >
+          <RowButton>자주 묻는 질문</RowButton>
+          <RowButton onClick={handleLogoutClick}>로그아웃</RowButton>
           <RowButton>회원탈퇴</RowButton>
         </ButtonGroup>
       </DefaultContainer>
+			<Dialog open={openDialog} onClose={handleCloseDialog} sx={{
+        
+      }}>
+        <DialogTitle>로그아웃</DialogTitle>
+        <DialogContent>
+          <DialogContentText>정말 로그아웃 하시겠습니까?</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">취소</Button>
+          <Button onClick={handleConfirmLogout} color="primary">확인</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
