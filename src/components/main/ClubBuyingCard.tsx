@@ -1,11 +1,18 @@
 import React from "react";
-import { Card, CardMedia, CardContent, CardActions, Link, Rating } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Link,
+  Rating,
+} from "@mui/material";
 import { styled } from "styled-components";
 import * as style from "./MyBuyingCardComponents";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
-import StarIconEmpty from "../../assets/icons/StarIconEmpty.svg"
-import StarIconFilled from "../../assets/icons/StarIconFilled.svg"
+import StarIconEmpty from "../../assets/icons/StarIconEmpty.svg";
+import StarIconFilled from "../../assets/icons/StarIconFilled.svg";
 import DefaultIcon from "../shared/DefaultIcon";
 
 export const EndDate = styled.div`
@@ -35,25 +42,24 @@ const ParticipantsContainer = styled.div`
 const InfoSection = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const PriceSection = styled.div`
   display: flex;
   align-items: center;
-  color: #A394FF;
+  color: #a394ff;
   font-size: 1.25rem;
   font-weight: 600;
   padding: 3px;
   margin-bottom: 5px;
-`
+`;
 
 const DiscountSection = styled.span`
-  color: #FF2929;
+  color: #ff2929;
   font-size: 0.875rem;
   font-weight: 600;
   margin-left: 8px;
-`
-
+`;
 
 type CardProps = {
   id: number;
@@ -81,7 +87,7 @@ function formatDate(input: string) {
 }
 
 function formatForPrice(price: number) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 const ClubBuyingCard = ({
@@ -95,6 +101,21 @@ const ClubBuyingCard = ({
   participantsNum,
   participants,
 }: CardProps) => {
+  const fixedParticipants = [
+    {
+      name: "코알1",
+      profile: "",
+    },
+    {
+      name: "코알2",
+      profile: "",
+    },
+    {
+      name: "코알3",
+      profile: "",
+    },
+  ];
+
   return (
     <Card
       sx={{
@@ -107,7 +128,7 @@ const ClubBuyingCard = ({
           border: "2px solid #EBE4FF",
           boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.40)",
           backgroundColor: "#F5F1FF",
-        }, 
+        },
       }}
     >
       <EndDate>
@@ -126,54 +147,67 @@ const ClubBuyingCard = ({
           borderBottom: "2px solid #A394FF",
         }}
       />
-      <div style={{
-        position: "absolute",
-        top: "0",
-        width: "100%",
-        height: "188px",
-        borderRadius: "25px 25px 0 0",
-        zIndex: "200",
-        background: "linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(58, 58, 58, 0.50) 100%)",
-      }}/>
-      <CardContent style={{padding: "14px 14px 8px 14px"}}>
+      <div
+        style={{
+          position: "absolute",
+          top: "0",
+          width: "100%",
+          height: "188px",
+          borderRadius: "25px 25px 0 0",
+          zIndex: "200",
+          background:
+            "linear-gradient(180deg, rgba(255, 255, 255, 0.00) 0%, rgba(58, 58, 58, 0.50) 100%)",
+        }}
+      />
+      <CardContent style={{ padding: "14px 14px 8px 14px" }}>
         <InfoSection>
           <div>
             <PriceSection>
               {formatForPrice(price)}원
               <DiscountSection> ~{discountRate}%</DiscountSection>
             </PriceSection>
-            <div>
-              {name}
-            </div>
+            <div>{name}</div>
           </div>
           <div>
-          <Rating
-            defaultValue={score}
-            precision={0.1}
-            icon={<DefaultIcon size="inherit" name="star_filled" icon={StarIconFilled}/>}
-            emptyIcon={<DefaultIcon size="inherit" name="star_empty" icon={StarIconEmpty}/>}
-            readOnly
-            sx={{
-              padding: "5px",
-            }}
-          />
+            <Rating
+              defaultValue={score}
+              precision={0.1}
+              icon={
+                <DefaultIcon
+                  size="inherit"
+                  name="star_filled"
+                  icon={StarIconFilled}
+                />
+              }
+              emptyIcon={
+                <DefaultIcon
+                  size="inherit"
+                  name="star_empty"
+                  icon={StarIconEmpty}
+                />
+              }
+              readOnly
+              sx={{
+                padding: "5px",
+              }}
+            />
             {score}
           </div>
         </InfoSection>
         <div
-              style={{
-                width: "100%",
-                height: "2px",
-                backgroundColor: "#E7DEFF",
-                margin: "8px 0"
-              }}
-            />
-        <div style={{display: "flex", alignContent: "center"}}>
+          style={{
+            width: "100%",
+            height: "2px",
+            backgroundColor: "#E7DEFF",
+            margin: "8px 0",
+          }}
+        />
+        <div style={{ display: "flex", alignContent: "center" }}>
           <ParticipantsContainer>
             <div
               style={{ width: "100%", height: "100%", position: "relative" }}
             >
-              {participants.map((participant, index) =>
+              {fixedParticipants.map((participant, index) =>
                 participant.profile ? (
                   <style.MiniProfile
                     src={participant.profile}
@@ -203,7 +237,7 @@ const ClubBuyingCard = ({
           </ParticipantsContainer>
           <CardActions>
             <Link href={`products/detail/${id}`}>
-              <button 
+              <button
                 style={{
                   width: "180px",
                   padding: "13px",
@@ -216,11 +250,11 @@ const ClubBuyingCard = ({
                   cursor: "pointer",
                 }}
               >
-                나도 참여하기</button>
+                나도 참여하기
+              </button>
             </Link>
           </CardActions>
         </div>
-
       </CardContent>
     </Card>
   );
