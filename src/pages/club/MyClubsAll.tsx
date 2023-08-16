@@ -54,12 +54,15 @@ const MyClubsAll = () => {
           <ClubSubTitle>나의 모임 리스트</ClubSubTitle>
           {clubInfoList.map((clubInfo, index) => (
             <ClubRankInfoBox
+              club_code={clubInfo.code}
+              club_id={clubInfo.id}
               club_name={clubInfo.name}
               member_count={0}
               club_rank={clubInfo.level}
               club_keywords={clubInfo.tag}
               key_string={`index_${index}`}
               key={index}
+              isClick={true}
             />
           ))}
         </ContentDiv>

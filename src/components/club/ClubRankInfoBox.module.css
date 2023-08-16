@@ -59,3 +59,6 @@
 .is-club-less-than-three {
   filter: grayscale(100%);
 }
+.click-false {
+  cursor: default !important;
+}
