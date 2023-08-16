@@ -89,13 +89,13 @@ export const CurrentPoint = styled.div<PointProp>`
 `;
 
 export const CurrentValue = styled.div`
-  color: #A394FF;
+  color: #a394ff;
   font-size: 1rem;
   font-weight: 700;
   position: relative;
   left: calc(100% - 37px);
   bottom: 20px;
-`
+`;
 
 export const ParticipantsContainer = styled.div`
   display: flex;
@@ -134,6 +134,34 @@ export const NoneProfile = styled.div<ProfileProp>`
   border-radius: 20px;
   border: 2px solid #fff;
   left: ${(props) => props.index * 15 + 5}px;
+  z-index: ${(props) => 1000 - props.index};
+  background-color: #d9d9d9;
+`;
+
+export const RargeProfile = styled.img<ProfileProp>`
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  object-fit: cover;
+  left: ${(props) => props.index * 20 + 5}px;
+  z-index: ${(props) => 1000 - props.index};
+  background-color: #d9d9d9;
+`;
+
+export const RargeNoneProfile = styled.div<ProfileProp>`
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  left: ${(props) => props.index * 20 + 5}px;
   z-index: ${(props) => 1000 - props.index};
   background-color: #d9d9d9;
 `;

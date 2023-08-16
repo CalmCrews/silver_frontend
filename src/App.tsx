@@ -23,7 +23,9 @@ import JoinClubRegister from "./pages/club/JoinClubRegister";
 import JoinClubProfile from "./pages/club/JoinClubProfile";
 import ProductDetail from "./pages/detail/ProductDetail";
 import ChargeCash from "./pages/ChargeCash";
-import Club from "./pages/club/Club";
+import MyClubs from "./pages/club/MyClubs";
+import MyClubDetail from "./pages/club/MyClubDetail";
+import MyClubsAll from "./pages/club/MyClubsAll";
 import MyInfo from "./pages/myinfo/MyInfo";
 import FontSetting from "./pages/myinfo/FontSetting";
 
@@ -81,26 +83,23 @@ function App() {
                 <Route path="/clubs/:clubId/products/:productId" element={<ProductDetail/>}/>
                 <Route path="/club/start" element={<ClubFirstStep />} />
                 <Route path="/club/naming" element={<MakeClubNaming />}></Route>
-                <Route
-                  path="/club/description"
-                  element={<MakeClubDes />}
-                />
-                <Route
-                  path="/club/keywords"
-                  element={<MakeClubKeywords />}/>
-                <Route
-                  path="/club/profile"
-                  element={<MakeClubProfile />}/>
-                <Route
-                  path="/club/register"
-                  element={<MakeClubRegister />}/>
-                <Route path="/club/join" element={<JoinClubRegister />}/>
+                <Route path="/club/description" element={<MakeClubDes />} />
+                <Route path="/club/keywords" element={<MakeClubKeywords />} />
+                <Route path="/club/profile" element={<MakeClubProfile />} />
+                <Route path="/club/register" element={<MakeClubRegister />} />
+                <Route path="/club/join" element={<JoinClubRegister />} />
                 <Route
                   path="/club/join/profile"
-                  element={<JoinClubProfile />}/>
-                <Route path="/club" element={<Club />}/>
-                <Route path="/my" element={<MyInfo />}/>
-                <Route path="/fontsetting" element={<FontSetting />}/>
+                  element={<JoinClubProfile />}
+                />
+                <Route path="/club/myClubs" element={<MyClubs />} />
+                <Route
+                  path="/club/myClubs/detail/:id"
+                  element={<MyClubDetail />}
+                />
+                <Route path="/club/myClubs/all" element={<MyClubsAll />} />
+                <Route path="/my" element={<MyInfo />} />
+                <Route path="/fontsetting" element={<FontSetting />} />
               </Routes>
             </div>
           </div>

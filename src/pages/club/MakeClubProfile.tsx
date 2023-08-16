@@ -8,6 +8,7 @@ import React, {
 import { styled } from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { axiosInstance } from "../../utils/axiosInterceptor";
 
 import ClubStartBase from "../../components/club/ClubStartBase";
 import FormButton from "../../components/shared/FormButton";
@@ -62,6 +63,7 @@ const HelperText = styled.p`
 const MakeClubProfile = () => {
   const [nickname, setNickname] = useState("");
   const [nicknameStatus, setNicknameStatus] = useState("");
+  const [clubCode, setClubCode] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const nicknameRef = useRef<HTMLInputElement | null>(null);
@@ -132,37 +134,26 @@ const MakeClubProfile = () => {
       return;
     }
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         `${process.env.REACT_APP_API_URL}clubs/`,
         {
           name: clubName,
           intro: description,
+          tag: JSON.stringify(keywordsList),
         }
       );
+      const club_code = response.data.code;
+      setClubCode(club_code);
     } catch (error) {
       console.error("Error register clubName, description:", error);
     }
 
-    // try {
-    //   const response = await axios.post(
-    //     `${process.env.REACT_APP_API_URL}clubs/join/`,
-    //     JSON.stringify({ club_code: keywordsList }),
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-    // } catch (error) {
-    //   console.error("Error register keywordsList :", error);
-    // }
-
     const formData = new FormData();
     formData.append("nickname", nickname);
-    formData.append("image", selectedImage);
+    formData.append("profile_image", selectedImage);
 
     try {
-      await axios.post(
+      await axiosInstance.put(
         `${process.env.REACT_APP_API_URL}users/nickname/`,
         formData,
         {
@@ -171,21 +162,23 @@ const MakeClubProfile = () => {
           },
         }
       );
-      console.log("Image uploaded successfully");
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   };
+
   useEffect(() => {
     setNicknameStatus("0");
   }, [nickname]);
 
   const handleNext = () => {
-    // handleImageUpload();
+    handleImageUpload();
     // 여기에서 생성을 성공하면? 다음 페이지로 넘어가기
+    console.log("clubCode :", clubCode);
     return navigate("/club/register", {
       state: {
         clubName: clubName,
+        clubCode: clubCode,
       },
     });
   };
