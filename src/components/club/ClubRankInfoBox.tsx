@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useReducer, useEffect } from "react";
 import { styled } from "styled-components";
 import classes from "./ClubRankInfoBox.module.css";
 
@@ -24,6 +24,22 @@ const Title = styled.div`
   line-height: normal;
   padding-bottom: 15px;
 `;
+type ClubKeywords = {
+  [key: string]: string;
+};
+const keywordData: ClubKeywords = {
+  gathering: "친목/또래모임",
+  daily: "일상",
+  economic: "경제",
+  biology: "동식물",
+  culture: "문화/예술",
+  study: "교육/공부",
+  life: "생활정보",
+  sports: "스포츠",
+  religion: "종교",
+  health: "건강",
+  etc: "기타",
+};
 
 const ClubRankInfoBox: React.FC<MyComponentProps> = ({
   club_name,
@@ -32,7 +48,7 @@ const ClubRankInfoBox: React.FC<MyComponentProps> = ({
   club_keywords,
   key_string,
 }) => {
-  console.log(club_name);
+  const [keywordList, setKeywordList] = useState<string[]>(club_keywords);
   let clubMountainRank_korean;
   let clubMountainRank_image;
   switch (club_rank) {
@@ -61,6 +77,11 @@ const ClubRankInfoBox: React.FC<MyComponentProps> = ({
       clubMountainRank_image = mountain_5;
       break;
   }
+  useEffect(() => {
+    setKeywordList((preList) => {
+      return preList.map((keyword) => keywordData[`${keyword}`]);
+    });
+  }, []);
 
   return (
     <div className={classes["club-box"]} key={key_string}>
@@ -88,7 +109,7 @@ const ClubRankInfoBox: React.FC<MyComponentProps> = ({
         />
       </div>
       <div className={classes["keywords-div"]}>
-        {club_keywords.map((keyword: string, index: number) => (
+        {keywordList.map((keyword: string, index: number) => (
           <div className={classes["keyword-item-div"]} key={index}>
             {keyword}
           </div>

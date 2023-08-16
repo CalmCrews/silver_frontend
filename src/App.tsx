@@ -24,8 +24,9 @@ import JoinClubProfile from "./pages/club/JoinClubProfile";
 import ProductDetail from "./pages/detail/ProductDetail";
 import ChargeCash from "./pages/ChargeCash";
 import MyClubs from "./pages/club/MyClubs";
-import MyInfo from "./pages/myinfo/MyInfo";
 import ClubDetail from "./pages/club/ClubDetail";
+import MyClubsAll from "./pages/club/MyClubsAll";
+import MyInfo from "./pages/myinfo/MyInfo";
 import FontSetting from "./pages/myinfo/FontSetting";
 
 const GlobalStyle = createGlobalStyle`
@@ -94,7 +95,11 @@ function App() {
                   element={<JoinClubProfile />}
                 />
                 <Route path="/club/myClubs" element={<MyClubs />} />
-                <Route path="/club/detail/:id" element={<ClubDetail />} />
+                <Route
+                  path="/club/myClubs/detail/:id"
+                  element={<ClubDetail />}
+                />
+                <Route path="/club/myClubs/all" element={<MyClubsAll />} />
                 <Route path="/my" element={<MyInfo />} />
                 <Route path="/fontsetting" element={<FontSetting />} />
               </Routes>

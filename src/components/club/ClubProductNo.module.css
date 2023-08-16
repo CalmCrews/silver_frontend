@@ -1,0 +1,23 @@
+.sad-head-img {
+  display: flex;
+  width: 116px;
+  height: 131.582px;
+  flex-shrink: 0;
+  margin: 20px auto;
+}
+.no-product-text-div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.no-product-span {
+  color: #909090;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

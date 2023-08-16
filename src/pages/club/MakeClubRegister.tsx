@@ -54,7 +54,6 @@ const MakeClubRegister = () => {
     setIsClickShare((prev) => !prev);
   };
   const handleKaKaoBtn = () => {
-    console.log(kakao.isInitialized());
     if (!kakao.isInitialized()) {
       kakao.init(`${process.env.REACT_APP_JAVASCRIPT_KEY}`);
     }
