@@ -7,6 +7,9 @@ import CustomDivider from "../../components/shared/CustomDivider";
 import SellerDrawer from "../../components/detail/SellerDrawer";
 import VideoPlayer from "../../components/detail/VideoPlayer";
 import { useParams } from 'react-router-dom';
+import { useRecoilValue } from "recoil";
+import { loginState } from "../../states/userInfo";
+import axios from "axios";
 
 //임시 데이터
 const ProductInfo = {
@@ -17,7 +20,7 @@ const ProductInfo = {
   originalPrice: "5,000",
   category: "DIGITAL",
   thumbnail: null,
-  video: "https://player.vimeo.com/external/430014215.sd.mp4?s=2c2fedb46aa038dcc4664ad42ef6a0e002bf312a&profile_id=165&oauth2_token_id=57447761",
+  video: "https://player.vimeo.com/external/430014215.sd.mp4?s=2c2fedb46aa038dcc4664ad42ef6a0e002bf312a&profile_id=165&oauth2_token_id=",
   seller: "코알라",
   sellerProfile: "",
   total: 100,
@@ -39,10 +42,32 @@ const DetailToolbar = styled(Toolbar)({
 const ProductDetail = () => {
   const { productId } = useParams();
   const [isSellerOpen, setIsSellerOpen] = useState(false);
+  
+  const user = useRecoilValue(loginState);
+  const [poductData, setProductData] = useState<any[]>([]);
 
+  const newAxiosInstance = axios.create({
+    baseURL: "http://127.0.0.1:8000/",
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
+  });
+  
+  
   useEffect(() => {
     console.log(productId);
-  }, [])
+    console.log(user);
+    async function getProduct() {
+      const response = await newAxiosInstance.get(
+        `${process.env.REACT_APP_API_URL}products/${productId}`
+      );
+      console.log(response.data);
+      setProductData(response.data);
+    }
+    getProduct();
+  }, []);
+
+
 
   const handleSellerDrawerClose = () => {
     setIsSellerOpen(false);
@@ -60,6 +85,7 @@ const ProductDetail = () => {
           onClick={() => setIsSellerOpen(true)}
         />
         <CustomDivider color="#f0f0f0" width="100%" />
+
       </Box>
       <SellerDrawer
         sellerName={ProductInfo.seller}

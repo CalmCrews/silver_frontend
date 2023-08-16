@@ -90,7 +90,7 @@ function SignInForm() {
             userId: res.data.user.username,
             accessToken: res.data.token.access,
           });
-          setCookie("refreshToken", res.data.refreshToken, { path: "/" });
+          setCookie("refreshToken", res.data.token.refresh, { path: "/" });
           navigate("/");
         }
       })
