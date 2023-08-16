@@ -1,0 +1,122 @@
+.divide-line {
+  width: 90%;
+  height: 40px;
+  margin-bottom: 40px;
+  border-bottom: 5px solid #f0f0f0;
+}
+.divide-line-2 {
+  width: 90%;
+  height: 20px;
+  margin-bottom: 40px;
+  border-bottom: 5px solid #f0f0f0;
+}
+
+.club-info-contianer {
+  width: 100%;
+}
+.club-info-box-1 {
+  position: relative;
+  flex-shrink: 0;
+  width: 80%;
+  padding: 15px 0 15px 17%;
+  display: flex;
+  align-items: center;
+  border-radius: 15px;
+  border: 2px solid #ebe4ff;
+  background: #f5f1ff;
+  margin: 0 auto 15px auto;
+}
+.nickname-span {
+  color: #3a3a3a;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.nickname-span-real {
+  color: #a394ff;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 10px;
+}
+.club-info-box-2 {
+  flex-shrink: 0;
+  width: 80%;
+  padding: 15px 20px 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  border: 2px solid #ebe4ff;
+  background: #f5f1ff;
+  margin: 0 auto 15px auto;
+  cursor: pointer;
+}
+.club-info-box-3 {
+  flex-shrink: 0;
+  width: 80%;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  border: 2px solid #ebe4ff;
+  background: #f5f1ff;
+  margin: 0 auto 15px auto;
+}
+.my-activity-profile-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.arrow-right-img {
+  width: 9.69px;
+  height: 17.344px;
+  flex-shrink: 0;
+}
+.plus-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+.last-outer-box {
+  display: flex;
+  align-items: center;
+  padding: 0 3% 0 30%;
+  width: 100%;
+  position: relative;
+  height: 40px;
+  justify-content: space-between;
+}
+.human-div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.human {
+  color: #a394ff;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.see-more-member-text {
+  color: #a394ff;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.see-more-member-div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}

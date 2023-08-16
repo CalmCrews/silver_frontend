@@ -1,5 +1,6 @@
 import React, { useState, useReducer, useEffect } from "react";
 import { styled } from "styled-components";
+import { useNavigate, useLocation } from "react-router-dom";
 import classes from "./ClubRankInfoBox.module.css";
 
 import mountain_1 from "../../assets/clubRankImage/1_dong_mountain.png";
@@ -14,6 +15,9 @@ interface MyComponentProps {
   club_rank: number;
   club_keywords: string[];
   key_string: string;
+  club_id: number;
+  isClick: boolean;
+  club_code: number;
 }
 const Title = styled.div`
   color: #3a3a3a;
@@ -47,10 +51,32 @@ const ClubRankInfoBox: React.FC<MyComponentProps> = ({
   club_rank,
   club_keywords,
   key_string,
+  club_id,
+  isClick,
+  club_code,
 }) => {
   const [keywordList, setKeywordList] = useState<string[]>(club_keywords);
+  const navigate = useNavigate();
   let clubMountainRank_korean;
   let clubMountainRank_image;
+
+  const handleOnClick = () => {
+    if (!isClick) {
+      return;
+    }
+    return navigate(`/club/myClubs/detail/${club_id}`, {
+      state: {
+        clubName: club_name,
+        member_count: member_count,
+        club_rank: club_rank,
+        club_keywords: club_keywords,
+        key_string: key_string,
+        club_id: club_id,
+        club_code: club_code,
+      },
+    });
+  };
+
   switch (club_rank) {
     case 0:
       clubMountainRank_korean = "맴버가 3인 이상부터 등급이 부여됩니다";
@@ -84,7 +110,15 @@ const ClubRankInfoBox: React.FC<MyComponentProps> = ({
   }, []);
 
   return (
-    <div className={classes["club-box"]} key={key_string}>
+    <div
+      className={
+        isClick
+          ? classes["club-box"]
+          : `${classes["club-box"]} ${classes["click-false"]}`
+      }
+      key={key_string}
+      onClick={handleOnClick}
+    >
       <Title>{club_name}</Title>
       <div className={classes["content-div"]}>
         <div className={classes["content-div-text-div"]}>

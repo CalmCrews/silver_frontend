@@ -24,7 +24,7 @@ import JoinClubProfile from "./pages/club/JoinClubProfile";
 import ProductDetail from "./pages/detail/ProductDetail";
 import ChargeCash from "./pages/ChargeCash";
 import MyClubs from "./pages/club/MyClubs";
-import ClubDetail from "./pages/club/ClubDetail";
+import MyClubDetail from "./pages/club/MyClubDetail";
 import MyClubsAll from "./pages/club/MyClubsAll";
 import MyInfo from "./pages/myinfo/MyInfo";
 import FontSetting from "./pages/myinfo/FontSetting";
@@ -97,7 +97,7 @@ function App() {
                 <Route path="/club/myClubs" element={<MyClubs />} />
                 <Route
                   path="/club/myClubs/detail/:id"
-                  element={<ClubDetail />}
+                  element={<MyClubDetail />}
                 />
                 <Route path="/club/myClubs/all" element={<MyClubsAll />} />
                 <Route path="/my" element={<MyInfo />} />

@@ -1,0 +1,36 @@
+.popup-outer-div {
+  width: 80%;
+  border-radius: 25px;
+  border: 2px solid #a394ff;
+  background: #fff;
+  padding: 30px 25px;
+}
+.popup-title-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #3a3a3a;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 30px */
+  margin-bottom: 25px;
+}
+.popup-login-btn {
+  display: flex;
+  flex-shrink: 0;
+  padding: 10px 25px;
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0 auto;
+  border: none;
+  background: rgba(163, 148, 255, 1);
+  border-radius: 50px;
+  cursor: pointer;
+}
