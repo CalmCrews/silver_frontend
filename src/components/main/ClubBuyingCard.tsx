@@ -168,24 +168,12 @@ const ClubBuyingCard = ({
             </PriceSection>
             <div>{name}</div>
           </div>
-          <div>
+          <div style={{color: "#909090"}}>
             <Rating
               defaultValue={score}
               precision={0.1}
-              icon={
-                <DefaultIcon
-                  size="inherit"
-                  name="star_filled"
-                  icon={StarIconFilled}
-                />
-              }
-              emptyIcon={
-                <DefaultIcon
-                  size="inherit"
-                  name="star_empty"
-                  icon={StarIconEmpty}
-                />
-              }
+              icon={<DefaultIcon size="inherit" name="star_filled" icon={StarIconFilled}/>}
+              emptyIcon={<DefaultIcon size="inherit" name="star_empty" icon={StarIconEmpty}/>}
               readOnly
               sx={{
                 padding: "5px",

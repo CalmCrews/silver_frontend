@@ -90,7 +90,8 @@ const MyInfoCard = ({ userInfo }: InfoCardProps) => {
 								backgroundColor: "#a394ff",
 							}
 						}}
-					>결제수단 관리</Button>
+						href="/fontsetting"
+					>글자 크기 조정</Button>
 				</CardActions>
 			</CardContent>
 		</StyledInfoCard>

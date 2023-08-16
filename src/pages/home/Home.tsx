@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { atom, useRecoilState } from "recoil";
 import Button from "@mui/material/Button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { loginState } from "../../states/userInfo";
 import axios from "axios";
 import { useCookies } from "react-cookie";
@@ -17,6 +17,9 @@ import BottomTabBar from "../../components/shared/BottomTabBar";
 import DefaultContainer from "../../components/shared/DefaultContainer";
 import ClubBuyingCard from "../../components/main/ClubBuyingCard";
 import HorizontalContainer from "../../components/shared/HorizontalContainer";
+import RecommendBox from "../../components/main/RecommendBox";
+import EmptyDataImg from "../../assets/Images/Empty_Data.png"
+
 
 const MyBuyingData = [
   {
@@ -85,8 +88,7 @@ const MyBuyingData = [
       },
     ],
   },
-]
-
+];
 
 const ClubBuyingData = [
   {
@@ -161,7 +163,37 @@ const ClubBuyingData = [
       },
     ],
   },
-]
+];
+
+const RecommendData = [
+  {
+    id: 1,
+    intro: "팔이 얼 것 같은",
+    name: "설국열차 팔토시",
+    thumbnail: "",
+    discountRate: 22,
+    price: 5000,
+    score: 4.7,
+  },
+  {
+    id: 2,
+    intro: "팔이 얼 것 같은",
+    name: "설국열차 팔토시",
+    thumbnail: "",
+    discountRate: 15,
+    price: 2200,
+    score: 3,
+  },
+  {
+    id: 3,
+    intro: "팔이 얼 것 같은",
+    name: "설국열차 팔토시",
+    thumbnail: "",
+    discountRate: 25,
+    price: 19900,
+    score: 4.2,
+  },
+];
 
 const MainDiv = styled.div`
   width: 100%;
@@ -169,23 +201,45 @@ const MainDiv = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`
+`;
+
 const SectionBox = styled.div`
   width: 100%;
   padding: 13px;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const EmptyDiv = styled.p`
+  color: #909090;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 145%;
+  margin: 20px 0;
 `
 
 const SectionTitle = styled.h2`
   width: 100%;
   margin: 17px 0;
   padding: 10px;
-  color: #A394FF;
+  color: #a394ff;
   font-size: 1.5rem;
   font-weight: 700;
-`
+`;
+
+const SubDiv = styled.div`
+  width: 100%;
+  position: relative;
+  top: -10px;
+  padding: 0 10px;
+  color: #909090;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: start;
+`;
+
 interface FormData {
   name: string;
   intro: string;
@@ -194,8 +248,6 @@ interface FormData {
 const Home = () => {
   const [login, setLogin] = useRecoilState(loginState);
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const handleLogout = () => {
     setLogin({ isLoggedIn: false, userId: "", accessToken: "" });
@@ -203,53 +255,55 @@ const Home = () => {
   };
 
 
-
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    intro: ''
-  });
-
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    try {
-      const apiUrl = `${process.env.REACT_APP_API_URL}clubs/`;
-      const response = await axiosInstance.post(apiUrl, formData);
-      console.log('POST 요청 성공:', response.data);
-    } catch (error) {
-      console.error('POST 요청 실패:', error);
-    }
-  };
-
   return (
     <>
       <DefaultContainer>
         <Toolbar sx={{ height: "60px" }} />
-        <AppBarWithDrawer/>
+        <AppBarWithDrawer />
         <MainDiv>
-          <MainCarousel/>
+          <MainCarousel />
           <SectionBox>
             <SectionTitle>내가 참여 중인 함께구매</SectionTitle>
-            {MyBuyingData.map(product => (
-              <MyBuyingCard key={product.id} {...product}/>
-            ))}
-            <br/>
-            <CustomDivider color="#F0F0F0" width="100%"/>
+            {MyBuyingData.length === 0 ? (
+              <>
+                <img src={EmptyDataImg} alt="empty_data_image" width="110px"/>
+                <EmptyDiv>
+                  아직 참여 중인 함께구매 상품이 없어요
+                  <br/>
+                  상품을 구경해 볼까요?
+                </EmptyDiv>
+              </>
+            ) : (
+              MyBuyingData.map((product) => (
+                <MyBuyingCard key={product.id} {...product} />
+              ))
+            )}
+            <br />
+            <CustomDivider color="#F0F0F0" width="100%" />
           </SectionBox>
 
           <SectionBox>
             <SectionTitle>내 모임에서 진행 중인 함께구매</SectionTitle>
             <HorizontalContainer>
-              {ClubBuyingData.map(product => (
-                <ClubBuyingCard key={product.id} {...product}/>
+              {ClubBuyingData.map((product) => (
+                <ClubBuyingCard key={product.id} {...product} />
               ))}
             </HorizontalContainer>
-            <br/>
-            <CustomDivider color="#F0F0F0" width="100%"/>
+            <br />
+            <CustomDivider color="#F0F0F0" width="100%" />
           </SectionBox>
 
-
+          <SectionBox>
+            <SectionTitle>모임별 맞춤 추천 상품</SectionTitle>
+            <SubDiv>나의 모임과 관련된 추천 상품을 둘러보아요!</SubDiv>
+            {RecommendData.map((product) => (
+              <RecommendBox key={product.id} {...product} />
+            ))}
+            <br />
+            <Button variant="text" sx={{color: "#909090"}}>
+              새로고침
+            </Button>
+          </SectionBox>
 
           {!login.isLoggedIn ? (
             <>
