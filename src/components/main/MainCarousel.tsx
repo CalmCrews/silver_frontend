@@ -1,4 +1,4 @@
-import { Paper } from "@mui/material";
+import { Link, Paper } from "@mui/material";
 import React from "react";
 import Carousel from "react-material-ui-carousel";
 import {styled} from "styled-components";
@@ -6,6 +6,7 @@ import {styled} from "styled-components";
 
 const products = [
   {
+    id: 1,
     label: "San Francisco – Oakland Bay Bridge, United States",
     imgPath:
       "https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60",
@@ -17,6 +18,7 @@ const products = [
       "볼륨감의 비밀, 우일이가 알려줄게요",
   },
   {
+    id: 2,
     label: "Bird",
     imgPath:
       "https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60",
@@ -28,6 +30,7 @@ const products = [
       "볼륨감의 비밀, 우일이가 알려줄게요",
   },
   {
+    id: 3,
     label: "Bali, Indonesia",
     imgPath:
       "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250",
@@ -39,6 +42,7 @@ const products = [
       "볼륨감의 비밀, 우일이가 알려줄게요",
   },
   {
+    id: 4,
     label: "Goč, Serbia",
     imgPath:
       "https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60",
@@ -71,18 +75,18 @@ const CoverLayer = styled.div`
 const InfoContainer = styled.div`
   width: 100%;
   position: absolute;
-  top: 380px;
+  top: 370px;
   color: #fff;
   text-align: center;
   padding: 50px;
 `
 
 const SaleTime = styled.p`
-  
+  margin-bottom: 5px;
 `
 
 const SaleTitle = styled.h2`
-  
+  margin-bottom: 12px;
 `
 const SaleSubtitle = styled.p`
   
@@ -120,16 +124,18 @@ const MainCarousel = () => {
           key={product.label}
           sx={{ width: "100%", height: "100%", position: "relative" }}
         >
-          <CardImage
-            src={product.imgPath}
-            alt={product.label}
-          />
-          <CoverLayer/>
-          <InfoContainer>
-            <SaleTime>{product.saleTime}</SaleTime>
-            <SaleTitle>{product.productTitle}</SaleTitle>
-            <SaleSubtitle>{product.productSubtitle}</SaleSubtitle>
-          </InfoContainer>
+          <Link href={`/products/detail/${product.id}`}>
+            <CardImage
+              src={product.imgPath}
+              alt={product.label}
+            />
+            <CoverLayer/>
+            <InfoContainer>
+              <SaleTime>{product.saleTime}</SaleTime>
+              <SaleTitle>{product.productTitle}</SaleTitle>
+              <SaleSubtitle>{product.productSubtitle}</SaleSubtitle>
+            </InfoContainer>
+          </Link>
         </Paper>
       ))}
     </Carousel>
