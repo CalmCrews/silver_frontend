@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { InputBase, Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import {
+  InputBase,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { useCookies } from "react-cookie";
 import { loginState } from "../states/userInfo";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-
 
 const FormContainer = styled.form`
   display: flex;
@@ -68,7 +74,7 @@ function SignInForm() {
   } = useForm<SignInFormValues>();
 
   const [login, setLogin] = useRecoilState(loginState);
-  const [cookies, setCookie ] = useCookies(["refreshToken"]);
+  const [cookies, setCookie] = useCookies(["refreshToken"]);
 
   const navigate = useNavigate();
 
@@ -82,13 +88,12 @@ function SignInForm() {
         password: data.password,
       })
       .then((res) => {
-        console.log(res);
         if (res.status) {
-          console.log(res.data)
           setLogin({
             isLoggedIn: true,
             userId: res.data.user.username,
             accessToken: res.data.token.access,
+            user_id: res.data.user.id,
           });
           setCookie("refreshToken", res.data.token.refresh, { path: "/" });
           navigate("/");
@@ -100,13 +105,17 @@ function SignInForm() {
       });
   };
 
+  useEffect(() => {
+    localStorage.setItem("loginState", JSON.stringify(login));
+  }, [login]);
+
   const handleOpen = () => {
     setIsOpen(true);
-  }
+  };
 
   const handleClose = () => {
     setIsOpen(false);
-  }
+  };
 
   return (
     <div style={{ width: "100%" }}>
@@ -139,7 +148,6 @@ function SignInForm() {
           <Button onClick={handleClose}>확인</Button>
         </DialogActions>
       </Dialog>
-      
     </div>
   );
 }

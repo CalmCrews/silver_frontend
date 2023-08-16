@@ -128,7 +128,7 @@ const RecommendBox = ({
         >
           {intro} {name}
         </div>
-        <IconButton href={`/products/detail/${id}`}>
+        <IconButton href={`/products/${id}`}>
           <ArrowForwardIosRoundedIcon
             style={{ color: "#A394FF" }}
             fontSize="inherit"

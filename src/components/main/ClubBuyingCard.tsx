@@ -202,7 +202,7 @@ const ClubBuyingCard = ({
             </div>
           </ParticipantsContainer>
           <CardActions>
-            <Link href={`products/detail/${id}`}>
+            <Link href={`products/${id}`}>
               <button 
                 style={{
                   width: "180px",

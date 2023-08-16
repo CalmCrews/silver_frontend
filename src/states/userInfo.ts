@@ -1,11 +1,14 @@
 import { atom } from "recoil";
+const storedLoginState = localStorage.getItem("loginState");
 
 export const loginState = atom({
-  key: 'loginState', 
-  default: { isLoggedIn: false, userId: '', accessToken: '' }, 
+  key: "loginState",
+  default: storedLoginState
+    ? JSON.parse(storedLoginState)
+    : { isLoggedIn: false, userId: "", accessToken: "" },
 });
 
 export const fontSizeState = atom({
-  key: 'fontSizeState', 
-  default: localStorage.getItem('bodyFontSize') || '16px', 
+  key: "fontSizeState",
+  default: localStorage.getItem("bodyFontSize") || "16px",
 });

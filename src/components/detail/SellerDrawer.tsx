@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Drawer, Box, IconButton, Link, Divider, Button } from "@mui/material";
 import { styled } from "styled-components";
 import CloseIcon from "../../assets/icons/CloseIcon.png";
@@ -7,8 +7,18 @@ import DefaultIcon from "../shared/DefaultIcon";
 import CustomDivider from "../shared/CustomDivider";
 import HorizontalContainer from "../shared/HorizontalContainer";
 
+interface SellerInfo {
+  name: string;
+  represent: string;
+  business_image: string;
+  business_number: string;
+  center_number: string;
+  email: string;
+}
+
+
 interface MainDrawerProps {
-  sellerName: string;
+  sellerInfo: SellerInfo;
   open: boolean;
   onClose: () => void;
 }
@@ -99,45 +109,49 @@ const ProductThumbnail = styled.img`
   margin-right: 14px;
 `
 
-const SellerInfo = {
-  marketName: "알라마켓",
-  sellerName: "코알라",
-  isSelling: true,
-  sellingProduct: "",
-  historyCount: 7,
-  historyList: [
-    {
-      productId: 1,
-      productName: "설국열차 팔토시",
-      thumbnail: "",
-    },
-    {
-      productId: 1,
-      productName: "설국열차 팔토시",
-      thumbnail: "",
-    },
-    {
-      productId: 1,
-      productName: "설국열차 팔토시",
-      thumbnail: "",
-    },
-    {
-      productId: 1,
-      productName: "설국열차 팔토시",
-      thumbnail: "",
-    },
-    {
-      productId: 1,
-      productName: "설국열차 팔토시",
-      thumbnail: "",
-    },
-  ],
-  sellerId: "123-12-12345",
-  sellerContact: "010-1234-5678",
-  sellerEmail: "moyeo@moyeo.com",
-};
+// const SellerInfo = {
+//   marketName: "알라마켓",
+//   sellerName: "코알라",
+//   isSelling: true,
+//   sellingProduct: "",
+//   historyCount: 7,
+//   historyList: [
+//     {
+//       productId: 1,
+//       productName: "설국열차 팔토시",
+//       thumbnail: "",
+//     },
+//     {
+//       productId: 1,
+//       productName: "설국열차 팔토시",
+//       thumbnail: "",
+//     },
+//     {
+//       productId: 1,
+//       productName: "설국열차 팔토시",
+//       thumbnail: "",
+//     },
+//     {
+//       productId: 1,
+//       productName: "설국열차 팔토시",
+//       thumbnail: "",
+//     },
+//     {
+//       productId: 1,
+//       productName: "설국열차 팔토시",
+//       thumbnail: "",
+//     },
+//   ],
+//   sellerId: "123-12-12345",
+//   sellerContact: "010-1234-5678",
+//   sellerEmail: "moyeo@moyeo.com",
+// };
 
-const SellerDrawer = ({ sellerName, open, onClose }: MainDrawerProps) => {
+const SellerDrawer = ({ sellerInfo, open, onClose }: MainDrawerProps) => {
+  const [isSelling, setIsSelling] = React.useState(false);
+  const [historyCount, setHistoryCount] = React.useState(0);
+  const [historyList, setHistoryList] = React.useState([]);
+
   return (
     <Drawer
       anchor="bottom"
@@ -170,14 +184,14 @@ const SellerDrawer = ({ sellerName, open, onClose }: MainDrawerProps) => {
         <CloseButton onClick={onClose}>
           <DefaultIcon size="18px" name="close" icon={CloseIcon} />
         </CloseButton>
-        <TitleText color="#a394ff" style={{margin: "50px 0 20px 0"}}>{SellerInfo.marketName}</TitleText>
-        {SellerInfo.isSelling && 
+        <TitleText color="#a394ff" style={{margin: "50px 0 20px 0"}}>{sellerInfo.name}</TitleText>
+        {isSelling && 
           <NowSellingContianer>
             <p style={{fontSize: "16px", margin: "12px 0 5px 0"}}>현재 진행 중인 함께구매 상품이 있어요!</p>
             <Link href={""} sx={{fontSize: "14px", textDecoration: "none", color: "#a394ff", margin: "5px 0 12px 0"}}>클릭하여 공구영상 보러가기 <img width={"7px"} src={RightArrow}/></Link>
           </NowSellingContianer>
         }
-        {!SellerInfo.isSelling && 
+        {!isSelling && 
           <NowSellingContianer>
             <p style={{fontSize: "16px", margin: "12px 0 5px 0"}}>현재 진행 중인 함께구매 상품이 없어요</p>
             <Link href={""} sx={{fontSize: "14px", textDecoration: "none", color: "#a394ff", margin: "5px 0 12px 0"}}>진행 중인 추천 상품 보러가기 <img width={"7px"} src={RightArrow}/></Link>
@@ -185,12 +199,12 @@ const SellerDrawer = ({ sellerName, open, onClose }: MainDrawerProps) => {
         }
         <MainInfoContainer>
           <div className="seller-name" style={{width: "40%"}}>
-            <TitleText>{SellerInfo.sellerName}</TitleText>
+            <TitleText>{sellerInfo.represent}</TitleText>
             <ContentText>대표자명</ContentText>
           </div>
           <Divider orientation="vertical" flexItem sx={{width: "3px"}}/>
           <div className="seller-count" style={{width: "40%"}}>
-            <TitleText>{SellerInfo.historyCount}</TitleText>
+            <TitleText>{historyCount}</TitleText>
             <ContentText>모여 상품 판매 횟수</ContentText>
           </div>
         </MainInfoContainer>
@@ -201,9 +215,13 @@ const SellerDrawer = ({ sellerName, open, onClose }: MainDrawerProps) => {
             <Button sx={{color:"#a394ff", fontWeight: "700", fontSize: "1rem"}}>더보기&nbsp;<img width={"7px"} src={RightArrow}/></Button>
           </div>
           <HorizontalContainer>
-            {SellerInfo.historyList.map((product, index) => (
-              <ProductThumbnail src={product.thumbnail} alt={product.productName} key={index}/>
-            ))}
+          {historyList.length > 0 ? (
+            historyList.map((product, index) => (
+              <ProductThumbnail src={product} alt={product} key={index} />
+            ))
+          ) : (
+            <p>아직 판매기록이 없습니다.</p>
+          )}
           </HorizontalContainer>
         </SubInfoContainer>
         <CustomDivider color="#f0f0f0" width="100%"/>
@@ -213,15 +231,15 @@ const SellerDrawer = ({ sellerName, open, onClose }: MainDrawerProps) => {
           </div>
           <p style={{display: "flex", fontSize: "1rem", color: "#3a3a3a", fontWeight: "600", marginBottom: "1rem"}}>
             <span style={{color: "#909090", width: "30%"}}>사업자 번호</span>
-            {SellerInfo.sellerId}
+            {sellerInfo.business_number}
           </p>
           <p style={{display: "flex", fontSize: "1rem", color: "#3a3a3a", fontWeight: "600", marginBottom: "1rem"}}>
             <span style={{color: "#909090", width: "30%"}}>고객센터</span>
-            {SellerInfo.sellerContact}
+            {sellerInfo.center_number}
           </p>
           <p style={{display: "flex", fontSize: "1rem", color: "#3a3a3a", fontWeight: "600", marginBottom: "1rem"}}>
             <span style={{color: "#909090", width: "30%"}}>이메일</span>
-            {SellerInfo.sellerEmail}
+            {sellerInfo.email}
           </p>
           
         </SubInfoContainer>

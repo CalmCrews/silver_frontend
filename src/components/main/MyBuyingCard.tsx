@@ -42,7 +42,7 @@ const MyBuyingCard = ({
   return (
     <style.BuyingCard>
       <CardActionArea
-        href={`/products/detail/${id}`}
+        href={`/products/${id}`}
         sx={{ width: "100%", height: "100%", padding: "15px 15px 5px 15px" }}
       >
         <header style={{ display: "flex" }}>
