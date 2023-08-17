@@ -78,11 +78,9 @@ function App() {
                 <Route path="/login" element={<SignIn />} />
                 <Route path="/review" element={<Review />} />
                 <Route path="/users/kakao/callback/" element={<KakaoLogin />} />
-                <Route path="/users/naver/callback/" element={<NaverLogin />} />
-                <Route
-                  path="/products/detail/:productId"
-                  element={<ProductDetail />}
-                />
+                <Route path="/users/naver/callback/" element={<NaverLogin/>}/>
+                <Route path="/products/:productId" element={<ProductDetail/>}/>
+                <Route path="/clubs/:clubId/products/:productId" element={<ProductDetail/>}/>
                 <Route path="/club/start" element={<ClubFirstStep />} />
                 <Route path="/club/naming" element={<MakeClubNaming />}></Route>
                 <Route path="/club/description" element={<MakeClubDes />} />

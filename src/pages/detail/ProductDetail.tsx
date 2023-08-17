@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import AppBarWithDrawer from "../../components/shared/AppBarWithDrawer";
-import { Toolbar, Box, Divider } from "@mui/material";
+import { Toolbar, Box, IconButton } from "@mui/material";
 import { styled } from "styled-components";
 import SellerInfoButton from "../../components/detail/SellerInfoButton";
 import CustomDivider from "../../components/shared/CustomDivider";
 import SellerDrawer from "../../components/detail/SellerDrawer";
 import VideoPlayer from "../../components/detail/VideoPlayer";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { loginState } from "../../states/userInfo";
+import axios from "axios";
+import ProductInfoSection from "../../components/detail/ProductInfoSection";
+import { InfoProps } from "../../components/detail/ProductInfoSection";
+import TabPanel from "../../components/detail/TabPanel";
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 
 //임시 데이터
 const ProductInfo = {
@@ -17,7 +24,7 @@ const ProductInfo = {
   originalPrice: "5,000",
   category: "DIGITAL",
   thumbnail: null,
-  video: "https://player.vimeo.com/external/430014215.sd.mp4?s=2c2fedb46aa038dcc4664ad42ef6a0e002bf312a&profile_id=165&oauth2_token_id=57447761",
+  video: "https://youtube.com/shorts/i1y5Pqv73AQ?feature=share",
   seller: "코알라",
   sellerProfile: "",
   total: 100,
@@ -27,6 +34,7 @@ const ProductInfo = {
 
 const DetailToolbar = styled(Toolbar)({
   width: "100%",
+  position: "relative",
   display: "flex",
   justifyContent: "center",
   marginTop: "84px",
@@ -36,36 +44,143 @@ const DetailToolbar = styled(Toolbar)({
   fontWeight: "700",
 });
 
+interface RouteParams {
+  productId: string;
+  clubId?: string;
+}
+
 const ProductDetail = () => {
-  const { productId } = useParams();
   const [isSellerOpen, setIsSellerOpen] = useState(false);
+  const { clubId, productId } = useParams<Record<string, string | undefined>>();
+
+  const user = useRecoilValue(loginState);
+  const [productData, setProductData] = useState<any | null>(null);
+  const [sellerData, setSellerData] = useState<any | null>(null);
+
+  const newAxiosInstance = axios.create({
+    baseURL: "http://127.0.0.1:8000/",
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
+  });
 
   useEffect(() => {
+    if (clubId) {
+      getClubProduct();
+    }
+    else {
+      getProduct();
+    }
     console.log(productId);
-  }, [])
+    console.log(user);
 
+    async function getProduct() {
+      const response = await newAxiosInstance.get(
+        `${process.env.REACT_APP_API_URL}products/${productId}`
+      );
+      console.log(response.data);
+      setProductData(response.data);
+      setSellerData(response.data.seller);
+    }
+
+    async function getClubProduct() {
+      const response = await newAxiosInstance.get(
+        `${process.env.REACT_APP_API_URL}clubs/${clubId}/clubProducts/${productId}`
+      );
+      console.log(response.data);
+      setProductData(response.data.product);
+      setSellerData(response.data.seller);
+    }
+    
+  }, []);//dependency : clubId, productId?
+
+  //props filtering
+  const {
+    intro,
+    name,
+    price,
+    end_at,
+    current_price,
+    discount_rate,
+    achievement_rate,
+    participant_count,
+    participants,
+  } = productData || {};
+  
+  const infoProps: InfoProps = {
+    intro,
+    name,
+    price,
+    end_at,
+    current_price,
+    discount_rate,
+    achievement_rate,
+    participant_count,
+    participants,
+  };
+  
   const handleSellerDrawerClose = () => {
     setIsSellerOpen(false);
   };
+  
+  
+  
+    
+    // const handleConfirm = () => {
+
+      
+    // };
+
+  const handleGoBack = () => {
+    window.history.back(); // 이전 페이지로 이동
+  };
+  
+
 
   return (
     <>
       <AppBarWithDrawer />
-      <DetailToolbar>상품 상세보기</DetailToolbar>
-      <VideoPlayer productTitle={ProductInfo.name} sellerProfile={ProductInfo.sellerProfile} productId={ProductInfo.id} videoUrl={ProductInfo.video}/>
-      <Box sx={{ width: "100%", padding: "12px" }}>
-        <SellerInfoButton
-          sellerName="코알라"
-          sellerProfile=""
-          onClick={() => setIsSellerOpen(true)}
-        />
-        <CustomDivider color="#f0f0f0" width="100%" />
-      </Box>
-      <SellerDrawer
-        sellerName={ProductInfo.seller}
-        open={isSellerOpen}
-        onClose={handleSellerDrawerClose}
-      />
+      <DetailToolbar>
+        <IconButton 
+          onClick={handleGoBack}
+          sx={{
+            position: "absolute",
+            left: "10px",
+          }}
+        >
+          <ArrowBackIosRoundedIcon/>
+        </IconButton>
+        상품 상세보기
+      </DetailToolbar>
+      {productData && (
+        <>
+          <VideoPlayer
+            productTitle={ProductInfo.name}
+            sellerProfile={ProductInfo.sellerProfile}
+            productId={ProductInfo.id}
+            videoUrl={ProductInfo.video}
+          />
+          <Box sx={{ width: "100%", padding: "12px" }}>
+            <SellerInfoButton
+              sellerName={productData.seller.name}
+              sellerProfile={productData.seller.business_image}
+              onClick={() => setIsSellerOpen(true)}
+            />
+            <CustomDivider color="#f0f0f0" width="100%" />
+            <ProductInfoSection {...infoProps} />
+            <br/>
+            <TabPanel/>
+            <div style={{width: "100%", height: "300px"}}>
+              <img src="" alt="" />
+            </div>
+          </Box>
+          <SellerDrawer
+            sellerInfo={sellerData}
+            open={isSellerOpen}
+            onClose={handleSellerDrawerClose}
+          />
+        </>
+      )}
     </>
   );
 };
