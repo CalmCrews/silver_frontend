@@ -1,0 +1,85 @@
+.map-whole {
+  width: 100%;
+  height: 100%;
+  background: #a394ff;
+  display: flex;
+  margin: 0 0 auto 0;
+}
+.map-image-outer-div {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background: #a394ff;
+  display: flex;
+  margin: 0 0 auto 0;
+}
+.map-image {
+  width: 100%;
+  width: 100%; /* 이미지를 부모 div의 넓이에 맞게 확장 */
+  height: 100%; /* 이미지를 자동으로 높이 조절하여 비율 유지 */
+  object-fit: contain; /* 이미지를 부모 div에 맞게 조절하되, 비율 유지 */
+}
+
+.map-object-name-space {
+  display: flex;
+  position: absolute;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  padding: 10px 20px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  background-color: #a394ff;
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.mountain-first {
+  top: 19%;
+  left: 46%;
+}
+.mountain-second {
+  top: 37%;
+  left: 24%;
+}
+.mountain-third {
+  top: 45%;
+  left: 70%;
+}
+.mountain-fourth {
+  top: 56%;
+  left: 27%;
+}
+.mountain-fifth {
+  top: 64%;
+  left: 75%;
+}
+
+.flag-first {
+  top: 15%;
+  left: 49%;
+}
+.flag-second {
+  top: 33%;
+  left: 27%;
+}
+.flag-third {
+  top: 41%;
+  left: 73%;
+}
+.flag-fourth {
+  top: 52%;
+  left: 30%;
+}
+.flag-fifth {
+  top: 60%;
+  left: 78%;
+}
+
+.map-object-flag {
+  width: 50px;
+  height: 56px;
+  flex-shrink: 0;
+  position: absolute;
+  z-index: 99999;
+}
