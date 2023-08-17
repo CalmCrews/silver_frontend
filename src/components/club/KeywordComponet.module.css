@@ -33,3 +33,6 @@
 .outer-div-clicked:hover {
   cursor: pointer;
 }
+.click-no {
+  cursor: default !important;
+}

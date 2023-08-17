@@ -29,6 +29,7 @@ const KeywordsDiv = styled.div`
 `;
 
 const MakeClubKeywords = () => {
+  const [keywordsCount, setKeywordsCount] = useState(0);
   const [login, setLogin] = useRecoilState(loginState);
   const [totalCountList, setTotalCountList] = useState<string[]>([]);
   const location = useLocation();
@@ -39,8 +40,10 @@ const MakeClubKeywords = () => {
     setTotalCountList((prev) => {
       const isInside = prev.includes(id);
       if (isInside) {
+        setKeywordsCount((prevCount) => prevCount - 1);
         return [...prev].filter((item) => item !== id);
       } else {
+        setKeywordsCount((prevCount) => prevCount + 1);
         return [...prev, id];
       }
     });
@@ -112,54 +115,80 @@ const MakeClubKeywords = () => {
           <KeywordComponet
             id="gathering"
             innerText="친목/또래모임"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
           <KeywordComponet
             id="daily"
             innerText="일상"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
           <KeywordComponet
             id="economic"
             innerText="경제"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
           <KeywordComponet
             id="biology"
             innerText="동식물"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
           <KeywordComponet
             id="culture"
             innerText="문화/예술"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
           <KeywordComponet
             id="study"
             innerText="교육/공부"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
           <KeywordComponet
             id="life"
             innerText="생활정보"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
           <KeywordComponet
             id="sports"
             innerText="스포츠"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
           <KeywordComponet
             id="religion"
             innerText="종교"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
           <KeywordComponet
             id="health"
             innerText="건강"
+            count={keywordsCount}
+            allowList={totalCountList}
             onClick={handleOnClick}
           />
-          <KeywordComponet id="etc" innerText="기타" onClick={handleOnClick} />
+          <KeywordComponet
+            id="etc"
+            innerText="기타"
+            onClick={handleOnClick}
+            allowList={totalCountList}
+            count={keywordsCount}
+          />
         </KeywordsDiv>
         <div
           className="button-container"

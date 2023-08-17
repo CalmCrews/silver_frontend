@@ -82,7 +82,13 @@ const MakeClubRegister = () => {
     }
   };
   const handleBandBtn = () => {};
-  const handleLinkCopyBtn = () => {};
+  const handleLinkCopyBtn = () => {
+    navigator.clipboard
+      .writeText(`${process.env.REACT_APP_API_URL}`)
+      .then(() => {
+        alert(`Copied: ${process.env.REACT_APP_API_URL}`);
+      });
+  };
 
   // 참여코드 가져오는 코드 여기에 함수로 작성해야함
   useEffect(() => {
@@ -90,7 +96,9 @@ const MakeClubRegister = () => {
     setParticipateCodeNum(clubCode);
   }, [clubCode]);
 
-  const handleNext = () => {};
+  const handleNext = () => {
+    navigate(`/`);
+  };
 
   return (
     <ClubStartBase>
@@ -141,7 +149,9 @@ const MakeClubRegister = () => {
               </div>
             </div>
             <div className={classes["share-pop-up-link-div"]}>
-              <span className={classes["share-pop-up-link-span"]}></span>
+              <span className={classes["share-pop-up-link-span"]}>
+                {process.env.REACT_APP_API_URL}
+              </span>
               <button
                 className={classes["share-pop-up-link-btn"]}
                 onClick={handleLinkCopyBtn}
