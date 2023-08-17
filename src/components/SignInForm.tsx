@@ -91,9 +91,10 @@ function SignInForm() {
           console.log(res);
           setLogin({
             isLoggedIn: true,
-            userId: res.data.user.username,
+            userId: res.data.user.username, //아이디
             accessToken: res.data.token.access,
-            user_id: res.data.user.id,
+            user_id: res.data.user.id, //number
+            nickname: res.data.user.nickname, //닉네임
           });
           setCookie("refreshToken", res.data.token.refresh, { path: "/" });
           navigate("/");

@@ -5,7 +5,7 @@ export const loginState = atom({
   key: "loginState",
   default: storedLoginState
     ? JSON.parse(storedLoginState)
-    : { isLoggedIn: false, userId: "", accessToken: "", user_id: "" },
+    : { isLoggedIn: false, userId: "", accessToken: "", user_id: "", nickname: "" },
 });
 
 export const fontSizeState = atom({
