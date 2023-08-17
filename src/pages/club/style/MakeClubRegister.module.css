@@ -175,13 +175,26 @@
   cursor: pointer;
 }
 .share-pop-up-link-span {
+  width: 60%;
   color: #a394ff;
+  padding-left: 10px;
+  margin: auto 0;
+  flex-wrap: wrap;
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
   text-align: center;
+  color: #a394ff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  white-space: nowrap;
+  overflow: hidden; /* 넘치는 내용을 숨김 */
+  text-overflow: ellipsis; /* 넘치는 내용을 ...으로 표시 */
 }
 
 .sns-wrapper-outer-div {
@@ -222,4 +235,11 @@
   display: flex;
   justify-content: center;
   margin-top: 10px;
+}
+.wrong-code {
+  margin-top: 5px;
+  color: rgb(199, 58, 58, 0.8);
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
 }

@@ -49,6 +49,12 @@ const MyClubs = () => {
   const handleNext = () => {
     navigate("/club/myClubs/all");
   };
+  const handleGoNewClub = () => {
+    navigate("/club/naming");
+  };
+  const handleGoJoinClub = () => {
+    navigate("/club/join");
+  };
 
   useEffect(() => {
     async function getMyClub() {
@@ -167,10 +173,16 @@ const MyClubs = () => {
             )}
           </div>
           <div className={classes["club-make-join-btn-div"]}>
-            <button className={classes["club-make-join-btn"]}>
+            <button
+              onClick={handleGoJoinClub}
+              className={classes["club-make-join-btn"]}
+            >
               새 모임 참여하기
             </button>
-            <button className={classes["club-make-join-btn"]}>
+            <button
+              onClick={handleGoNewClub}
+              className={classes["club-make-join-btn"]}
+            >
               새 모임 등록하기
             </button>
           </div>
