@@ -47,24 +47,33 @@ const MyClubs = () => {
   `;
 
   const handleNext = () => {
-    navigate("/club/myClubs/all", {
-      state: {
-        clubInfoList: clubInfoList,
-      },
-    });
+    navigate("/club/myClubs/all");
+  };
+  const handleGoNewClub = () => {
+    navigate("/club/naming");
+  };
+  const handleGoJoinClub = () => {
+    navigate("/club/join");
   };
 
   useEffect(() => {
     async function getMyClub() {
-      const response = await newAxiosInstance.get(
-        `${process.env.REACT_APP_API_URL}clubs/`
-      );
-      setClubInfoList(response.data);
-      setClubList_only_three([...response.data].slice(0, 3));
+      try {
+        const response = await newAxiosInstance.get(
+          `${process.env.REACT_APP_API_URL}clubs/`
+        );
+        return response.data;
+      } catch (error) {
+        console.log("getMyClub inside :", error);
+        return [];
+      }
     }
 
     try {
-      getMyClub();
+      getMyClub().then((returnData) => {
+        setClubInfoList(returnData);
+        setClubList_only_three([...returnData].slice(0, 3));
+      });
     } catch (e) {
       console.log(e);
     }
@@ -118,14 +127,16 @@ const MyClubs = () => {
               isClick={true}
             />
           ))}
-          <div className={classes["see-more-div"]}>
-            <div className={classes["see-more-text-div"]}>더보기</div>
-            <img
-              className={classes["see-more-icon-img"]}
-              src={DownArrowGrey}
-              alt="DownArrowGrey"
-            />
-          </div>
+          {
+            <div className={classes["see-more-div"]} onClick={handleNext}>
+              <div className={classes["see-more-text-div"]}>더보기</div>
+              <img
+                className={classes["see-more-icon-img"]}
+                src={DownArrowGrey}
+                alt="DownArrowGrey"
+              />
+            </div>
+          }
           <div className={classes["just-for-margin"]}></div>
           <div className={classes["club-products-container"]}>
             <div className={classes["club-products-title-div"]}>
@@ -138,33 +149,40 @@ const MyClubs = () => {
             </div>
             {clubListThreeProducts.length !== 0 ? (
               <HorizontalContainer>
-                {clubListThreeProducts.map((product) => {
-                  // 여기에 썸네일 넣어야함
-                  return (
-                    <ClubBuyingCard
-                      id={product.id}
-                      key={product.id}
-                      end_at={product.product.end_at}
-                      name={product.product.end_at}
-                      thumbnail={temperImage}
-                      discountRate={product.discountRate}
-                      price={product.product.price}
-                      score={product.achievement_rate}
-                      participantsNum={product.participant_count}
-                      participants={product.seller}
-                    />
-                  );
-                })}
+                {clubInfoList.length > 3 &&
+                  clubListThreeProducts.map((product) => {
+                    // 여기에 썸네일 넣어야함
+                    return (
+                      <ClubBuyingCard
+                        id={product.id}
+                        key={product.id}
+                        end_at={product.product.end_at}
+                        name={product.product.end_at}
+                        thumbnail={temperImage}
+                        discountRate={product.discountRate}
+                        price={product.product.price}
+                        score={product.achievement_rate}
+                        participantsNum={product.participant_count}
+                        participants={product.seller}
+                      />
+                    );
+                  })}
               </HorizontalContainer>
             ) : (
               <ClubProductNo />
             )}
           </div>
           <div className={classes["club-make-join-btn-div"]}>
-            <button className={classes["club-make-join-btn"]}>
+            <button
+              onClick={handleGoJoinClub}
+              className={classes["club-make-join-btn"]}
+            >
               새 모임 참여하기
             </button>
-            <button className={classes["club-make-join-btn"]}>
+            <button
+              onClick={handleGoNewClub}
+              className={classes["club-make-join-btn"]}
+            >
               새 모임 등록하기
             </button>
           </div>

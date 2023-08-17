@@ -142,7 +142,7 @@ const ClubRankInfoBox: React.FC<MyComponentProps> = ({
           alt="클럽 랭크 이미지"
         />
       </div>
-      <div className={classes["keywords-div"]}>
+      <div className={`${classes["keywords-div"]} scroll`}>
         {keywordList.map((keyword: string, index: number) => (
           <div className={classes["keyword-item-div"]} key={index}>
             {keyword}

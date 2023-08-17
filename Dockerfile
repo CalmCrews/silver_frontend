@@ -1,5 +1,5 @@
 # Node.js 18 이미지를 사용하여 애플리케이션 빌드
-FROM node:18 AS build
+FROM node:16 AS build
 
 # 작업 디렉토리 생성 및 설정
 WORKDIR /app

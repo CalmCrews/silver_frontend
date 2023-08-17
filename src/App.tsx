@@ -104,6 +104,7 @@ function App() {
                 <Route path="/my" element={<MyInfo />} />
                 <Route path="/fontsetting" element={<FontSetting />} />
                 <Route path="/search" element={<Search/>}/>
+                <Route path="/charge" element={<ChargeCash />} />
               </Routes>
             </div>
           </div>
