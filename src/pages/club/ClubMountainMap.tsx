@@ -44,11 +44,11 @@ const ClubMountainMap = () => {
         <AppBarWithDrawer />
         <div className={classes["map-whole"]}>
           <div className={classes["map-image-outer-div"]}>
-            {flagPosition === "0" && (
+            {flagPosition !== "0" && (
               <img
                 src={MapFlag}
                 alt="MapFlag"
-                className={`${classes["map-object-flag"]} ${classes["flag-fifth"]}`}
+                className={`${classes["map-object-flag"]} ${classes[flagPosition]}`}
               />
             )}
             <div
