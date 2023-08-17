@@ -180,7 +180,7 @@ const SellerDrawer = ({ sellerInfo, open, onClose }: MainDrawerProps) => {
       }}
     >
       <Container>
-        <ProfileImage src={`${process.env.REACT_APP_API_URL}${sellerInfo.business_image}`} alt="seller_profile" />
+        <ProfileImage src={`${sellerInfo.business_image}`} alt="seller_profile" />
         <CloseButton onClick={onClose}>
           <DefaultIcon size="18px" name="close" icon={CloseIcon} />
         </CloseButton>
