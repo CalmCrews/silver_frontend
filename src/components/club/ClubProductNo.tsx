@@ -15,7 +15,7 @@ const ClubProductNo = () => {
           아직 참여 중인 함께구매 상품이 없어요
         </span>
         <span className={classes["no-product-span"]}>
-          상픔을 구경해 볼까요?
+          상품을 구경해 볼까요?
         </span>
       </div>
     </div>

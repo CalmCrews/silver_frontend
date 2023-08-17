@@ -29,6 +29,7 @@ import MyClubsAll from "./pages/club/MyClubsAll";
 import MyInfo from "./pages/myinfo/MyInfo";
 import FontSetting from "./pages/myinfo/FontSetting";
 import ClubMountainMap from "./pages/club/ClubMountainMap";
+import Search from "./pages/search/Search";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -102,6 +103,7 @@ function App() {
                 <Route path="/club/clubMap" element={<ClubMountainMap />} />
                 <Route path="/my" element={<MyInfo />} />
                 <Route path="/fontsetting" element={<FontSetting />} />
+                <Route path="/search" element={<Search/>}/>
               </Routes>
             </div>
           </div>

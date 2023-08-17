@@ -31,17 +31,17 @@ const DrawerTitle = styled.h1`
 
 
 const categories = [
-  {title: "패션뷰티", img: Fashion},
-  {title: "디지털/가전", img: Digital},
-  {title: "가구", img: Furniture},
-  {title: "식품", img: Food},
-  {title: "동식물", img: Aniplant},
-  {title: "스포츠", img: Sports},
-  {title: "취미", img: Hobby},
-  {title: "여행", img: Travel},
-  {title: "해외직구", img: Overseas},
-  {title: "이용권/ e쿠폰", img: Coupon},
-  {title: "생활", img: Life},
+  {title: "패션뷰티", img: Fashion, id: "FASHION"},
+  {title: "디지털/가전", img: Digital, id: "DIGITAL"},
+  {title: "가구", img: Furniture, id: "FURNITURE"},
+  {title: "식품", img: Food, id: "FOOD"},
+  {title: "동식물", img: Aniplant, id: "ANIMAL"},
+  {title: "스포츠", img: Sports, id: "SPORT"},
+  {title: "취미", img: Hobby, id: "HOBBY"},
+  {title: "여행", img: Travel, id: "TRAVEL"},
+  {title: "해외직구", img: Overseas, id: "CROSSBORDER"},
+  {title: "이용권/ e쿠폰", img: Coupon, id: "GIFTCARD"},
+  {title: "생활", img: Life, id: "LIFE"},
 ];
 
 const MainDrawer = ({ open, onClose }: MainDrawerProps) => {
@@ -110,7 +110,7 @@ const MainDrawer = ({ open, onClose }: MainDrawerProps) => {
         <Grid container flex={1} spacing={1} sx={{padding: "10px 5px"}}>
           {categories.map((category, index) => (
             <Grid item xs={6} key={index} sx={{marginBottom: "10px", display: "flex", justifyContent: "center"}}>
-              <CategoryCard title={category.title} imageUrl={category.img}/>
+              <CategoryCard title={category.title} imageUrl={category.img} id={category.id}/>
             </Grid>
           ))}
         </Grid>

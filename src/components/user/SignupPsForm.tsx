@@ -151,7 +151,7 @@ const SignupPsForm = () => {
             accessToken: res.data.accessToken,
           });
           setCookie("refreshToken", res.data.refreshToken, { path: "/" });
-          navigate("/");
+          navigate("/club/start");
         }
       })
       .catch((err) => {
