@@ -16,6 +16,11 @@ import rightArrow from "../../assets/icons/RightArrowPurple.png";
 import * as style from "../../components/main/MyBuyingCardComponents";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
 import PlusIcon from "../../assets/icons/PulsNoBackground.png";
+import ClubProductNo from "../../components/club/ClubProductNo";
+import HorizontalContainer from "../../components/shared/HorizontalContainer";
+import ClubBuyingCard from "../../components/main/ClubBuyingCard";
+import temperImage from "../../assets/temperImages/Group 436.png";
+import ClubJoinMemberPopup from "../../components/club/ClubJoinMemberPopup";
 
 type LocationState = {
   clubName: string;
@@ -52,11 +57,13 @@ const fixedParticipants = [
   },
 ];
 const ClubDetail = () => {
+  const [popupIsClicked, setPopupIsClicked] = useState(false);
   const [isJoinded, setIsJoinded] = useState(false);
   const [participants, setParticipants] = useState<
     { id: number; nickname: string; profile_image: string }[]
   >([]);
   const [userNickname, setUserNickname] = useState("");
+  const [clubListProducts, setClubListProducts] = useState<any[]>([]);
   const [login, setLogin] = useRecoilState(loginState);
   const location = useLocation();
   const navigate = useNavigate();
@@ -77,6 +84,16 @@ const ClubDetail = () => {
     club_id,
     club_code,
   } = location.state || ({} as LocationState);
+
+  const handlePopupSeeBtn = () => {
+    setPopupIsClicked(true);
+  };
+  const handlePopupClose = () => {
+    setPopupIsClicked(false);
+  };
+  const handleProductMapBtn = () => {
+    return navigate("/club/clubMap", { state: { club_rank: club_rank } });
+  };
 
   useEffect(() => {
     if (!user.isLoggedIn) {
@@ -145,8 +162,7 @@ const ClubDetail = () => {
         const response = await newAxiosInstance.get(
           `${process.env.REACT_APP_API_URL}clubs/${club_id}`
         );
-        console.log(response.data.member);
-        setParticipants(response.data.member);
+        setParticipants(response.data.club.members);
       } catch (error) {
         console.log("function inside error :", error);
       }
@@ -158,6 +174,32 @@ const ClubDetail = () => {
       console.log("error :", error);
     }
   }, [user.isLoggedIn]);
+  useEffect(() => {
+    async function getClubProductsAndAppendToState(id: number) {
+      try {
+        const response = await newAxiosInstance.get(
+          `${process.env.REACT_APP_API_URL}clubs/${id}/clubProducts`
+        );
+        return response.data;
+      } catch (error) {
+        console.log(error);
+        return [];
+      }
+    }
+    try {
+      // const productList = getClubProductsAndAppendToState(club_id)
+      // setClubListProducts(productList)
+      getClubProductsAndAppendToState(club_id)
+        .then((productList) => {
+          setClubListProducts(productList);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
   return (
     <>
@@ -187,6 +229,12 @@ const ClubDetail = () => {
             )}
             {isJoinded && (
               <div className={classes["club-info-contianer"]}>
+                {popupIsClicked && (
+                  <ClubJoinMemberPopup
+                    members={participants}
+                    onClick={handlePopupClose}
+                  />
+                )}
                 <div className={classes["club-info-box-1"]}>
                   <div className={classes["my-activity-profile-div"]}>
                     <style.RargeNoneProfile index={1}>
@@ -207,7 +255,10 @@ const ClubDetail = () => {
                     </span>
                   </div>
                 </div>
-                <div className={classes["club-info-box-2"]}>
+                <div
+                  className={classes["club-info-box-2"]}
+                  onClick={handleProductMapBtn}
+                >
                   <span className={classes["nickname-span"]}>
                     모임등급 현황 이미지로 보기
                   </span>
@@ -260,7 +311,10 @@ const ClubDetail = () => {
                         {participants.length} 명
                       </span>
                     </div>
-                    <div className={classes["see-more-member-div"]}>
+                    <div
+                      className={classes["see-more-member-div"]}
+                      onClick={handlePopupSeeBtn}
+                    >
                       <span className={classes["see-more-member-text"]}>
                         맴버 더보기
                       </span>
@@ -277,7 +331,35 @@ const ClubDetail = () => {
             )}
             {isJoinded && (
               <div>
-                <div>내 모임에서 진행 중인 함꼐 구매</div>
+                <div className={classes["club-products-title"]}>
+                  현재 모임에서 진행중인 함께구매
+                </div>
+                <div className={classes["club-products-sub-title"]}>
+                  현재 모임의 함께 구매 상품을 한눈에 보아요!
+                </div>
+                {clubListProducts.length === 0 ? (
+                  <ClubProductNo />
+                ) : (
+                  <HorizontalContainer>
+                    {clubListProducts.map((product) => {
+                      // 여기에 썸네일 넣어야함
+                      return (
+                        <ClubBuyingCard
+                          id={product.id}
+                          key={product.id}
+                          end_at={product.product.end_at}
+                          name={product.product.end_at}
+                          thumbnail={temperImage}
+                          discountRate={product.discountRate}
+                          price={product.product.price}
+                          score={product.achievement_rate}
+                          participantsNum={product.participant_count}
+                          participants={product.seller}
+                        />
+                      );
+                    })}
+                  </HorizontalContainer>
+                )}
               </div>
             )}
           </>

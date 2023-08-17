@@ -108,6 +108,7 @@ export const ParticipantsContainer = styled.div`
 
 type ProfileProp = {
   index: number;
+  top?: number;
 };
 
 export const MiniProfile = styled.img<ProfileProp>`
@@ -162,6 +163,7 @@ export const RargeNoneProfile = styled.div<ProfileProp>`
   border-radius: 999px;
   border: 2px solid #fff;
   left: ${(props) => props.index * 20 + 5}px;
+  top: ${(props) => props.top}px;
   z-index: ${(props) => 1000 - props.index};
   background-color: #d9d9d9;
 `;

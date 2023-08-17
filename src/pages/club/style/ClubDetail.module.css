@@ -13,6 +13,7 @@
 
 .club-info-contianer {
   width: 100%;
+  position: relative;
 }
 .club-info-box-1 {
   position: relative;
@@ -119,4 +120,22 @@
   align-items: center;
   gap: 15px;
   cursor: pointer;
+}
+.club-products-title {
+  color: #a394ff;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-bottom: 10px;
+}
+.club-products-sub-title {
+  color: #909090;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 30px;
 }
