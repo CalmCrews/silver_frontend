@@ -34,6 +34,11 @@ const MyClubsAll = () => {
     line-height: normal;
     padding-bottom: 10px;
   `;
+  const MarginDiv = styled.div`
+    width: 100%;
+    height: 100px;
+    border-bottom: solid 1px black;
+  `;
 
   useEffect(() => {
     async function getMyClub() {
@@ -76,6 +81,7 @@ const MyClubsAll = () => {
                 isClick={true}
               />
             ))}
+          <MarginDiv />
         </ContentDiv>
         <BottomTabBar currentPage="club" />
       </DefaultContainer>

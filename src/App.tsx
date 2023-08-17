@@ -30,6 +30,8 @@ import MyInfo from "./pages/myinfo/MyInfo";
 import FontSetting from "./pages/myinfo/FontSetting";
 import ClubMountainMap from "./pages/club/ClubMountainMap";
 import Search from "./pages/search/Search";
+import Splash from "./pages/splash/Splash";
+import SplashAdvertisement from "./pages/splash/SplashAdvertisement";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -74,15 +76,23 @@ function App() {
           <div className="mobile-view">
             <div className="mobile-content">
               <Routes>
+                <Route path="/slpash" element={<Splash />} />
+                <Route path="/slpash/ads" element={<SplashAdvertisement />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/signup/id" element={<SignupId />} />
                 <Route path="/signup/password" element={<SignupPs />} />
                 <Route path="/login" element={<SignIn />} />
                 <Route path="/review" element={<Review />} />
                 <Route path="/users/kakao/callback/" element={<KakaoLogin />} />
-                <Route path="/users/naver/callback/" element={<NaverLogin/>}/>
-                <Route path="/products/:productId" element={<ProductDetail/>}/>
-                <Route path="/clubProducts/:clubProductId" element={<ProductDetail/>}/>
+                <Route path="/users/naver/callback/" element={<NaverLogin />} />
+                <Route
+                  path="/products/:productId"
+                  element={<ProductDetail />}
+                />
+                <Route
+                  path="/clubProducts/:clubProductId"
+                  element={<ProductDetail />}
+                />
                 <Route path="/club/start" element={<ClubFirstStep />} />
                 <Route path="/club/naming" element={<MakeClubNaming />}></Route>
                 <Route path="/club/description" element={<MakeClubDes />} />
