@@ -10,6 +10,7 @@ import DefaultIcon from "../shared/DefaultIcon";
 function formatDate(input: string) {
   const [datePart, timePart] = input.split(" / ");
   const [year, month, day] = datePart.split("-").map(Number);
+  const [hour] = timePart.split(":").map(Number);
 
   // 요일 계산
   const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
@@ -17,7 +18,7 @@ function formatDate(input: string) {
   const weekday = weekdays[dateObj.getDay()];
 
   // 문자열 재구성
-  return `${month}월 ${day}일 (${weekday}) ${timePart}시`;
+  return `${month}월 ${day}일 (${weekday}) ${hour}시`;
 }
 
 type CardProps = {
@@ -62,7 +63,7 @@ const MyBuyingCard = ({
         >
           <CardMedia
             component="img"
-            image={thumbnail}
+            image={thumbnail ? `${process.env.REACT_APP_API_URL}${thumbnail}` : ""}
             alt={name}
             sx={{
               marginTop: "8px",
@@ -106,7 +107,7 @@ const MyBuyingCard = ({
               {participants.slice(0, 3).map((participant, index) =>
                 participant.profile_image ? (
                   <style.MiniProfile
-                    src={participant.profile_image}
+                    src={`${process.env.REACT_APP_API_URL}${participant.profile_image}`}
                     alt={participant.name}
                     index={index}
                   />

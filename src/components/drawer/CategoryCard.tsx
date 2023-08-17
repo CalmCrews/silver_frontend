@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, CardContent, CardMedia, Typography, Link } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { styled } from "@mui/material"
+import { Link } from "react-router-dom";
 
 const StyledCard = styled(Card)({
   position: "relative",
@@ -39,7 +40,7 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ title, imageUrl, id } : CategoryCardProps ) => {
   return (
-    <Link href={`/search/?category=${id}`} sx={{textDecoration: "none"}}>
+    <Link to={`/search/?category=${id}`} state={{ title: title }} style={{textDecoration: "none"}}>
       <StyledCard sx={{ maxWidth: "170px" }}>
         <CardContent sx={{ width : "86px", padding: "16px 0 0 16px" }}>
           <StyledTypo gutterBottom variant="h5">

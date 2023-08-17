@@ -180,7 +180,7 @@ const SellerDrawer = ({ sellerInfo, open, onClose }: MainDrawerProps) => {
       }}
     >
       <Container>
-        <ProfileImage src="" alt="seller_profile" />
+        <ProfileImage src={`${process.env.REACT_APP_API_URL}${sellerInfo.business_image}`} alt="seller_profile" />
         <CloseButton onClick={onClose}>
           <DefaultIcon size="18px" name="close" icon={CloseIcon} />
         </CloseButton>
@@ -188,7 +188,7 @@ const SellerDrawer = ({ sellerInfo, open, onClose }: MainDrawerProps) => {
         {isSelling && 
           <NowSellingContianer>
             <p style={{fontSize: "16px", margin: "12px 0 5px 0"}}>현재 진행 중인 함께구매 상품이 있어요!</p>
-            <Link href={""} sx={{fontSize: "14px", textDecoration: "none", color: "#a394ff", margin: "5px 0 12px 0"}}>클릭하여 공구영상 보러가기 <img width={"7px"} src={RightArrow}/></Link>
+            <Link href={""} sx={{fontSize: "14px", textDecoration: "none", color: "#a394ff", margin: "5px 0 12px 0"}}>클릭하여 함께구매 영상 보러가기 <img width={"7px"} src={RightArrow}/></Link>
           </NowSellingContianer>
         }
         {!isSelling && 

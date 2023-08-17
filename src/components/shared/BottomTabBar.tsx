@@ -18,6 +18,7 @@ const StyledTabs = styled(Tabs)({
   "&.MuiTabs-root":{
     width: "100%",
     backgroundColor: "#fff",
+    zIndex: "4000",
   },
   "& .MuiButtonBase-root": {
     display: "flex",
