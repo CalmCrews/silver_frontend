@@ -79,7 +79,7 @@ const ClubRankInfoBox: React.FC<MyComponentProps> = ({
 
   switch (club_rank) {
     case 0:
-      clubMountainRank_korean = "맴버가 3인 이상부터 등급이 부여됩니다";
+      clubMountainRank_korean = "멤버가 3인 이상부터 등급이 부여됩니다";
       clubMountainRank_image = mountain_1;
       break;
     case 1:

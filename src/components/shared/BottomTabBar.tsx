@@ -59,7 +59,7 @@ const BottomTabBar = ({currentPage}: {currentPage : string}) => {
         navigate("/");
         return ;
       case 1:
-        navigate("/club");
+        navigate("/club/myClubs");
         return ;
       case 2:
         navigate("/my");

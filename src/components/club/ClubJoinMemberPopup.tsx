@@ -18,7 +18,7 @@ const ClubJoinMemberPopup: React.FC<PopupProps> = ({ members, onClick }) => {
   };
   return (
     <div className={classes["club-popup-box"]}>
-      <div className={classes["popup-title"]}>우리 모임에 함께하는 맴버는</div>
+      <div className={classes["popup-title"]}>우리 모임에 함께하는 멤버는</div>
       <div className={classes["popup-member-count"]}>총 {members.length}명</div>
       <div>
         {members.map((member) => (

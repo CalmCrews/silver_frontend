@@ -269,7 +269,7 @@ const ClubDetail = () => {
                   />
                 </div>
                 <div className={classes["club-info-box-3"]}>
-                  <div className={classes["nickname-span"]}>전체 모인맴버</div>
+                  <div className={classes["nickname-span"]}>전체 모인멤버</div>
                   <div className={classes["last-outer-box"]}>
                     {participants.length > 3
                       ? participants.map((participant, index) =>
@@ -316,7 +316,7 @@ const ClubDetail = () => {
                       onClick={handlePopupSeeBtn}
                     >
                       <span className={classes["see-more-member-text"]}>
-                        맴버 더보기
+                        멤버 더보기
                       </span>
                       <img
                         className={classes["arrow-right-img"]}

@@ -144,15 +144,15 @@ const SignupPsForm = () => {
       })
       .then((res) => {
         console.log(res);
-        if (res.status >= 200 && res.status < 300) {
-          setLogin({
-            isLoggedIn: true,
-            userId: res.data.user.username,
-            accessToken: res.data.accessToken,
-          });
-          setCookie("refreshToken", res.data.refreshToken, { path: "/" });
-          navigate("/");
-        }
+        setLogin({
+          isLoggedIn: true,
+          userId: res.data.user.username, //아이디
+          accessToken: res.data.token.access,
+          user_id: res.data.user.id, //number
+          nickname: res.data.user.nickname, //닉네임
+        });
+        setCookie("refreshToken", res.data.token.refresh, { path: "/" });
+        navigate("/club/start");
       })
       .catch((err) => {
         console.error(err);

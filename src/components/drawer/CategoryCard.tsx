@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Link } from "@mui/material";
 import { styled } from "@mui/material"
 
 const StyledCard = styled(Card)({
@@ -34,20 +34,23 @@ const StyledTypo = styled(Typography)({
 interface CategoryCardProps {
   title: string;
   imageUrl: string;
+  id: string;
 }
 
-const CategoryCard = ({ title, imageUrl } : CategoryCardProps ) => {
+const CategoryCard = ({ title, imageUrl, id } : CategoryCardProps ) => {
   return (
-    <StyledCard sx={{ maxWidth: "170px" }}>
-      <CardContent sx={{ width : "86px", padding: "16px 0 0 16px" }}>
-        <StyledTypo gutterBottom variant="h5">
-          {title}
-        </StyledTypo>
-      </CardContent>
-      <StyledMedia>
-        <img src={imageUrl} alt="Image" style={{height: "100%", width: "auto"}}/>
-      </StyledMedia>
-    </StyledCard>
+    <Link href={`/search/?category=${id}`} sx={{textDecoration: "none"}}>
+      <StyledCard sx={{ maxWidth: "170px" }}>
+        <CardContent sx={{ width : "86px", padding: "16px 0 0 16px" }}>
+          <StyledTypo gutterBottom variant="h5">
+            {title}
+          </StyledTypo>
+        </CardContent>
+        <StyledMedia>
+          <img src={imageUrl} alt="Image" style={{height: "100%", width: "auto"}}/>
+        </StyledMedia>
+      </StyledCard>
+    </Link>
   );
 };
 
