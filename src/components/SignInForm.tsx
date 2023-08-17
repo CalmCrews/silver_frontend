@@ -81,7 +81,6 @@ function SignInForm() {
   const [isOpen, setIsOpen] = useState(false);
 
   const onSubmit: SubmitHandler<SignInFormValues> = (data) => {
-    console.log(data);
     axios
       .post(`${process.env.REACT_APP_API_URL}/users/signin/`, {
         username: data.userId,
@@ -89,6 +88,7 @@ function SignInForm() {
       })
       .then((res) => {
         if (res.status) {
+          console.log(res);
           setLogin({
             isLoggedIn: true,
             userId: res.data.user.username,

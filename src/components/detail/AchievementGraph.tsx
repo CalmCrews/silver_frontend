@@ -67,8 +67,8 @@ const AchievementGraph = (props: AchievementProps) => {
         <span>{props.price}원</span>
       </PointDiv>
       <PointDiv left="100%" color="#909090">
-        <span>100%</span>
-        <span>{Math.round((props.price * 0.65) / 10) * 10}원</span>
+        <span style={{backgroundColor: "#fff"}}>100%</span>
+        <span style={{backgroundColor: "#fff"}}>{Math.round((props.price * 0.65) / 10) * 10}원</span>
       </PointDiv>
     </AchievementContainer>
     

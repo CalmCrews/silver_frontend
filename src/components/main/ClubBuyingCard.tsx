@@ -195,7 +195,7 @@ const ClubBuyingCard = ({
             <div
               style={{ width: "100%", height: "100%", position: "relative" }}
             >
-              {fixedParticipants.map((participant, index) =>
+              {fixedParticipants.slice(0, 3).map((participant, index) =>
                 participant.profile ? (
                   <style.MiniProfile
                     src={participant.profile}
@@ -224,7 +224,7 @@ const ClubBuyingCard = ({
             </div>
           </ParticipantsContainer>
           <CardActions>
-            <Link href={`products/${id}`}>
+            <Link href={`clubProducts/${id}`}>
               <button 
                 style={{
                   width: "180px",
