@@ -37,13 +37,23 @@ const MyClubsAll = () => {
 
   useEffect(() => {
     async function getMyClub() {
-      const response = await newAxiosInstance.get(
-        `${process.env.REACT_APP_API_URL}clubs/`
-      );
-      console.log(response.data);
-      setClubInfoList(response.data);
+      try {
+        const response = await newAxiosInstance.get(
+          `${process.env.REACT_APP_API_URL}clubs/`
+        );
+        return response.data;
+      } catch (error) {
+        console.log("getMyClub inside :", error);
+        return [];
+      }
     }
-    getMyClub();
+    try {
+      getMyClub().then((returnData) => {
+        setClubInfoList(returnData);
+      });
+    } catch (error) {
+      console.log("getMyClub run :", error);
+    }
   }, []);
   return (
     <>
@@ -52,19 +62,20 @@ const MyClubsAll = () => {
         <AppBarWithDrawer />
         <ContentDiv>
           <ClubSubTitle>나의 모임 리스트</ClubSubTitle>
-          {clubInfoList.map((clubInfo, index) => (
-            <ClubRankInfoBox
-              club_code={clubInfo.code}
-              club_id={clubInfo.id}
-              club_name={clubInfo.name}
-              member_count={0}
-              club_rank={clubInfo.level}
-              club_keywords={clubInfo.tag}
-              key_string={`index_${index}`}
-              key={index}
-              isClick={true}
-            />
-          ))}
+          {clubInfoList.length !== 0 &&
+            clubInfoList.map((clubInfo, index) => (
+              <ClubRankInfoBox
+                club_code={clubInfo.code}
+                club_id={clubInfo.id}
+                club_name={clubInfo.name}
+                member_count={0}
+                club_rank={clubInfo.level}
+                club_keywords={clubInfo.tag}
+                key_string={`index_${index}`}
+                key={index}
+                isClick={true}
+              />
+            ))}
         </ContentDiv>
         <BottomTabBar currentPage="club" />
       </DefaultContainer>

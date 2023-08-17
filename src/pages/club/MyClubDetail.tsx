@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import DefaultContainer from "../../components/shared/DefaultContainer";
 import { Toolbar } from "@mui/material";
 import AppBarWithDrawer from "../../components/shared/AppBarWithDrawer";
@@ -31,6 +31,16 @@ type LocationState = {
   club_id: number;
   club_code: number;
 };
+type ClubInfoObject = {
+  clubName: string;
+  member_count: number;
+  club_rank: number;
+  club_keywords: string[];
+  key_string: string;
+  club_id: number;
+  club_code: number;
+};
+
 const ClubSubTitle = styled.div`
   color: #a394ff;
   font-family: Pretendard;
@@ -57,13 +67,23 @@ const fixedParticipants = [
   },
 ];
 const ClubDetail = () => {
+  const { id } = useParams();
   const [popupIsClicked, setPopupIsClicked] = useState(false);
   const [isJoinded, setIsJoinded] = useState(false);
   const [participants, setParticipants] = useState<
     { id: number; nickname: string; profile_image: string }[]
   >([]);
+  const [clubInfo, setClubInfo] = useState<ClubInfoObject>({
+    clubName: "",
+    member_count: 0,
+    club_rank: 0,
+    club_keywords: [],
+    key_string: "",
+    club_id: 0,
+    club_code: 0,
+  });
   const [userNickname, setUserNickname] = useState("");
-  const [clubListProducts, setClubListProducts] = useState<any[]>([]);
+  const [clubListProducts, setClubListProducts] = useState<any>([]);
   const [login, setLogin] = useRecoilState(loginState);
   const location = useLocation();
   const navigate = useNavigate();
@@ -75,16 +95,6 @@ const ClubDetail = () => {
       Authorization: `Bearer ${user.accessToken}`,
     },
   });
-  const {
-    clubName,
-    member_count,
-    club_rank,
-    club_keywords,
-    key_string,
-    club_id,
-    club_code,
-  } = location.state || ({} as LocationState);
-
   const handlePopupSeeBtn = () => {
     setPopupIsClicked(true);
   };
@@ -92,7 +102,9 @@ const ClubDetail = () => {
     setPopupIsClicked(false);
   };
   const handleProductMapBtn = () => {
-    return navigate("/club/clubMap", { state: { club_rank: club_rank } });
+    return navigate("/club/clubMap", {
+      state: { club_rank: clubInfo.club_rank },
+    });
   };
 
   useEffect(() => {
@@ -104,16 +116,15 @@ const ClubDetail = () => {
         const response = await newAxiosInstance.get(
           `${process.env.REACT_APP_API_URL}clubs/`
         );
-        const joinedClubList = response.data.map(
-          (item: { id: number }) => item.id
-        );
-        setIsJoinded(joinedClubList.includes(club_id));
+        return response.data.map((item: { id: number }) => item.id);
       } catch (error) {
         console.log("function inside error :", error);
       }
     }
     try {
-      isJoinedClub();
+      isJoinedClub().then((returnData) => {
+        setIsJoinded(returnData.includes(Number(id)));
+      });
     } catch (error) {
       console.log("error :", error);
     }
@@ -160,8 +171,18 @@ const ClubDetail = () => {
     async function thisClubDetailInfo() {
       try {
         const response = await newAxiosInstance.get(
-          `${process.env.REACT_APP_API_URL}clubs/${club_id}`
+          `${process.env.REACT_APP_API_URL}clubs/${id}`
         );
+        console.log("response.data :", response.data);
+        setClubInfo({
+          clubName: response.data.club.name,
+          member_count: response.data.club.number_of_members,
+          club_rank: response.data.club.level,
+          club_keywords: response.data.club.tag,
+          key_string: Math.random().toString(),
+          club_id: response.data.club.id,
+          club_code: response.data.club.code,
+        });
         setParticipants(response.data.club.members);
       } catch (error) {
         console.log("function inside error :", error);
@@ -173,7 +194,7 @@ const ClubDetail = () => {
     } catch (error) {
       console.log("error :", error);
     }
-  }, [user.isLoggedIn]);
+  }, [user.isLoggedIn, id]);
   useEffect(() => {
     async function getClubProductsAndAppendToState(id: number) {
       try {
@@ -189,7 +210,7 @@ const ClubDetail = () => {
     try {
       // const productList = getClubProductsAndAppendToState(club_id)
       // setClubListProducts(productList)
-      getClubProductsAndAppendToState(club_id)
+      getClubProductsAndAppendToState(Number(id))
         .then((productList) => {
           setClubListProducts(productList);
         })
@@ -208,24 +229,29 @@ const ClubDetail = () => {
         <AppBarWithDrawer />
         <div>
           <ClubSubTitle>모일까</ClubSubTitle>
-          <ClubRankInfoBox
-            club_code={club_code}
-            club_name={clubName}
-            member_count={member_count}
-            club_rank={club_rank}
-            club_keywords={club_keywords}
-            key_string={key_string}
-            club_id={club_id}
-            isClick={false}
-          />
+          {clubInfo.clubName !== "" && (
+            <ClubRankInfoBox
+              club_code={clubInfo.club_code}
+              club_name={clubInfo.clubName}
+              member_count={clubInfo.member_count}
+              club_rank={clubInfo.club_rank}
+              club_keywords={clubInfo.club_keywords}
+              key_string={clubInfo.key_string}
+              club_id={clubInfo.club_id}
+              isClick={false}
+            />
+          )}
         </div>
         <div className={classes["divide-line"]}></div>
-        {!user.isLoggedIn ? (
-          <ClubIsJoinedPopup isLogedIn={false} club_name={clubName} />
+        {user.isLoggedIn === false ? (
+          <ClubIsJoinedPopup isLogedIn={false} club_name={clubInfo.clubName} />
         ) : (
           <>
             {!isJoinded && (
-              <ClubIsJoinedPopup isLogedIn={true} club_name={clubName} />
+              <ClubIsJoinedPopup
+                isLogedIn={true}
+                club_name={clubInfo.clubName}
+              />
             )}
             {isJoinded && (
               <div className={classes["club-info-contianer"]}>
@@ -330,7 +356,7 @@ const ClubDetail = () => {
               </div>
             )}
             {isJoinded && (
-              <div>
+              <div className={classes["margin-div"]}>
                 <div className={classes["club-products-title"]}>
                   현재 모임에서 진행중인 함께구매
                 </div>
@@ -341,7 +367,7 @@ const ClubDetail = () => {
                   <ClubProductNo />
                 ) : (
                   <HorizontalContainer>
-                    {clubListProducts.map((product) => {
+                    {clubListProducts.map((product: any) => {
                       // 여기에 썸네일 넣어야함
                       return (
                         <ClubBuyingCard

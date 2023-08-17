@@ -34,3 +34,57 @@
   border-radius: 50px;
   cursor: pointer;
 }
+
+.input-outer-div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.code-input {
+  border-radius: 32.5px;
+  border: 2px solid #a394ff;
+  background: #f5f1ff;
+  width: 224px;
+  height: 66px;
+  flex-shrink: 0;
+  padding: 0 2% 0 32%;
+  color: #3a3a3a;
+  font-family: Pretendard;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.code-parti-text {
+  color: #a394ff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  display: flex;
+  position: absolute;
+  left: 17%;
+}
+.button-div {
+  display: flex;
+  padding: 15px 35px;
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 25px auto 0 auto;
+  border-radius: 999px;
+  border: none;
+  background-color: rgba(163, 148, 255, 1);
+}
+.wrong-code {
+  margin-top: 5px;
+  color: rgb(199, 58, 58, 0.8);
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+}
