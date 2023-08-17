@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomeAppBar from "./HomeAppBar";
 import { Badge, Box, IconButton, Link, Menu, MenuItem } from "@mui/material";
 import DefaultIcon from "./DefaultIcon";
@@ -7,11 +7,19 @@ import AlarmIcon from "../../assets/icons/AlarmIcon.png";
 import MainDrawer from "../drawer/MainDrawer";
 import Logo from "../../assets/logo/MoyeoLogo.png";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { useLocation } from "react-router-dom";
 
 const AppBarWithDrawer = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    // 주소가 변경되면 Drawer를 닫도록 설정
+    setIsDrawerOpen(false);
+  }, [location.pathname, location.search]);
 
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);

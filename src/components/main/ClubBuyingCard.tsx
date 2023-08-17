@@ -14,6 +14,7 @@ import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
 import StarIconEmpty from "../../assets/icons/StarIconEmpty.svg";
 import StarIconFilled from "../../assets/icons/StarIconFilled.svg";
 import DefaultIcon from "../shared/DefaultIcon";
+import { relative } from "path";
 
 export const EndDate = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const ParticipantsContainer = styled.div`
 
 const InfoSection = styled.div`
   display: flex;
-  justify-content: space-between;
+  position: relative;
 `;
 
 const PriceSection = styled.div`
@@ -76,6 +77,7 @@ type CardProps = {
 function formatDate(input: string) {
   const [datePart, timePart] = input.split(" / ");
   const [year, month, day] = datePart.split("-").map(Number);
+  const [hour] = timePart.split(":").map(Number);
 
   // 요일 계산
   const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
@@ -83,7 +85,7 @@ function formatDate(input: string) {
   const weekday = weekdays[dateObj.getDay()];
 
   // 문자열 재구성
-  return `${month}월 ${day}일 (${weekday}) ${timePart}시`;
+  return `${month}월 ${day}일 (${weekday}) ${hour}시`;
 }
 
 function formatForPrice(price: number) {
@@ -168,7 +170,7 @@ const ClubBuyingCard = ({
             </PriceSection>
             <div>{name}</div>
           </div>
-          <div style={{color: "#909090"}}>
+          <div style={{color: "#909090", position: "absolute", right: "0"}}>
             <Rating
               defaultValue={score}
               precision={0.1}
@@ -198,7 +200,7 @@ const ClubBuyingCard = ({
               {fixedParticipants.slice(0, 3).map((participant, index) =>
                 participant.profile ? (
                   <style.MiniProfile
-                    src={participant.profile}
+                    src={`${process.env.REACT_APP_API_URL}${participant.profile}`}
                     alt={participant.name}
                     index={index}
                   />

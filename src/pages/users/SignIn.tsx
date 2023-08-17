@@ -4,6 +4,7 @@ import { Divider, IconButton } from "@mui/material";
 import { styled } from "styled-components";
 import Kakao from "../../assets/icons/kakao_Button.png";
 import Naver from "../../assets/icons/Naver_Button.png";
+import LoginLogo from "../../assets/logo/Login_logo.png";
 
 const Container = styled.div`
   display: flex;
@@ -23,7 +24,7 @@ const TitleContainer = styled.div`
   color: ${(props) => props.theme.colors.black};
   font-weight: 400;
   font-size: 20px;
-  margin-top: 120px;
+  margin: 50px 0 50px 0;
 `;
 
 const SocialLoginTitle = styled.div`
@@ -54,12 +55,9 @@ const SignIn = () => {
   return (
     <Container>
       <TitleContainer>
-        <p>
-          모임원들과 모여
-          <br />
-          여기서 더 저렴하게!
-        </p>
-        <h1 style={{ margin: "15px" }}>모 여</h1>
+        <div>
+          <img src={LoginLogo} alt="login_logo" height="125px"/>
+        </div>
       </TitleContainer>
       <SignInForm />
       <div style={{ display: "flex", fontSize: "1rem", marginBottom: "35px" }}>

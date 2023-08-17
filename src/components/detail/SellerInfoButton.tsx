@@ -44,7 +44,7 @@ interface SellerInfo {
 const SellerInfoButton = ({sellerName, sellerProfile, onClick}: SellerInfo) => {
 	return (
 		<StyledButton onClick={onClick}>
-			<ProfileImage src={sellerProfile} alt="seller_profile"/>
+			<ProfileImage src={`${process.env.REACT_APP_API_URL}${sellerProfile}`} alt="seller_profile"/>
 			<SellerName>{sellerName}</SellerName>
 			<StyledLink>판매자 정보 <img src={GreyArrow} width={"8px"}/></StyledLink>
 		</StyledButton>

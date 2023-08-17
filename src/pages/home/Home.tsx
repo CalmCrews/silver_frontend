@@ -261,7 +261,7 @@ const Home = () => {
       const response = await newAxiosInstance.get(
         `${process.env.REACT_APP_API_URL}clubs/userClubProducts/`
       );
-      //console.log(response.data);
+      console.log(response.data);
       setMyBuyingData(response.data);
     } catch (error) {
       setMyBuyingData(null);
@@ -274,7 +274,7 @@ const Home = () => {
       const response = await newAxiosInstance.get(
         `${process.env.REACT_APP_API_URL}clubs/allClubProducts/`
       );
-      console.log(response.data);
+      //console.log(response.data);
       setClubBuyingData(response.data);
     } catch (error) {
       setClubBuyingData(null);
@@ -339,7 +339,7 @@ const Home = () => {
           <MainCarousel />
           <SectionBox>
             <SectionTitle>내가 참여 중인 함께구매</SectionTitle>
-            {myBuyingData === null ? (
+            {myBuyingData === null || myBuyingData.length === 0 ? (
               <>
                 <img src={EmptyDataImg} alt="empty_data_image" width="110px" />
                 <EmptyDiv>
@@ -349,9 +349,9 @@ const Home = () => {
                 </EmptyDiv>
               </>
             ) : (
-              myBuyingData && myBuyingData.map((item: any) => (
+              myBuyingData && myBuyingData.map((item: any, index: number) => (
                 <MyBuyingCard 
-                  key={item.id}
+                  key={index}
                   id={item.id}
                   end_at={item.product.end_at}
                   name={item.product.name}
@@ -369,9 +369,9 @@ const Home = () => {
           <SectionBox>
             <SectionTitle>내 모임에서 진행 중인 함께구매</SectionTitle>
             <HorizontalContainer>
-              {clubBuyingData && clubBuyingData.map((item: any) => (
+              {clubBuyingData && clubBuyingData.map((item: any, index: number) => (
                 <ClubBuyingCard 
-                  key={item.id}
+                  key={index}
                   id={item.id}
                   end_at={item.product.end_at}
                   name={item.product.name}
@@ -409,8 +409,8 @@ const Home = () => {
                   }}
                 >
                   {clubListData &&
-                    clubListData.map((item: { id: number; name: string }) => (
-                      <MenuItem key={item.id} value={item.name}>
+                    clubListData.map((item: { id: number; name: string }, index: number) => (
+                      <MenuItem key={index} value={item.name}>
                         {item.name}
                       </MenuItem>
                     ))}
@@ -419,9 +419,9 @@ const Home = () => {
             </div>
 
             {recommendData &&
-              recommendData.map((product: RecommendDataItem) => (
+              recommendData.map((product: RecommendDataItem, index: number) => (
                 <RecommendBox
-                  key={product.id}
+                  key={index}
                   id={product.id}
                   name={product.name}
                   thumbnail={product.thumbnail || ""}
