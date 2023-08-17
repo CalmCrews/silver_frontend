@@ -16,6 +16,7 @@ import ClubProductNo from "../../components/club/ClubProductNo";
 import HorizontalContainer from "../../components/shared/HorizontalContainer";
 import ClubBuyingCard from "../../components/main/ClubBuyingCard";
 import temperImage from "../../assets/temperImages/Group 436.png";
+import SadFaceImage from "../../assets/faceImage/SadFaceImage.png";
 
 const MyClubs = () => {
   const user = useRecoilValue(loginState);
@@ -127,7 +128,7 @@ const MyClubs = () => {
               isClick={true}
             />
           ))}
-          {
+          {clubInfoList.length >= 3 && (
             <div className={classes["see-more-div"]} onClick={handleNext}>
               <div className={classes["see-more-text-div"]}>더보기</div>
               <img
@@ -136,7 +137,24 @@ const MyClubs = () => {
                 alt="DownArrowGrey"
               />
             </div>
-          }
+          )}
+          {clubInfoList.length === 0 && (
+            <>
+              <img
+                className={classes["sad-head-img"]}
+                src={SadFaceImage}
+                alt="SadFaceImage"
+              />
+              <div className={classes["no-product-text-div"]}>
+                <span className={classes["no-product-span"]}>
+                  아직 가입한 모임이 없어요
+                </span>
+                <span className={classes["no-product-span"]}>
+                  아래 버튼에서 모임을 만들고 가입해 볼까요?
+                </span>
+              </div>
+            </>
+          )}
           <div className={classes["just-for-margin"]}></div>
           <div className={classes["club-products-container"]}>
             <div className={classes["club-products-title-div"]}>
