@@ -2,18 +2,7 @@ import React from "react";
 import { Card } from "@mui/material";
 import { styled } from "styled-components";
 
-function formatDate(input: string) {
-  const [datePart, timePart] = input.split(" / ");
-  const [year, month, day] = datePart.split("-").map(Number);
 
-  // 요일 계산
-  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
-  const dateObj = new Date(year, month - 1, day);
-  const weekday = weekdays[dateObj.getDay()];
-
-  // 문자열 재구성
-  return `${month}월 ${day}일 (${weekday}) ${timePart}시`;
-}
 
 export const BuyingCard = styled(Card)({
   width: "100%",

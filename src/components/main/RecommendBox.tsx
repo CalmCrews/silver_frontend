@@ -65,7 +65,7 @@ const RecommendBox = ({
         }}
       >
         <img
-          src={thumbnail}
+          src={`${process.env.REACT_APP_API_URL}${thumbnail}`}
           alt={name}
           style={{
             width: "100%",

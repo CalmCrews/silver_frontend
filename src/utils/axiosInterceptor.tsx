@@ -16,7 +16,7 @@ const axiosInstance = createInstance();
 
 const AxiosInterceptor = ({ children }: { children: React.ReactNode }) => {
   const user = useRecoilValue(loginState); // useRecoilValue로 변경
-  console.log("user: ", user);
+  //console.log("user: ", user);
 
   useEffect(() => {
     const requestInterceptor = axiosInstance.interceptors.request.use(

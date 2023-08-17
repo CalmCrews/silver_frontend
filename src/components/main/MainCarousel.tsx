@@ -13,7 +13,7 @@ const products = [
     saleTime:
       "8월 3일 (목) 20:00",
     productTitle:
-      "풍성한 볼륨감, 우일고데기 공동구매 오픈",
+      "풍성한 볼륨감, 우일고데기 함께구매 오픈",
     productSubtitle: 
       "볼륨감의 비밀, 우일이가 알려줄게요",
   },
@@ -25,7 +25,7 @@ const products = [
     saleTime:
       "8월 3일 (목) 20:00",
     productTitle:
-      "풍성한 볼륨감, 우일고데기 공동구매 오픈",
+      "풍성한 볼륨감, 우일고데기 함께구매 오픈",
     productSubtitle: 
       "볼륨감의 비밀, 우일이가 알려줄게요",
   },
@@ -37,7 +37,7 @@ const products = [
     saleTime:
       "8월 3일 (목) 20:00",
     productTitle:
-      "풍성한 볼륨감, 우일고데기 공동구매 오픈",
+      "풍성한 볼륨감, 우일고데기 함께구매 오픈",
     productSubtitle: 
       "볼륨감의 비밀, 우일이가 알려줄게요",
   },
@@ -49,7 +49,7 @@ const products = [
     saleTime:
       "8월 3일 (목) 20:00",
     productTitle:
-      "풍성한 볼륨감, 우일고데기 공동구매 오픈",
+      "풍성한 볼륨감, 우일고데기 함께구매 오픈",
     productSubtitle: 
       "볼륨감의 비밀, 우일이가 알려줄게요",
   },
@@ -121,7 +121,7 @@ const MainCarousel = () => {
     >
       {products.map((product, index) => (
         <Paper
-          key={product.label}
+          key={index}
           sx={{ width: "100%", height: "100%", position: "relative" }}
         >
           <Link href={`/products/${product.id}`}>
