@@ -24,7 +24,7 @@ const ProductInfo = {
   originalPrice: "5,000",
   category: "DIGITAL",
   thumbnail: null,
-  video: "https://youtube.com/shorts/i1y5Pqv73AQ?feature=share",
+  video: "https://player.vimeo.com/external/855289260.m3u8?s=1dd544d1f31449f83bbadb94d7c4fd3268a0867a&logging=false",
   seller: "코알라",
   sellerProfile: "",
   total: 100,
@@ -45,34 +45,31 @@ const DetailToolbar = styled(Toolbar)({
 });
 
 interface RouteParams {
-  productId: string;
-  clubId?: string;
+  productId?: string;
+  clubProductId?: string;
 }
 
 const ProductDetail = () => {
   const [isSellerOpen, setIsSellerOpen] = useState(false);
-  const { clubId, productId } = useParams<Record<string, string | undefined>>();
+  const { clubProductId, productId } = useParams<Record<string, string | undefined>>();
 
   const user = useRecoilValue(loginState);
   const [productData, setProductData] = useState<any | null>(null);
   const [sellerData, setSellerData] = useState<any | null>(null);
 
   const newAxiosInstance = axios.create({
-    baseURL: "http://127.0.0.1:8000/",
     headers: {
       Authorization: `Bearer ${user.accessToken}`,
     },
   });
 
   useEffect(() => {
-    if (clubId) {
+    if (clubProductId) {
       getClubProduct();
     }
     else {
       getProduct();
     }
-    console.log(productId);
-    console.log(user);
 
     async function getProduct() {
       const response = await newAxiosInstance.get(
@@ -85,7 +82,7 @@ const ProductDetail = () => {
 
     async function getClubProduct() {
       const response = await newAxiosInstance.get(
-        `${process.env.REACT_APP_API_URL}clubs/${clubId}/clubProducts/${productId}`
+        `${process.env.REACT_APP_API_URL}clubs/clubProducts/${clubProductId}`
       );
       console.log(response.data);
       setProductData(response.data.product);
@@ -96,6 +93,7 @@ const ProductDetail = () => {
 
   //props filtering
   const {
+    id,
     intro,
     name,
     price,
@@ -108,6 +106,7 @@ const ProductDetail = () => {
   } = productData || {};
   
   const infoProps: InfoProps = {
+    id,
     intro,
     name,
     price,
@@ -123,13 +122,6 @@ const ProductDetail = () => {
     setIsSellerOpen(false);
   };
   
-  
-  
-    
-    // const handleConfirm = () => {
-
-      
-    // };
 
   const handleGoBack = () => {
     window.history.back(); // 이전 페이지로 이동

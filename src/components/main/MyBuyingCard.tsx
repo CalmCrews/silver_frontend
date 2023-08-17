@@ -27,7 +27,7 @@ type CardProps = {
   thumbnail: string;
   accomplished: number;
   participantsNum: number;
-  participants: { name: string; profile: string }[];
+  participants: { name: string; username: string; nickname: string; profile_image: string, }[];
 };
 
 const MyBuyingCard = ({
@@ -42,7 +42,7 @@ const MyBuyingCard = ({
   return (
     <style.BuyingCard>
       <CardActionArea
-        href={`/products/${id}`}
+        href={`clubProducts/${id}`}
         sx={{ width: "100%", height: "100%", padding: "15px 15px 5px 15px" }}
       >
         <header style={{ display: "flex" }}>
@@ -103,10 +103,10 @@ const MyBuyingCard = ({
             <div
               style={{ width: "100%", height: "100%", position: "relative" }}
             >
-              {participants.map((participant, index) =>
-                participant.profile ? (
+              {participants.slice(0, 3).map((participant, index) =>
+                participant.profile_image ? (
                   <style.MiniProfile
-                    src={participant.profile}
+                    src={participant.profile_image}
                     alt={participant.name}
                     index={index}
                   />

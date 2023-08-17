@@ -40,20 +40,16 @@ const DiscountSection = styled.span`
 
 type BoxProps = {
   id: number;
-  intro: string;
   name: string;
   thumbnail: string;
-  discountRate: number;
   price: number;
   score: number;
 };
 
 const RecommendBox = ({
   id,
-  intro,
   name,
   thumbnail,
-  discountRate,
   price,
   score,
 }: BoxProps) => {
@@ -84,7 +80,7 @@ const RecommendBox = ({
         <div>
           <PriceSection>
             {formatForPrice(price)}원
-            <DiscountSection> ~{discountRate}%</DiscountSection>
+            <DiscountSection> ~35%</DiscountSection>
           </PriceSection>
         </div>
         <div style={{ color: "#909090" }}>
@@ -126,7 +122,7 @@ const RecommendBox = ({
         <div
           style={{ textOverflow: "ellipsis", width: "275px", color: "#3a3a3a" }}
         >
-          {intro} {name}
+          {name}
         </div>
         <IconButton href={`/products/${id}`}>
           <ArrowForwardIosRoundedIcon

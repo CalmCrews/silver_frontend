@@ -39,6 +39,7 @@ type Participant = {
 };
 
 export interface InfoProps {
+  id: number;
   intro: string;
   name: string;
   price: number;
@@ -149,7 +150,7 @@ const ProductInfoSection = (props: InfoProps) => {
     },
   });
 
-  console.log(props);
+  //console.log(props);
   React.useEffect(() => {
     if (!props.current_price) {
       getClubs();
@@ -180,11 +181,14 @@ const ProductInfoSection = (props: InfoProps) => {
       quantity: 1,
     }
     try {
+      const requestBody = {
+        quantity: 1,
+      }
       const response = await newAxiosInstance.post(
-        `${process.env.REACT_APP_API_URL}products/${productId}/orders`,
-        requestBody
+        `${process.env.REACT_APP_API_URL}products/${props.id}/orders`,
+        requestBody,
       );
-      console.log(response.data);
+      console.log("구매완료",response.data);
       setPurchaseCompleted(true);
     } catch (error) {
       console.error("Error: ", error);
@@ -209,18 +213,17 @@ const ProductInfoSection = (props: InfoProps) => {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [isConfirmationDialogOpen, setIsConfirmationDialogOpen] = React.useState(false);
 
+  const [toClubProduct, setToClubProduct] = React.useState(0);
+
   const handleClubJoin = async() => {
-    const requestBody = {
-      club_id: clubId,
-    }
     try {
       const response = await newAxiosInstance.post(
-        `${process.env.REACT_APP_API_URL}products/${productId}/joinProductToClub`,
-        requestBody
+        `${process.env.REACT_APP_API_URL}products/${productId}/joinProductToClub/?club=${selectedClubId}`,
       );
       console.log(response.data);
       setIsConfirmationDialogOpen(true);
       setIsDialogOpen(false);
+      setToClubProduct(response.data.id);
     } catch (error) {
       console.error("Error: ", error);
     }
@@ -241,6 +244,7 @@ const ProductInfoSection = (props: InfoProps) => {
 
   const handleConfirmationDialogClose = () => {
     setIsConfirmationDialogOpen(false);
+    window.location.href = `/clubProducts/${toClubProduct}`;
   };
 
   const handleCompleteClick = () => {
