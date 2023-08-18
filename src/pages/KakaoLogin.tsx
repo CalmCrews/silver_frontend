@@ -39,7 +39,7 @@ const KakaoLogin = () => {
         nickname: res.data.user.nickname, //닉네임
       });
       setCookie("refreshToken", res.data.token.refresh, { path: "/" });
-      navigate("/");
+      navigate("/fontsetting");
     } catch (error) {
       console.error("Kakao callback error:", error);
     }
