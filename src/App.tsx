@@ -22,7 +22,7 @@ import MakeClubRegister from "./pages/club/MakeClubRegister";
 import JoinClubRegister from "./pages/club/JoinClubRegister";
 import JoinClubProfile from "./pages/club/JoinClubProfile";
 import ProductDetail from "./pages/detail/ProductDetail";
-import ChargeCash from "./pages/ChargeCash";
+import ChargeCash from "./pages/charge/ChargeCash";
 import MyClubs from "./pages/club/MyClubs";
 import MyClubDetail from "./pages/club/MyClubDetail";
 import MyClubsAll from "./pages/club/MyClubsAll";
@@ -113,7 +113,7 @@ function App() {
                 <Route path="/club/clubMap" element={<ClubMountainMap />} />
                 <Route path="/my" element={<MyInfo />} />
                 <Route path="/fontsetting" element={<FontSetting />} />
-                <Route path="/search" element={<Search/>}/>
+                <Route path="/search" element={<Search />} />
                 <Route path="/charge" element={<ChargeCash />} />
               </Routes>
             </div>
