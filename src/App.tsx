@@ -99,8 +99,8 @@ function App() {
                   style={{
                     position: "absolute",
                     left: "0",
-                    top: "10%",
-                    width: "45%",
+                    top: "0",
+                    width: "40%",
                   }}
                 />
               </div>
