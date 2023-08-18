@@ -25,6 +25,7 @@ const SearchToolbar = styled(Toolbar)({
 
 const MainDiv = styled.div`
   width: 100%;
+  height: 100%;
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
@@ -41,7 +42,7 @@ const SectionBox = styled.div`
 
 const Search = () => {
   const location = useLocation();
-  //console.log(location.state);
+  console.log(location.state);
   const urlSearchParams = new URLSearchParams(window.location.search);
   const fullQueryString = urlSearchParams.toString();
   
@@ -92,7 +93,7 @@ const Search = () => {
             >
               <ArrowBackIosRoundedIcon/>
             </IconButton>
-            <p>"{location.state.title}"{" "}결과 목록</p>
+            <p>결과 목록</p>
           </SearchToolbar>
           <SectionBox>
             {searchData &&

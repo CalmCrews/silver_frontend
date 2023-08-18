@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import { InputBase, Autocomplete, TextField } from "@mui/material";
 import { includesByCho, makeRegexByCho } from "hangul-util";
+import { useNavigate } from "react-router-dom";
 
 const SearchContainer = styled("div")({
   display: "flex",
@@ -57,9 +58,12 @@ const SearchBar = () => {
   ];
   const [searchValue, setSearchValue] = React.useState<string>("");
 
+  const navigate = useNavigate();
+
   const handleSearch = () => {
     // Implement your search logic here
     console.log(searchValue);
+    navigate(`/search/?search=${searchValue}`);
   };
 
   const filterOptions = (

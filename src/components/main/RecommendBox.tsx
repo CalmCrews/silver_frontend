@@ -98,7 +98,7 @@ const RecommendBox = ({
         </div>
         <div style={{ color: "#909090" }}>
           <Rating
-            defaultValue={score}
+            value={score}
             precision={0.1}
             icon={
               <DefaultIcon
