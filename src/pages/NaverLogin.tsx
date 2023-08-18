@@ -28,21 +28,19 @@ const NaverLogin = () => {
 
   const handleNaverCallback = async (code: string) => {
     try {
-      const response = await axios.get(
+      const res = await axios.get(
         `${process.env.REACT_APP_API_URL}users/naver/callback/?code=${code}`
       );
-      console.log(response.data);
-      const { user, token } = response.data;
 
-      // 로그인 성공 시 사용자 정보와 토큰을 처리합니다.
-      console.log('Logged in user:', user);
-      console.log('Access Token:', token.access);
-      console.log('Refresh Token:', token.refresh);
-
-      setLogin({ isLoggedIn: true, userId: user.naverId, accessToken: token.access });
-      setCookie('refreshToken', token.refresh, { path: '/' });
-      navigate('/');
-      console.log("navigate!")
+      setLogin({
+        isLoggedIn: true,
+        userId: res.data.user.username, //아이디
+        accessToken: res.data.token.access,
+        user_id: res.data.user.id, //number
+        nickname: res.data.user.nickname, //닉네임
+      });
+      setCookie("refreshToken", res.data.token.refresh, { path: "/" });
+      navigate("/");
     } catch (error) {
       console.error('Naver callback error:', error);
     }

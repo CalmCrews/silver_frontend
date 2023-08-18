@@ -103,20 +103,6 @@ const ClubBuyingCard = ({
   participantsNum,
   participants,
 }: CardProps) => {
-  const fixedParticipants = [
-    {
-      name: "코알1",
-      profile: "",
-    },
-    {
-      name: "코알2",
-      profile: "",
-    },
-    {
-      name: "코알3",
-      profile: "",
-    },
-  ];
 
   return (
     <Card
@@ -163,14 +149,18 @@ const ClubBuyingCard = ({
       />
       <CardContent style={{ padding: "14px 14px 8px 14px" }}>
         <InfoSection>
-          <div>
+          <div style={{width: "100%"}}>
             <PriceSection>
               {formatForPrice(price)}원
               <DiscountSection> ~{discountRate}%</DiscountSection>
             </PriceSection>
-            <div>{name}</div>
+            <div
+              style={{width: "100%", overflow: "hidden", textOverflow: "ellipsis"}}
+            >
+              {name}
+            </div>
           </div>
-          <div style={{color: "#909090", position: "absolute", right: "0"}}>
+          <div style={{ color: "#909090", position: "absolute", right: "0"}}>
             <Rating
               defaultValue={score}
               precision={0.1}
@@ -197,7 +187,7 @@ const ClubBuyingCard = ({
             <div
               style={{ width: "100%", height: "100%", position: "relative" }}
             >
-              {fixedParticipants.slice(0, 3).map((participant, index) =>
+              {participants.slice(0, 3).map((participant, index) =>
                 participant.profile ? (
                   <style.MiniProfile
                     src={`${process.env.REACT_APP_API_URL}${participant.profile}`}

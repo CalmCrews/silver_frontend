@@ -40,11 +40,11 @@ function formatForPrice(price: number) {
 const LinkButton = muiStyled(Button)(({ theme }) => ({
   padding: "15px",
   color: "#fff",
-  width: "160px",
+  width: "160px"
   fontSize: "1rem",
   fontWeight: "600",
   borderRadius: "12px",
-  margin: "18px",
+  margin: "12px 12px 30px 12px",
   backgroundColor: "#a394ff",
   "&:hover": {
     backgroundColor: "#a394ff",
@@ -84,6 +84,17 @@ const RowButton = styled.button`
   &:hover {
     background-color: rgba(240, 240, 240, 0.25);
   }
+`;
+
+const MainDiv = styled.div`
+  width: 100%;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const MyInfo = () => {
@@ -183,41 +194,42 @@ const MyInfo = () => {
           </LinkButton>
         </div>
 
+          <ButtonGroup
+            aria-label="button group"
+            variant="text"
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "0px",
+              width: "100%",
+              boxShadow: "0px 2px 6px 2px rgba(0, 0, 0, 0.25)",
+              borderTop: "1px solid #f0f0f0",
+              borderRadius: "0",
+              marginBottom: "10px",
+            }}
+          >
+            <GridButton>구매현황</GridButton>
+            <GridButton>배송조회</GridButton>
+            <GridButton>쿠폰관리</GridButton>
+            <GridButton>주문내역</GridButton>
+            <GridButton>정보수정</GridButton>
+            <GridButton>문의하기</GridButton>
+          </ButtonGroup>
+          <br />
+          <ButtonGroup
+            orientation="vertical"
+            sx={{
+              width: "100%",
+              border: "1px solid #f0f0f0",
+              borderRadius: "0",
+            }}
+          >
+            <RowButton>자주 묻는 질문</RowButton>
+            <RowButton onClick={handleLogoutClick}>로그아웃</RowButton>
+            <RowButton>회원탈퇴</RowButton>
+          </ButtonGroup>
+        </MainDiv>
         <BottomTabBar currentPage="myinfo" />
-        <ButtonGroup
-          aria-label="button group"
-          variant="text"
-          sx={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "0px",
-            width: "100%",
-            boxShadow: "0px 2px 6px 2px rgba(0, 0, 0, 0.25)",
-            borderTop: "1px solid #f0f0f0",
-            borderRadius: "0",
-            marginBottom: "10px",
-          }}
-        >
-          <GridButton>구매현황</GridButton>
-          <GridButton>배송조회</GridButton>
-          <GridButton>쿠폰관리</GridButton>
-          <GridButton>주문내역</GridButton>
-          <GridButton>정보수정</GridButton>
-          <GridButton>문의하기</GridButton>
-        </ButtonGroup>
-        <br />
-        <ButtonGroup
-          orientation="vertical"
-          sx={{
-            width: "100%",
-            border: "1px solid #f0f0f0",
-            borderRadius: "0",
-          }}
-        >
-          <RowButton>자주 묻는 질문</RowButton>
-          <RowButton onClick={handleLogoutClick}>로그아웃</RowButton>
-          <RowButton>회원탈퇴</RowButton>
-        </ButtonGroup>
       </DefaultContainer>
       <Dialog open={openDialog} onClose={handleCloseDialog} sx={{}}>
         <DialogTitle>로그아웃</DialogTitle>
