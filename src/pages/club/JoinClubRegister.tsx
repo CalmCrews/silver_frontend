@@ -74,41 +74,40 @@ const JoinClubRegister = () => {
     } catch (error) {
       setJoinClubAnswer(true);
       console.log("clubJoinFunc inside :", error);
-      return {};
+      return { club: { id: "" } };
     }
   };
 
   const handleNext = () => {
     // 모임등록 코드 구현해야 함
     let club_id;
-    let user_nickname;
     let isAleardyJoined;
     try {
       clubJoinFunc().then((returnData) => {
-        club_id = returnData.club.id ? returnData.club.id : returnData.club;
-        console.log(
-          "returnData.club.id ? returnData.club.id : returnData.club",
-          returnData.club.id ? returnData.club.id : returnData.club,
-          club_id
-        );
         if (returnData.message) {
-          return navigate(`/club/myClubs/detail/${club_id}`, {
-            state: {
-              clubName: "",
-              description: "",
-            },
-          });
+          return navigate(`/club/myClubs/detail/${returnData.club}`);
+        }
+        if (returnData.club.id === "") {
+          return;
+        }
+        if (returnData.club.id !== "" && returnData.user.nickname) {
+          return navigate(`/club/myClubs/detail/${returnData.club}`);
+        }
+        return navigate(`/club/join/profile`);
+        console.log("returnData :", returnData);
+        club_id = returnData.club.id ? returnData.club.id : returnData.club;
+        console.log(club_id, returnData.message);
+        if (club_id === "") {
+          console.log("여기로 안옴");
+          return;
         } else {
-          isAleardyJoined = false;
-          user_nickname = returnData.user ? returnData.user.nickname : "";
-          setUserNickname(user_nickname);
-          setClubId(club_id);
+          console.log("여기로 옴");
 
-          if (user_nickname === "") {
-            return navigate("/club/join/profile");
+          isAleardyJoined = false;
+          if (returnData.user && returnData.user.nickname) {
+            // return navigate(`/club/myClubs/detail/${returnData.club}`);
           }
-          // 등록한 이후 해당 모임 정보를 다음으로 보내줘야 한다
-          return navigate(`/club/myClubs/detail/${club_id}`);
+          // return navigate(`/club/join/profile`);
         }
       });
     } catch (error) {

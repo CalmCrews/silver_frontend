@@ -76,8 +76,8 @@ function App() {
           <div className="mobile-view">
             <div className="mobile-content">
               <Routes>
-                <Route path="/slpash" element={<Splash />} />
-                <Route path="/slpash/ads" element={<SplashAdvertisement />} />
+                <Route path="/splash" element={<Splash />} />
+                <Route path="/splash/ads" element={<SplashAdvertisement />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/signup/id" element={<SignupId />} />
                 <Route path="/signup/password" element={<SignupPs />} />
