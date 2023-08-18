@@ -37,7 +37,7 @@ const SplashAdvertisement = () => {
   const handleGoNextPage = () => {
     setPageNum((preNum) => pageNum + 1);
     if (pageNum === 2) {
-      return navigate("/");
+      return navigate("/login");
     }
   };
 
