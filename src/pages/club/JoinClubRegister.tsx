@@ -94,21 +94,6 @@ const JoinClubRegister = () => {
           return navigate(`/club/myClubs/detail/${returnData.club}`);
         }
         return navigate(`/club/join/profile`);
-        console.log("returnData :", returnData);
-        club_id = returnData.club.id ? returnData.club.id : returnData.club;
-        console.log(club_id, returnData.message);
-        if (club_id === "") {
-          console.log("여기로 안옴");
-          return;
-        } else {
-          console.log("여기로 옴");
-
-          isAleardyJoined = false;
-          if (returnData.user && returnData.user.nickname) {
-            // return navigate(`/club/myClubs/detail/${returnData.club}`);
-          }
-          // return navigate(`/club/join/profile`);
-        }
       });
     } catch (error) {
       console.log(error);
