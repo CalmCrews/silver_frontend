@@ -167,7 +167,7 @@ const ClubBuyingCard = ({
           <div style={{width: "100%"}}>
             <PriceSection>
               {formatForPrice(price)}원
-              <DiscountSection> ~{discountRate}%</DiscountSection>
+              <DiscountSection> ~{discountRate ? discountRate : `0`}%</DiscountSection>
             </PriceSection>
             <div
               style={{width: "100%", overflow: "hidden", textOverflow: "ellipsis"}}
@@ -225,7 +225,7 @@ const ClubBuyingCard = ({
                 }}
               />
               <style.Participating>
-                <p style={{ color: "#a394ff" }}>{participantsNum}명</p>
+                <p style={{ color: "#a394ff" }}>{participantsNum ? participantsNum : 0}명</p>
                 &nbsp;참여중
               </style.Participating>
             </div>

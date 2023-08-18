@@ -173,9 +173,9 @@ const MyClubs = () => {
                       id={product.id}
                       key={product.id}
                       end_at={product.product.end_at}
-                      name={product.product.end_at}
+                      name={product.product.name}
                       thumbnail={product.product.thumbnail}
-                      discountRate={product.discountRate}
+                      discountRate={product.discount_rate}
                       price={product.product.price}
                       score={product.achievement_rate}
                       participantsNum={product.participant_count}
