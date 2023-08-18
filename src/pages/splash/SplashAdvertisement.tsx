@@ -9,6 +9,9 @@ import SimpleAppBar from "../../components/shared/SimpleAppBar";
 
 import classes from "./SplashAdvertisement.module.css";
 
+import { loginState } from "../../states/userInfo";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -33,11 +36,15 @@ const btnTextList = ["다음", "다음", "시작할래요!"];
 const SplashAdvertisement = () => {
   const navigate = useNavigate();
   const [pageNum, setPageNum] = useState(0);
+  const user = useRecoilValue(loginState);
 
   const handleGoNextPage = () => {
     setPageNum((preNum) => pageNum + 1);
     if (pageNum === 2) {
-      return navigate("/");
+      if (user.isLoggedIn) {
+        return navigate("/");
+      }
+      return navigate("/login");
     }
   };
 

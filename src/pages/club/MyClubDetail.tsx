@@ -231,7 +231,7 @@ const ClubDetail = () => {
       <DefaultContainer>
         <Toolbar sx={{ height: "60px" }} />
         <AppBarWithDrawer />
-        <div>
+        <div className={classes["div-outside"]}>
           <ClubSubTitle>모일까</ClubSubTitle>
           {clubInfo.clubName !== "" && (
             <ClubRankInfoBox

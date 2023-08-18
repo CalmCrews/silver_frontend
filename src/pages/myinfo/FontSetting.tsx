@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { axiosInstance } from "../../utils/axiosInterceptor";
+
 import DefaultContainer from "../../components/shared/DefaultContainer";
 import SimpleAppBar from "../../components/shared/SimpleAppBar";
 import { styled } from "styled-components";
@@ -6,7 +9,9 @@ import { useRecoilState } from "recoil";
 import { fontSizeState } from "../../states/userInfo";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-
+import { useRecoilValue } from "recoil";
+import { loginState } from "../../states/userInfo";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
@@ -45,10 +50,10 @@ const ShowingDiv = styled.div`
 const SelectContainer = styled.div`
   width: 100%;
   padding: 0 32px;
-`
+`;
 
 const StyledButton = styled(Button)({
-  "&.MuiButton-root" : {
+  "&.MuiButton-root": {
     width: "100%",
     fontSize: "20px",
     fontWeight: "700",
@@ -56,7 +61,7 @@ const StyledButton = styled(Button)({
     marginBottom: "18px",
     border: "2px solid #a394ff",
   },
-  '&.MuiButton-root:hover': {
+  "&.MuiButton-root:hover": {
     border: "2px solid #a394ff",
     backgroundColor: "#EBE4FF",
   },
@@ -67,7 +72,7 @@ const StyledButton = styled(Button)({
     color: "#3a3a3a",
     marginBottom: "18px",
     border: "2px solid #a394ff",
-    backgroundColor: "#EBE4FF"
+    backgroundColor: "#EBE4FF",
   },
 });
 
@@ -88,12 +93,47 @@ const EndButton = styled.button`
 `;
 
 const FontSetting = () => {
+  const [login, setLogin] = useRecoilState(loginState);
   const [bodyFontSize, setBodyFontSize] = useRecoilState(fontSizeState);
-  const [selectedButton, setSelectedButton] = React.useState('');
+  const [selectedButton, setSelectedButton] = React.useState("");
+  const [userNickname, setUserNickname] = useState("");
+  const user = useRecoilValue(loginState);
+  const navigate = useNavigate();
+  const newAxiosInstance = axios.create({
+    baseURL: "http://127.0.0.1:8000/",
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
+  });
 
   const changeFontSize = (size: string) => {
     setBodyFontSize(size);
     setSelectedButton(size);
+  };
+
+  useEffect(() => {
+    async function getUserNikckname() {
+      try {
+        const response = await newAxiosInstance.get(
+          `${process.env.REACT_APP_API_URL}users/userinfo`
+        );
+        return response.data;
+      } catch (error) {
+        console.log("getUserNikckname inside :", error);
+        return { nickname: "" };
+      }
+    }
+    getUserNikckname().then((returnData) => {
+      // console.log(returnData.nickname);
+      setUserNickname(returnData.nickname);
+    });
+  }, []);
+
+  const handleGoNext = () => {
+    if (userNickname === "" || !userNickname) {
+      return navigate("/club/start");
+    }
+    return window.history.back(); // 이전 페이지로 이동
   };
 
   return (
@@ -128,9 +168,7 @@ const FontSetting = () => {
           </StyledButton>
         </SelectContainer>
         <ButtonContainer>
-          <Link to="/my">
-            <EndButton>다 했어요!</EndButton>
-          </Link>
+          <EndButton onClick={handleGoNext}>다 했어요!</EndButton>
         </ButtonContainer>
       </Container>
     </DefaultContainer>

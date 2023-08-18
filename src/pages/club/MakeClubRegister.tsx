@@ -96,7 +96,7 @@ const MakeClubRegister = () => {
       return navigate("/club/start");
     }
     setParticipateCodeNum(clubCode);
-  }, [clubCode]);
+  }, []);
 
   const handleNext = () => {
     navigate(`/`);

@@ -119,6 +119,7 @@ const MyInfo = () => {
 
   const handleLogout = () => {
     setLogin({ isLoggedIn: false, userId: "", accessToken: "" });
+    localStorage.removeItem("loginState");
     removeCookie("refreshToken");
   };
 
