@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DefaultContainer from "../../components/shared/DefaultContainer";
-import { Toolbar, Button, ButtonGroup, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import {
+  Toolbar,
+  Button,
+  ButtonGroup,
+  Box,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import AppBarWithDrawer from "../../components/shared/AppBarWithDrawer";
 import BottomTabBar from "../../components/shared/BottomTabBar";
 import MyInfoCard from "../../components/myinfo/MyInfoCard";
@@ -10,6 +20,11 @@ import { styled as muiStyled } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../states/userInfo";
 import { useCookies } from "react-cookie";
+import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { useNavigate, useLocation } from "react-router-dom";
+
+import classes from "./MyInfo.module.css";
 
 const UserInfo = {
   name: "코알라",
@@ -17,10 +32,15 @@ const UserInfo = {
   profile: "",
 };
 
+//가격 변환 함수
+function formatForPrice(price: number) {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 const LinkButton = muiStyled(Button)(({ theme }) => ({
   padding: "15px",
   color: "#fff",
-	width: "165px",
+  width: "160px"
   fontSize: "1rem",
   fontWeight: "600",
   borderRadius: "12px",
@@ -78,16 +98,31 @@ const MainDiv = styled.div`
 `;
 
 const MyInfo = () => {
-	const [login, setLogin] = useRecoilState(loginState);
-	const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
-	const [openDialog, setOpenDialog] = React.useState(false);
+  const [login, setLogin] = useRecoilState(loginState);
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    userId: 0,
+    profile: "",
+    balance: 0,
+  });
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const user = useRecoilValue(loginState);
+  const navigate = useNavigate();
+
+  const newAxiosInstance = axios.create({
+    baseURL: "http://127.0.0.1:8000/",
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
+  });
 
   const handleLogout = () => {
     setLogin({ isLoggedIn: false, userId: "", accessToken: "" });
     removeCookie("refreshToken");
   };
 
-	const handleLogoutClick = () => {
+  const handleLogoutClick = () => {
     setOpenDialog(true);
   };
 
@@ -100,23 +135,64 @@ const MyInfo = () => {
     setOpenDialog(false);
   };
 
+  const goToChargePage = () => {
+    navigate("/charge");
+  };
+
+  useEffect(() => {
+    async function getUserInfo() {
+      try {
+        const response = await newAxiosInstance.get(
+          `${process.env.REACT_APP_API_URL}users/userinfo/`
+        );
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.log("getUserInfo inside :", error);
+        return {
+          name: "",
+          userId: 0,
+          profile: "",
+          balance: 0,
+        };
+      }
+    }
+    try {
+      getUserInfo().then((returnData) => {
+        setUserInfo({
+          name: returnData.nickname,
+          userId: returnData.id,
+          profile: returnData.profile_image,
+          balance: returnData.balance,
+        });
+      });
+    } catch (error) {
+      console.log("run getUserInfo :", error);
+    }
+  }, []);
   return (
     <>
       <DefaultContainer>
         <Toolbar sx={{ height: "100px" }} />
         <AppBarWithDrawer />
-        <MainDiv>
-          <MyInfoCard userInfo={UserInfo} />
-          <br />
-          <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
-          <div style={{display: "flex"}}>
-            <LinkButton href="" variant="contained">
-              결제 수단 관리
-            </LinkButton>
-            <LinkButton href="/club/myClubs" variant="contained">
-              나의 모임 바로가기
-            </LinkButton>
-          </div>
+        <MyInfoCard userInfo={userInfo} />
+        <br />
+        <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
+        <div className={classes["money-status"]}>
+          <span className={classes["just-text"]}>지갑 잔액 :</span>
+          <span className={classes["money-text"]}>
+            {formatForPrice(userInfo.balance)} 원
+          </span>
+        </div>
+        <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
+        <div style={{ display: "flex" }}>
+          <LinkButton onClick={goToChargePage} variant="contained">
+            충전하기
+          </LinkButton>
+          <LinkButton href="/club/myClubs" variant="contained">
+            나의 모임 바로가기
+          </LinkButton>
+        </div>
 
           <ButtonGroup
             aria-label="button group"
@@ -155,16 +231,18 @@ const MyInfo = () => {
         </MainDiv>
         <BottomTabBar currentPage="myinfo" />
       </DefaultContainer>
-			<Dialog open={openDialog} onClose={handleCloseDialog} sx={{
-        
-      }}>
+      <Dialog open={openDialog} onClose={handleCloseDialog} sx={{}}>
         <DialogTitle>로그아웃</DialogTitle>
         <DialogContent>
           <DialogContentText>정말 로그아웃 하시겠습니까?</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">취소</Button>
-          <Button onClick={handleConfirmLogout} color="primary">확인</Button>
+          <Button onClick={handleCloseDialog} color="primary">
+            취소
+          </Button>
+          <Button onClick={handleConfirmLogout} color="primary">
+            확인
+          </Button>
         </DialogActions>
       </Dialog>
     </>
