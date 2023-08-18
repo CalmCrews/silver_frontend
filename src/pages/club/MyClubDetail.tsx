@@ -52,6 +52,10 @@ const ClubSubTitle = styled.div`
   text-align: center;
   margin: 30px 0 10px 0;
 `;
+const ContentDiv = styled.div`
+  width: 100%;
+  padding: 8% 8% 0 8%;
+`;
 const fixedParticipants = [
   {
     name: "코알1",
@@ -353,39 +357,39 @@ const ClubDetail = () => {
                   </div>
                 </div>
                 <div className={classes["divide-line-2"]}></div>
-              </div>
-            )}
-            {isJoinded && (
-              <div className={classes["margin-div"]}>
-                <div className={classes["club-products-title"]}>
-                  현재 모임에서 진행중인 함께구매
+                <div className={classes["margin-div"]}>
+                  <div className={classes["club-products-title"]}>
+                    현재 모임에서 진행중인 함께구매
+                  </div>
+                  <div className={classes["club-products-sub-title"]}>
+                    현재 모임의 함께 구매 상품을 한눈에 보아요!
+                  </div>
+                  {clubListProducts.length === 0 ? (
+                    <ClubProductNo />
+                  ) : (
+                    <ContentDiv>
+                      <HorizontalContainer>
+                        {clubListProducts.map((product: any) => {
+                          // 여기에 썸네일 넣어야함
+                          return (
+                            <ClubBuyingCard
+                              id={product.id}
+                              key={product.id}
+                              end_at={product.product.end_at}
+                              name={product.product.end_at}
+                              thumbnail={product.product.thumbnail}
+                              discountRate={product.discountRate}
+                              price={product.product.price}
+                              score={product.achievement_rate}
+                              participantsNum={product.participant_count}
+                              participants={product.seller}
+                            />
+                          );
+                        })}
+                      </HorizontalContainer>
+                    </ContentDiv>
+                  )}
                 </div>
-                <div className={classes["club-products-sub-title"]}>
-                  현재 모임의 함께 구매 상품을 한눈에 보아요!
-                </div>
-                {clubListProducts.length === 0 ? (
-                  <ClubProductNo />
-                ) : (
-                  <HorizontalContainer>
-                    {clubListProducts.map((product: any) => {
-                      // 여기에 썸네일 넣어야함
-                      return (
-                        <ClubBuyingCard
-                          id={product.id}
-                          key={product.id}
-                          end_at={product.product.end_at}
-                          name={product.product.end_at}
-                          thumbnail={temperImage}
-                          discountRate={product.discountRate}
-                          price={product.product.price}
-                          score={product.achievement_rate}
-                          participantsNum={product.participant_count}
-                          participants={product.seller}
-                        />
-                      );
-                    })}
-                  </HorizontalContainer>
-                )}
               </div>
             )}
           </>
