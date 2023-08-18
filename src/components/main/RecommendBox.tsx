@@ -56,7 +56,7 @@ type BoxProps = {
   name: string;
   thumbnail: string;
   price: number;
-  score: number;
+  score: number | any;
 };
 
 const RecommendBox = ({

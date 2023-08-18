@@ -225,7 +225,7 @@ const ClubBuyingCard = ({
                 }}
               />
               <style.Participating>
-                <p style={{ color: "#a394ff" }}>{participantsNum}명</p>
+                <p style={{ color: "#a394ff" }}>{participantsNum ? participantsNum : 0}명</p>
                 &nbsp;참여중
               </style.Participating>
             </div>

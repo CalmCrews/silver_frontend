@@ -381,7 +381,7 @@ const Home = () => {
                     thumbnail={item.product.thumbnail}
                     discountRate={item.product.discount_rate}
                     price={item.product.price}
-                    score={0}
+                    score={item.product.review_score}
                     participantsNum={item.participants.length}
                     participants={item.participants}
                   />
@@ -431,7 +431,7 @@ const Home = () => {
                   name={product.name}
                   thumbnail={product.thumbnail || ""}
                   price={product.price}
-                  score={0}
+                  score={product.review_score}
                 />
               ))}
             <br />
