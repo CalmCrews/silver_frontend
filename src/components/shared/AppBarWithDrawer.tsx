@@ -56,8 +56,8 @@ const AppBarWithDrawer = () => {
 
   //알림
   const [notiData, setNotiData] = React.useState<any | null>(null);
-  const [isMsgDrawerOpen, setIsMsgDrawerOpen] = useState(true);
-  const [noti, setNotiId] = useState(0);
+  const [isMsgDrawerOpen, setIsMsgDrawerOpen] = useState(false);
+  const [notiId, setNotiId] = useState(0);
 
   const newAxiosInstance = axios.create({
     headers: {
@@ -296,7 +296,7 @@ const AppBarWithDrawer = () => {
         </>
       </HomeAppBar>
       <MainDrawer open={isDrawerOpen} onClose={handleDrawerClose}></MainDrawer>
-      <MessageDrawer messageInfo={5} open={isMsgDrawerOpen} onClose={handleMsgDrawerClose}/>
+      <MessageDrawer messageInfo={notiId} open={isMsgDrawerOpen} onClose={handleMsgDrawerClose}/>
     </>
   );
 };

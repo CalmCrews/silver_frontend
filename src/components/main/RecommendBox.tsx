@@ -1,11 +1,22 @@
 import React from "react";
 import { Box, Rating, IconButton } from "@mui/material";
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 import StarIconEmpty from "../../assets/icons/StarIconEmpty.svg";
 import StarIconFilled from "../../assets/icons/StarIconFilled.svg";
 import DefaultIcon from "../shared/DefaultIcon";
 import CustomDivider from "../shared/CustomDivider";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+
+const fadeInAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 function formatForPrice(price: number) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -13,6 +24,8 @@ function formatForPrice(price: number) {
 
 const StyledBox = styled(Box)`
   width: 100%;
+
+  animation: ${fadeInAnimation} 0.5s ease-in-out;
 `;
 
 const InfoSection = styled.div`

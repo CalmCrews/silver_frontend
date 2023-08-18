@@ -1,19 +1,32 @@
 import React from "react";
 import { Card } from "@mui/material";
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
+
+const fadeInAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 
+ export const BuyingCard = styled(Card)`
+  width: 100%;
+  margin-bottom: 16px;
+  position: relative;
+  
+  &.MuiPaper-root {
+    border-radius: 24px;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.40);
+    background-color: #F5F1FF;
+  }
 
-export const BuyingCard = styled(Card)({
-  width: "100%",
-  marginBottom: "16px",
-  position: "relative",
-  "&.MuiPaper-root": {
-    borderRadius: "24px",
-    boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.40)",
-    backgroundColor: "#F5F1FF",
-  },
-});
+  animation: ${fadeInAnimation} 0.5s ease-in-out;
+`;
 
 export const EndDate = styled.div`
   display: flex;
