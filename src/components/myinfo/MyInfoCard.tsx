@@ -4,6 +4,7 @@ import { styled } from "styled-components";
 import { userInfo } from "os";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import shadows from "@mui/material/styles/shadows";
+import ProfileNone from "../../assets/Images/noneprofile.png";
 
 interface userInfo {
 	name: string;
@@ -47,7 +48,7 @@ const MyInfoCard = ({ userInfo }: InfoCardProps) => {
 			<CardMedia 
 				component="img" 
 				alt="user_profile" 
-				image={userInfo.profile} 
+				image={userInfo.profile ? `${process.env.REACT_APP_API_URL}${userInfo.profile}` : ProfileNone} 
 				sx={{
 					width: "80px",
 					height: "80px",

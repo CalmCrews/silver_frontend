@@ -231,8 +231,8 @@ interface RecommendDataItem {
 
 const Home = () => {
   const [login, setLogin] = useRecoilState(loginState);
-  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const user = useRecoilValue(loginState);
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const handleLogout = () => {
     setLogin({ isLoggedIn: false, userId: "", accessToken: "" });
