@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from "react";
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import classes from "./ClubRankInfoBox.module.css";
 
@@ -8,6 +8,22 @@ import mountain_2 from "../../assets/clubRankImage/2_cheonggye_mountain.png";
 import mountain_3 from "../../assets/clubRankImage/3_seolak_mountain.png";
 import mountain_4 from "../../assets/clubRankImage/4_jiri_mountain.png";
 import mountain_5 from "../../assets/clubRankImage/5_halla_mountain.png";
+
+const fadeInAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+
+const StyledDiv = styled.div`
+  animation: ${fadeInAnimation} 0.5s ease-in-out;
+`
 
 interface MyComponentProps {
   club_name: string;
@@ -110,7 +126,7 @@ const ClubRankInfoBox: React.FC<MyComponentProps> = ({
   }, []);
 
   return (
-    <div
+    <StyledDiv
       className={
         isClick
           ? classes["club-box"]
@@ -149,7 +165,7 @@ const ClubRankInfoBox: React.FC<MyComponentProps> = ({
           </div>
         ))}
       </div>
-    </div>
+    </StyledDiv>
   );
 };
 

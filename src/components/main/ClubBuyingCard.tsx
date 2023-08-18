@@ -7,7 +7,7 @@ import {
   Link,
   Rating,
 } from "@mui/material";
-import { styled } from "styled-components";
+import { styled, keyframes } from "styled-components";
 import * as style from "./MyBuyingCardComponents";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
@@ -15,6 +15,34 @@ import StarIconEmpty from "../../assets/icons/StarIconEmpty.svg";
 import StarIconFilled from "../../assets/icons/StarIconFilled.svg";
 import DefaultIcon from "../shared/DefaultIcon";
 import { relative } from "path";
+
+const fadeInAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const StyledCard = styled(Card)`
+  position: relative;
+  width: 330px;
+  margin: 20px 8px 20px 5px;
+  overflow: visible;
+
+  &.MuiPaper-root {
+    border-radius: 25px;
+    border: 2px solid #EBE4FF;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.40);
+    background-color: #F5F1FF;
+    overflow: visible;
+  }
+
+  animation: ${fadeInAnimation} 0.5s ease-in-out;
+`;
 
 export const EndDate = styled.div`
   display: flex;
@@ -105,20 +133,7 @@ const ClubBuyingCard = ({
 }: CardProps) => {
 
   return (
-    <Card
-      sx={{
-        position: "relative",
-        width: "330px",
-        margin: "20px 8px 20px 5px",
-        overflow: "visible",
-        "&.MuiPaper-root": {
-          borderRadius: "25px",
-          border: "2px solid #EBE4FF",
-          boxShadow: "0px 4px 8px 0px rgba(0, 0, 0, 0.40)",
-          backgroundColor: "#F5F1FF",
-        },
-      }}
-    >
+    <StyledCard>
       <EndDate>
         구매마감{" "}
         <span style={{ color: "#A394FF", margin: "0 8px 0 15px" }}>|</span>{" "}
@@ -187,7 +202,7 @@ const ClubBuyingCard = ({
             <div
               style={{ width: "100%", height: "100%", position: "relative" }}
             >
-              {participants.slice(0, 3).map((participant, index) =>
+              {participants && participants.slice(0, 3).map((participant, index) =>
                 participant.profile ? (
                   <style.MiniProfile
                     src={`${process.env.REACT_APP_API_URL}${participant.profile}`}
@@ -236,7 +251,7 @@ const ClubBuyingCard = ({
           </CardActions>
         </div>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 };
 

@@ -63,7 +63,7 @@ const MyBuyingCard = ({
         >
           <CardMedia
             component="img"
-            image={thumbnail ? `${process.env.REACT_APP_API_URL}${thumbnail}` : ""}
+            image={thumbnail ? thumbnail : ""}
             alt={name}
             sx={{
               marginTop: "8px",
@@ -104,7 +104,7 @@ const MyBuyingCard = ({
             <div
               style={{ width: "100%", height: "100%", position: "relative" }}
             >
-              {participants.slice(0, 3).map((participant, index) =>
+              {participants && participants.slice(0, 3).map((participant, index) =>
                 participant.profile_image ? (
                   <style.MiniProfile
                     src={`${process.env.REACT_APP_API_URL}${participant.profile_image}`}
