@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DefaultContainer from "../../components/shared/DefaultContainer";
 import {
   Toolbar,
@@ -20,11 +20,6 @@ import { styled as muiStyled } from "@mui/material";
 import { useRecoilState } from "recoil";
 import { loginState } from "../../states/userInfo";
 import { useCookies } from "react-cookie";
-import axios from "axios";
-import { useRecoilValue } from "recoil";
-import { useNavigate, useLocation } from "react-router-dom";
-
-import classes from "./MyInfo.module.css";
 
 const UserInfo = {
   name: "코알라",
@@ -32,19 +27,14 @@ const UserInfo = {
   profile: "",
 };
 
-//가격 변환 함수
-function formatForPrice(price: number) {
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 const LinkButton = muiStyled(Button)(({ theme }) => ({
   padding: "15px",
   color: "#fff",
-  width: "160px"
+  width: "160px",
   fontSize: "1rem",
   fontWeight: "600",
   borderRadius: "12px",
-  margin: "12px 12px 30px 12px",
+  margin: "18px",
   backgroundColor: "#a394ff",
   "&:hover": {
     backgroundColor: "#a394ff",
@@ -86,36 +76,10 @@ const RowButton = styled.button`
   }
 `;
 
-const MainDiv = styled.div`
-  width: 100%;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 const MyInfo = () => {
   const [login, setLogin] = useRecoilState(loginState);
-  const [userInfo, setUserInfo] = useState({
-    name: "",
-    userId: 0,
-    profile: "",
-    balance: 0,
-  });
   const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const [openDialog, setOpenDialog] = React.useState(false);
-  const user = useRecoilValue(loginState);
-  const navigate = useNavigate();
-
-  const newAxiosInstance = axios.create({
-    baseURL: "http://127.0.0.1:8000/",
-    headers: {
-      Authorization: `Bearer ${user.accessToken}`,
-    },
-  });
 
   const handleLogout = () => {
     setLogin({ isLoggedIn: false, userId: "", accessToken: "" });
@@ -135,101 +99,58 @@ const MyInfo = () => {
     setOpenDialog(false);
   };
 
-  const goToChargePage = () => {
-    navigate("/charge");
-  };
-
-  useEffect(() => {
-    async function getUserInfo() {
-      try {
-        const response = await newAxiosInstance.get(
-          `${process.env.REACT_APP_API_URL}users/userinfo/`
-        );
-        console.log(response.data);
-        return response.data;
-      } catch (error) {
-        console.log("getUserInfo inside :", error);
-        return {
-          name: "",
-          userId: 0,
-          profile: "",
-          balance: 0,
-        };
-      }
-    }
-    try {
-      getUserInfo().then((returnData) => {
-        setUserInfo({
-          name: returnData.nickname,
-          userId: returnData.id,
-          profile: returnData.profile_image,
-          balance: returnData.balance,
-        });
-      });
-    } catch (error) {
-      console.log("run getUserInfo :", error);
-    }
-  }, []);
   return (
     <>
       <DefaultContainer>
         <Toolbar sx={{ height: "100px" }} />
         <AppBarWithDrawer />
-        <MyInfoCard userInfo={userInfo} />
+        <MyInfoCard userInfo={UserInfo} />
         <br />
         <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
-        <div className={classes["money-status"]}>
-          <span className={classes["just-text"]}>지갑 잔액 :</span>
-          <span className={classes["money-text"]}>
-            {formatForPrice(userInfo.balance)} 원
-          </span>
-        </div>
-        <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
         <div style={{ display: "flex" }}>
-          <LinkButton onClick={goToChargePage} variant="contained">
-            충전하기
+          <LinkButton href="" variant="contained">
+            결제 수단 관리
           </LinkButton>
-          <LinkButton href="/club/myClubs" variant="contained">
+          <LinkButton href="/club" variant="contained">
             나의 모임 바로가기
           </LinkButton>
         </div>
 
-          <ButtonGroup
-            aria-label="button group"
-            variant="text"
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "0px",
-              width: "100%",
-              boxShadow: "0px 2px 6px 2px rgba(0, 0, 0, 0.25)",
-              borderTop: "1px solid #f0f0f0",
-              borderRadius: "0",
-              marginBottom: "10px",
-            }}
-          >
-            <GridButton>구매현황</GridButton>
-            <GridButton>배송조회</GridButton>
-            <GridButton>쿠폰관리</GridButton>
-            <GridButton>주문내역</GridButton>
-            <GridButton>정보수정</GridButton>
-            <GridButton>문의하기</GridButton>
-          </ButtonGroup>
-          <br />
-          <ButtonGroup
-            orientation="vertical"
-            sx={{
-              width: "100%",
-              border: "1px solid #f0f0f0",
-              borderRadius: "0",
-            }}
-          >
-            <RowButton>자주 묻는 질문</RowButton>
-            <RowButton onClick={handleLogoutClick}>로그아웃</RowButton>
-            <RowButton>회원탈퇴</RowButton>
-          </ButtonGroup>
-        </MainDiv>
         <BottomTabBar currentPage="myinfo" />
+        <ButtonGroup
+          aria-label="button group"
+          variant="text"
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "0px",
+            width: "100%",
+            boxShadow: "0px 2px 6px 2px rgba(0, 0, 0, 0.25)",
+            borderTop: "1px solid #f0f0f0",
+            borderRadius: "0",
+            marginBottom: "10px",
+          }}
+        >
+          <GridButton>구매현황</GridButton>
+          <GridButton>배송조회</GridButton>
+          <GridButton>쿠폰관리</GridButton>
+          <GridButton>주문내역</GridButton>
+          <GridButton>정보수정</GridButton>
+          <GridButton>문의하기</GridButton>
+        </ButtonGroup>
+        <br />
+        <ButtonGroup
+          orientation="vertical"
+          sx={{
+            width: "100%",
+            border: "1px solid #f0f0f0",
+            borderRadius: "0",
+          }}
+        >
+          <RowButton>자주 묻는 질문</RowButton>
+          <RowButton onClick={handleLogoutClick}>로그아웃</RowButton>
+          <RowButton>회원탈퇴</RowButton>
+        </ButtonGroup>
       </DefaultContainer>
       <Dialog open={openDialog} onClose={handleCloseDialog} sx={{}}>
         <DialogTitle>로그아웃</DialogTitle>
