@@ -64,15 +64,15 @@ const MakeClubRegister = () => {
         content: {
           title: "모여",
           imageUrl:
-            "https://qi-b.qoo10cdn.com/partner/goods_image/5/0/6/3/349035063g.jpg",
-          link: { webUrl: "http://101.101.209.172" },
+            "https://i.ibb.co/m5yG2B2/Kakao-Talk-Photo-2023-08-18-22-18-42.png",
+          link: { webUrl: "http://www.moyeo.store" },
           description: `${clubName} 모임에 초대되었어요!\n링크를 접속해 공유된 참여코드를 입력해주세요!\n참여코드:[${clubCode}]`,
         },
         buttons: [
           {
             title: "모여 시작하기!",
             link: {
-              webUrl: "http://101.101.209.172",
+              webUrl: "http://www.moyeo.store",
             },
           },
         ],
@@ -83,11 +83,9 @@ const MakeClubRegister = () => {
   };
   const handleBandBtn = () => {};
   const handleLinkCopyBtn = () => {
-    navigator.clipboard
-      .writeText(`${process.env.REACT_APP_API_URL}`)
-      .then(() => {
-        alert(`Copied: ${process.env.REACT_APP_API_URL}`);
-      });
+    navigator.clipboard.writeText("http://www.moyeo.store").then(() => {
+      alert(`Copied: http://www.moyeo.store`);
+    });
   };
 
   // 참여코드 가져오는 코드 여기에 함수로 작성해야함
@@ -152,7 +150,7 @@ const MakeClubRegister = () => {
             </div>
             <div className={classes["share-pop-up-link-div"]}>
               <span className={classes["share-pop-up-link-span"]}>
-                {process.env.REACT_APP_API_URL}
+                {"http://www.moyeo.store"}
               </span>
               <button
                 className={classes["share-pop-up-link-btn"]}
