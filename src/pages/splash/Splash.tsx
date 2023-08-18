@@ -19,7 +19,7 @@ const Splash = () => {
   const navigate = useNavigate();
 
   const handleGoNext = () => {
-    navigate("/slpash/ads");
+    navigate("/splash/ads");
   };
 
   return (

@@ -55,7 +55,7 @@ interface PrivateRouteProps {
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ auth, children }) => {
-  return auth.isLoggedIn ? <>{children}</> : <Navigate to="/splash" />;
+  return auth ? <>{children}</> : <Navigate to="/splash" />;
 };
 
 function App() {
@@ -66,6 +66,7 @@ function App() {
 
 
   useEffect(() => {
+    console.log(isLoggedIn);
     const storedBodyFontSize = localStorage.getItem("bodyFontSize");
     if (storedBodyFontSize) {
       console.log("getbodyfont", storedBodyFontSize);
