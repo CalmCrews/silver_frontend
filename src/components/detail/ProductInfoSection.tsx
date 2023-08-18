@@ -61,6 +61,7 @@ export interface InfoProps {
   achievement_rate?: number;
   participant_count?: number;
   participants?: Participant[];
+  is_not_buyable?: boolean;
 }
 
 const EndDate = styled.div`
@@ -123,8 +124,8 @@ const ParticipantContainer = styled.div`
   align-items: center;
   padding: 8px;
   border-radius: 10px;
-  background: #F5F1FF;
-  border: 1px solid #EBE4FF;
+  background: #f5f1ff;
+  border: 1px solid #ebe4ff;
 `;
 
 interface ButtonProps {
@@ -160,7 +161,11 @@ interface ProductInfoSectionProps {
   participants: any;
 }
 
-const ProductInfoSection = ({ info, club_Id, participants }: ProductInfoSectionProps) => {
+const ProductInfoSection = ({
+  info,
+  club_Id,
+  participants,
+}: ProductInfoSectionProps) => {
   const [clubsData, setClubsData] = React.useState<Club[]>([]);
   const [selectedClub, setSelectedClub] = React.useState("");
   const [selectedClubId, setSelectedClubId] = React.useState(0);
@@ -425,21 +430,37 @@ const ProductInfoSection = ({ info, club_Id, participants }: ProductInfoSectionP
             </PriceContainer>
             <div style={{ width: "100%", padding: "10px" }}>
               <ParticipantContainer>
-                <p style={{width: "100%", color: "#3a3a3a", fontSize: "1rem", marginBottom: "13px"}}>현재 우리 모임에서 참여중인 멤버</p>
-                <div style={{position: "relative", width: "80%", height: "45px"}}>
-                  {participants && participants.slice(0, 5).map((participant: any, index: number) =>
-                    participant.profile_image ? (
-                      <style.RargeProfile
-                        src={`${process.env.REACT_APP_API_URL}${participant.profile_image}`}
-                        alt={participant.name}
-                        index={index}
-                      />
-                    ) : (
-                      <style.RargeNoneProfile index={index}>
-                        <Person2RoundedIcon sx={{ color: "#fff", width: "45px" }} />
-                      </style.RargeNoneProfile>
-                    )
-                  )}
+                <p
+                  style={{
+                    width: "100%",
+                    color: "#3a3a3a",
+                    fontSize: "1rem",
+                    marginBottom: "13px",
+                  }}
+                >
+                  현재 우리 모임에서 참여중인 멤버
+                </p>
+                <div
+                  style={{ position: "relative", width: "80%", height: "45px" }}
+                >
+                  {participants &&
+                    participants
+                      .slice(0, 5)
+                      .map((participant: any, index: number) =>
+                        participant.profile_image ? (
+                          <style.RargeProfile
+                            src={`${process.env.REACT_APP_API_URL}${participant.profile_image}`}
+                            alt={participant.name}
+                            index={index}
+                          />
+                        ) : (
+                          <style.RargeNoneProfile index={index}>
+                            <Person2RoundedIcon
+                              sx={{ color: "#fff", width: "45px" }}
+                            />
+                          </style.RargeNoneProfile>
+                        )
+                      )}
                   <AddRoundedIcon
                     sx={{
                       position: "absolute",
@@ -468,11 +489,11 @@ const ProductInfoSection = ({ info, club_Id, participants }: ProductInfoSectionP
                       right: "-12%",
                       color: "#a394ff",
                       fontSize: "16px",
-                      borderRadius: "10px"
+                      borderRadius: "10px",
                     }}
                   >
                     멤버 더보기
-                    <ArrowForwardIosRoundedIcon fontSize="small"/>
+                    <ArrowForwardIosRoundedIcon fontSize="small" />
                   </IconButton>
                 </div>
               </ParticipantContainer>
@@ -487,7 +508,12 @@ const ProductInfoSection = ({ info, club_Id, participants }: ProductInfoSectionP
               />
             </div>
             <div style={{ padding: "0 10px" }}>
-              <FormButton onClick={handlePurchaseClick}>구매하기</FormButton>
+              <FormButton
+                disabled={info.is_not_buyable}
+                onClick={handlePurchaseClick}
+              >
+                {info.is_not_buyable ? <>이미 구매하신 상품입니다</> : <>구매하기</>}
+              </FormButton>
             </div>
             <Dialog open={open} onClose={handleClose}>
               <DialogTitle>구매 확인</DialogTitle>

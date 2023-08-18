@@ -58,17 +58,17 @@ const AchievementGraph = (props: AchievementProps) => {
       <TotalGraphDiv />
       <RateGraphDiv width={`${props.achievement_rate}%`} />
       <PointDiv left="0%" color="#909090">
+        <span></span>
         <span>0%</span>
-        <span>{props.price}원</span>
       </PointDiv>
       <PointDiv left={`${props.achievement_rate}%`} color="#a394ff">
-        <span>0%</span>
+        <span>{props.achievement_rate}%</span>
         <DefaultIcon icon={Flaming} name="flaming_icon" height="30px" width="auto"/>
-        <span>{props.price}원</span>
+        <span style={{fontSize: "16px", color: "#fff"}}>{" . "}</span>
       </PointDiv>
       <PointDiv left="100%" color="#909090">
+        <span></span>
         <span style={{backgroundColor: "#fff"}}>100%</span>
-        <span style={{backgroundColor: "#fff"}}>{Math.round((props.price * 0.65) / 10) * 10}원</span>
       </PointDiv>
     </AchievementContainer>
     

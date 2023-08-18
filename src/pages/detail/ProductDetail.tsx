@@ -94,6 +94,7 @@ const ProductDetail = () => {
     achievement_rate,
     participant_count,
     participants,
+    is_not_buyable,
   } = productData || {};
   
   const infoProps: InfoProps = {
@@ -107,6 +108,7 @@ const ProductDetail = () => {
     achievement_rate,
     participant_count,
     participants,
+    is_not_buyable,
   };
   
   const handleSellerDrawerClose = () => {
@@ -152,10 +154,7 @@ const ProductDetail = () => {
             <CustomDivider color="#f0f0f0" width="100%" />
             <ProductInfoSection info={infoProps} club_Id={clubData ? clubData.id : null} participants={participantsData}/>
             <br/>
-            <TabPanel/>
-            <div style={{width: "100%", height: "300px"}}>
-              <img src="" alt="" />
-            </div>
+            <TabPanel thumbnail={productData.thumbnail}/>
           </Box>
           <SellerDrawer
             sellerInfo={sellerData}
