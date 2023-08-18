@@ -179,12 +179,12 @@ const MakeClubProfile = () => {
     handleImageUpload().then((returnData) => {});
     // 여기에서 생성을 성공하면? 다음 페이지로 넘어가기
     console.log("clubCode :", clubCode);
-    // return navigate("/club/register", {
-    //   state: {
-    //     clubName: clubName,
-    //     clubCode: clubCode,
-    //   },
-    // });
+    return navigate("/club/register", {
+      state: {
+        clubName: clubName,
+        clubCode: clubCode,
+      },
+    });
   };
 
   return (
