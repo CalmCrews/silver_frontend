@@ -69,8 +69,6 @@ const JoinClubProfile = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { clubName, description } = location.state || {};
-
   const handleNickname = (event: React.ChangeEvent) => {
     const nicknameInputValue = nicknameRef.current
       ? nicknameRef.current.value
@@ -131,32 +129,6 @@ const JoinClubProfile = () => {
     if (!selectedImage) {
       return;
     }
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}clubs/`,
-        {
-          name: clubName,
-          intro: description,
-        }
-      );
-    } catch (error) {
-      console.error("Error register clubName, description:", error);
-    }
-
-    // try {
-    //   const response = await axios.post(
-    //     `${process.env.REACT_APP_API_URL}clubs/join/`,
-    //     JSON.stringify({ club_code: keywordsList }),
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   );
-    // } catch (error) {
-    //   console.error("Error register keywordsList :", error);
-    // }
-
     const formData = new FormData();
     formData.append("nickname", nickname);
     formData.append("image", selectedImage);
@@ -181,10 +153,9 @@ const JoinClubProfile = () => {
   }, [nickname]);
 
   const handleNext = () => {
-    // handleImageUpload();
+    handleImageUpload();
     // 여기에서 생성을 성공하면? 다음 페이지로 넘어가기
-    // return navigate("/club/register"
-    // );
+    return navigate("/club/myClubs");
   };
 
   return (
@@ -194,7 +165,13 @@ const JoinClubProfile = () => {
         <br />
         프로필만 설정하면 끝!
       </Title>
-      <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+        }}
+      >
         <FieldTitle>모임에서 사용할 나의 별명은?</FieldTitle>
         <div className={classes["nickname-div"]}>
           <input

@@ -240,7 +240,7 @@ const Home = () => {
   };
   //내가 참여중인 데이터
   const [myBuyingData, setMyBuyingData] = useState<any | null>(null);
-  
+
   //모임에서 참여중인 데이터
   const [clubBuyingData, setClubBuyingData] = useState<any | null>(null);
 
@@ -251,6 +251,7 @@ const Home = () => {
   const [recommendData, setRecommendData] = useState<any | null>(null);
 
   const newAxiosInstance = axios.create({
+    baseURL: "http://127.0.0.1:8000/",
     headers: {
       Authorization: `Bearer ${user.accessToken}`,
     },
@@ -267,7 +268,7 @@ const Home = () => {
       setMyBuyingData(null);
       console.error("Error: ", error);
     }
-  }
+  };
 
   const getClubBuyingData = async () => {
     try {
@@ -280,7 +281,7 @@ const Home = () => {
       setClubBuyingData(null);
       console.error("Error: ", error);
     }
-  }
+  };
 
   const getRecommendData = async () => {
     try {
@@ -349,8 +350,9 @@ const Home = () => {
                 </EmptyDiv>
               </>
             ) : (
-              myBuyingData && myBuyingData.map((item: any, index: number) => (
-                <MyBuyingCard 
+              myBuyingData &&
+              myBuyingData.map((item: any, index: number) => (
+                <MyBuyingCard
                   key={index}
                   id={item.id}
                   end_at={item.product.end_at}
@@ -369,20 +371,21 @@ const Home = () => {
           <SectionBox>
             <SectionTitle>내 모임에서 진행 중인 함께구매</SectionTitle>
             <HorizontalContainer>
-              {clubBuyingData && clubBuyingData.map((item: any, index: number) => (
-                <ClubBuyingCard 
-                  key={index}
-                  id={item.id}
-                  end_at={item.product.end_at}
-                  name={item.product.name}
-                  thumbnail={item.product.thumbnail}
-                  discountRate={item.product.discount_rate}
-                  price={item.product.price}
-                  score={0}
-                  participantsNum={item.participants.length}
-                  participants={item.participants}
-                />
-              ))}
+              {clubBuyingData &&
+                clubBuyingData.map((item: any, index: number) => (
+                  <ClubBuyingCard
+                    key={index}
+                    id={item.id}
+                    end_at={item.product.end_at}
+                    name={item.product.name}
+                    thumbnail={item.product.thumbnail}
+                    discountRate={item.product.discount_rate}
+                    price={item.product.price}
+                    score={0}
+                    participantsNum={item.participants.length}
+                    participants={item.participants}
+                  />
+                ))}
             </HorizontalContainer>
             <br />
             <CustomDivider color="#F0F0F0" width="100%" />
@@ -409,11 +412,13 @@ const Home = () => {
                   }}
                 >
                   {clubListData &&
-                    clubListData.map((item: { id: number; name: string }, index: number) => (
-                      <MenuItem key={index} value={item.name}>
-                        {item.name}
-                      </MenuItem>
-                    ))}
+                    clubListData.map(
+                      (item: { id: number; name: string }, index: number) => (
+                        <MenuItem key={index} value={item.name}>
+                          {item.name}
+                        </MenuItem>
+                      )
+                    )}
                 </Select>
               </FormControl>
             </div>

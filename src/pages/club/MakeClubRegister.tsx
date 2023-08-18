@@ -92,7 +92,9 @@ const MakeClubRegister = () => {
 
   // 참여코드 가져오는 코드 여기에 함수로 작성해야함
   useEffect(() => {
-    console.log(clubName, clubCode);
+    if (!clubCode) {
+      return navigate("/club/start");
+    }
     setParticipateCodeNum(clubCode);
   }, [clubCode]);
 

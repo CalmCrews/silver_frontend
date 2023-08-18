@@ -147,7 +147,6 @@ const MakeClubProfile = () => {
     } catch (error) {
       console.error("Error register clubName, description:", error);
     }
-
     const formData = new FormData();
     formData.append("nickname", nickname);
     formData.append("profile_image", selectedImage);
@@ -170,17 +169,22 @@ const MakeClubProfile = () => {
   useEffect(() => {
     setNicknameStatus("0");
   }, [nickname]);
+  useEffect(() => {
+    if (!clubName || !description || !keywordsList) {
+      return navigate("/club/start");
+    }
+  });
 
   const handleNext = () => {
-    handleImageUpload();
+    handleImageUpload().then((returnData) => {});
     // 여기에서 생성을 성공하면? 다음 페이지로 넘어가기
     console.log("clubCode :", clubCode);
-    return navigate("/club/register", {
-      state: {
-        clubName: clubName,
-        clubCode: clubCode,
-      },
-    });
+    // return navigate("/club/register", {
+    //   state: {
+    //     clubName: clubName,
+    //     clubCode: clubCode,
+    //   },
+    // });
   };
 
   return (

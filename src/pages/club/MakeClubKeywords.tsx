@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { styled } from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { atom, useRecoilState } from "recoil";
@@ -69,15 +69,6 @@ const MakeClubKeywords = () => {
   const handleNext = async () => {
     // 이제 여기에서 별명 있는지 확인하기
     const nickname = await getUserNikcknamme();
-    if (nickname === "") {
-      return navigate("/club/profile", {
-        state: {
-          clubName: clubName,
-          description: description,
-          keywordsList: totalCountList,
-        },
-      });
-    }
     let club_code;
     try {
       const response = await axiosInstance.post(
@@ -92,6 +83,16 @@ const MakeClubKeywords = () => {
     } catch (error) {
       console.error("Error register clubName, description:", error);
     }
+    if (nickname === null) {
+      return navigate("/club/profile", {
+        state: {
+          clubName: clubName,
+          description: description,
+          keywordsList: totalCountList,
+          clubCode: club_code,
+        },
+      });
+    }
     return navigate("/club/register", {
       state: {
         clubName: clubName,
@@ -101,6 +102,12 @@ const MakeClubKeywords = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (!clubName || !description) {
+      return navigate("/club/start");
+    }
+  }, []);
 
   return (
     <ClubStartBase>
