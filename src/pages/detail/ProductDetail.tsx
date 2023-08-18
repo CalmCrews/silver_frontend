@@ -16,21 +16,6 @@ import TabPanel from "../../components/detail/TabPanel";
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 
 //임시 데이터
-const ProductInfo = {
-  id: 1,
-  name: "설국열차 팔 토시",
-  intro: "팔이 얼 것 같은",
-  currentPrice: "4,500",
-  originalPrice: "5,000",
-  category: "DIGITAL",
-  thumbnail: null,
-  video: "https://player.vimeo.com/external/855289260.m3u8?s=1dd544d1f31449f83bbadb94d7c4fd3268a0867a&logging=false",
-  seller: "코알라",
-  sellerProfile: "",
-  total: 100,
-  end_at: "2023-08-04 / 14:02:59",
-  current_buyable_quantity: 21,
-};
 
 const DetailToolbar = styled(Toolbar)({
   width: "100%",
