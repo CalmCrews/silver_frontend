@@ -85,6 +85,7 @@ const MyClubs = () => {
         const response = await newAxiosInstance.get(
           `${process.env.REACT_APP_API_URL}clubs/${id}/clubProducts`
         );
+        console.log(response.data);
         return response.data;
       } catch (error) {
         console.log(error);
@@ -93,16 +94,14 @@ const MyClubs = () => {
     }
     try {
       if (clubList_only_three.length !== 0) {
-        if (clubList_only_three.length !== 0) {
-          const promises = clubList_only_three.map((club) =>
-            getClubProductsAndAppendToState(club.id)
-          );
+        const promises = clubList_only_three.map((club) =>
+          getClubProductsAndAppendToState(club.id)
+        );
 
-          Promise.all(promises).then((responses) => {
-            const combinedData = responses.flat(); // Flatten the arrays of responses
-            setClubListThreeProducts((prev) => [...prev, ...combinedData]);
-          });
-        }
+        Promise.all(promises).then((responses) => {
+          const combinedData = responses.flat(); // Flatten the arrays of responses
+          setClubListThreeProducts((prev) => [...prev, ...combinedData]);
+        });
       }
     } catch (e) {
       console.log(e);
@@ -167,24 +166,23 @@ const MyClubs = () => {
             </div>
             {clubListThreeProducts.length !== 0 ? (
               <HorizontalContainer>
-                {clubInfoList.length > 3 &&
-                  clubListThreeProducts.map((product) => {
-                    // 여기에 썸네일 넣어야함
-                    return (
-                      <ClubBuyingCard
-                        id={product.id}
-                        key={product.id}
-                        end_at={product.product.end_at}
-                        name={product.product.end_at}
-                        thumbnail={temperImage}
-                        discountRate={product.discountRate}
-                        price={product.product.price}
-                        score={product.achievement_rate}
-                        participantsNum={product.participant_count}
-                        participants={product.seller}
-                      />
-                    );
-                  })}
+                {clubListThreeProducts.map((product) => {
+                  // 여기에 썸네일 넣어야함
+                  return (
+                    <ClubBuyingCard
+                      id={product.id}
+                      key={product.id}
+                      end_at={product.product.end_at}
+                      name={product.product.end_at}
+                      thumbnail={temperImage}
+                      discountRate={product.discountRate}
+                      price={product.product.price}
+                      score={product.achievement_rate}
+                      participantsNum={product.participant_count}
+                      participants={product.seller}
+                    />
+                  );
+                })}
               </HorizontalContainer>
             ) : (
               <ClubProductNo />
