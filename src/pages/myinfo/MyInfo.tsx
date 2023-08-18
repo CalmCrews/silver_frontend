@@ -40,7 +40,7 @@ function formatForPrice(price: number) {
 const LinkButton = muiStyled(Button)(({ theme }) => ({
   padding: "15px",
   color: "#fff",
-  width: "160px"
+  width: "160px",
   fontSize: "1rem",
   fontWeight: "600",
   borderRadius: "12px",
@@ -175,24 +175,25 @@ const MyInfo = () => {
       <DefaultContainer>
         <Toolbar sx={{ height: "100px" }} />
         <AppBarWithDrawer />
-        <MyInfoCard userInfo={userInfo} />
-        <br />
-        <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
-        <div className={classes["money-status"]}>
-          <span className={classes["just-text"]}>지갑 잔액 :</span>
-          <span className={classes["money-text"]}>
-            {formatForPrice(userInfo.balance)} 원
-          </span>
-        </div>
-        <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
-        <div style={{ display: "flex" }}>
-          <LinkButton onClick={goToChargePage} variant="contained">
-            충전하기
-          </LinkButton>
-          <LinkButton href="/club/myClubs" variant="contained">
-            나의 모임 바로가기
-          </LinkButton>
-        </div>
+        <MainDiv>
+          <MyInfoCard userInfo={userInfo} />
+          <br />
+          <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
+          <div className={classes["money-status"]}>
+            <span className={classes["just-text"]}>지갑 잔액 :</span>
+            <span className={classes["money-text"]}>
+              {formatForPrice(userInfo.balance)} 원
+            </span>
+          </div>
+          <CustomDivider width="calc(100% - 26px)" color="#F0F0F0" />
+          <div style={{ display: "flex" }}>
+            <LinkButton onClick={goToChargePage} variant="contained">
+              충전하기
+            </LinkButton>
+            <LinkButton href="/club/myClubs" variant="contained">
+              나의 모임 바로가기
+            </LinkButton>
+          </div>
 
           <ButtonGroup
             aria-label="button group"
@@ -222,6 +223,7 @@ const MyInfo = () => {
               width: "100%",
               border: "1px solid #f0f0f0",
               borderRadius: "0",
+              marginBottom: "40px",
             }}
           >
             <RowButton>자주 묻는 질문</RowButton>
