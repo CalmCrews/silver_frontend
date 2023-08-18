@@ -27,7 +27,7 @@ const UserName = styled.div`
 const StyledInfoCard = styled(Card)({
 	display: "flex",
 	width: "calc(100% - 60px)",
-	height: "auto",
+	minHeight: "130px",
 	padding: "18px 32px",
 	border: "2px solid #A394FF",
 	backgroundColor: "#FFF",

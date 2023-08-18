@@ -19,20 +19,45 @@ import { useLocation } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { loginState } from "../../states/userInfo";
 import axios from "axios";
+import CircleIcon from "@mui/icons-material/Circle";
+import CloseIcon from "../../assets/icons/CloseIcon.png";
+import { styled } from "styled-components";
+import ClubBuyingCard from "../main/ClubBuyingCard";
+import MessageDrawer from "./MessageDrawer";
+
+const CloseButton = styled(IconButton)`
+  &.MuiIconButton-root {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+`;
+
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px 88px 14px;
+`;
 
 const AppBarWithDrawer = () => {
+  //카테고리 서랍
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  //알림 메뉴
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const location = useLocation();
   const user = useRecoilValue(loginState);
 
   //알림
   const [notiData, setNotiData] = React.useState<any | null>(null);
-  const [isMsgDrawerOpen, setIsMsgDrawerOpen] = useState(false);
-  const [selectedMsgContent, setSelectedMsgContent] = useState<any | null>(
-    null
-  );
+  const [isMsgDrawerOpen, setIsMsgDrawerOpen] = useState(true);
+  const [noti, setNotiId] = useState(0);
 
   const newAxiosInstance = axios.create({
     headers: {
@@ -52,9 +77,11 @@ const AppBarWithDrawer = () => {
     }
   };
 
-  const handleMenuItemClick = (msgContent: any) => {
-    setSelectedMsgContent(msgContent);
-    setIsMsgDrawerOpen(true);
+
+  const handleMenuItemClick = (id: number) => {
+    setNotiId(id);
+    setAnchorEl(null);
+    handleMsgDrawerOpen();
   };
 
   useEffect(() => {
@@ -63,6 +90,7 @@ const AppBarWithDrawer = () => {
     getNotification();
   }, [location.pathname, location.search]);
 
+  //카테고리 서랍
   const handleDrawerOpen = () => {
     setIsDrawerOpen(true);
   };
@@ -71,11 +99,26 @@ const AppBarWithDrawer = () => {
     setIsDrawerOpen(false);
   };
 
+  //알림 메뉴 열기
   const handleAlertClick = (event: React.MouseEvent<HTMLElement>) => {
+    getNotification();
     setAnchorEl(event.currentTarget);
   };
+
+  //알림 메뉴 닫기
   const handleAlertClose = () => {
     setAnchorEl(null);
+  };
+
+  //알림 메시지
+
+  const handleMsgDrawerOpen = () => {
+    setIsMsgDrawerOpen(true);
+  };
+
+  const handleMsgDrawerClose = () => {
+    setIsMsgDrawerOpen(false);
+    console.log("drawer close")
   };
 
   return (
@@ -111,7 +154,11 @@ const AppBarWithDrawer = () => {
             </Link>
             <Badge
               variant="dot"
-              sx={{ "& .MuiBadge-badge": { backgroundColor: notiData? "#a394ff" : "transparent" } }}
+              sx={{
+                "& .MuiBadge-badge": {
+                  backgroundColor: notiData ? "#a394ff" : "transparent",
+                },
+              }}
             >
               <IconButton
                 sx={{ width: "40px", height: "40px" }}
@@ -170,25 +217,35 @@ const AppBarWithDrawer = () => {
                 </IconButton>
               </div>
               {notiData ? (
-                notiData.map((msg: any, index: number) => (
+                notiData.slice(0, 6).map((msg: any, index: number) => (
                   <MenuItem
                     key={index}
                     sx={{
+                      width: "100%",
                       borderBottom: "1px solid #D9D9D9",
                       padding: "15px",
                       color: "#3a3a3a",
                     }}
-                    onClick={() => handleMenuItemClick(msg)}
+                    onClick={() => handleMenuItemClick(msg.id)}
                   >
-                    <p
+                    <div
                       style={{
+                        display: "block",
                         width: "100%",
+                        overflow: "hidden",
                         textOverflow: "ellipsis",
                         color: "#3a3a3a",
+                        alignItems: "center",
                       }}
                     >
+                      {msg.is_read === false && (
+                        <CircleIcon
+                          sx={{ color: "#FF4B4B", fontSize: "10px" }}
+                        />
+                      )}
+                      &nbsp;
                       {msg.title}
-                    </p>
+                    </div>
                   </MenuItem>
                 ))
               ) : (
@@ -197,7 +254,6 @@ const AppBarWithDrawer = () => {
                     borderBottom: "1px solid #D9D9D9",
                     padding: "15px",
                   }}
-                  onClick={() => handleMenuItemClick("내용없음")}
                 >
                   <p
                     style={{
@@ -240,37 +296,7 @@ const AppBarWithDrawer = () => {
         </>
       </HomeAppBar>
       <MainDrawer open={isDrawerOpen} onClose={handleDrawerClose}></MainDrawer>
-      <Drawer
-        anchor="bottom"
-        open={isMsgDrawerOpen}
-        onClose={() => setIsMsgDrawerOpen(false)}
-        variant="persistent"
-        sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "50%",
-          display: open ? "block" : "none",
-          backgroundColor: "#fff",
-          "& .MuiDrawer-paper": {
-            position: "absolute",
-            width: "100%",
-            height: "calc(100% - 120px)",
-            display: open ? "block" : "none",
-            borderRadius: "35px 35px 0px 0px",
-            borderTop: "1px solid #A394FF",
-            background: "#FFF",
-            boxShadow: "0px -2px 10px 0px rgba(0, 0, 0, 0.25)",
-            overflow: "visible",
-          },
-        }}
-      >
-        <p></p>
-        <button onClick={() => setIsMsgDrawerOpen(false)}>
-          닫기
-        </button>
-      </Drawer>
+      <MessageDrawer messageInfo={5} open={isMsgDrawerOpen} onClose={handleMsgDrawerClose}/>
     </>
   );
 };
