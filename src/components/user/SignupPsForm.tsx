@@ -151,13 +151,17 @@ const SignupPsForm = () => {
           user_id: res.data.user.id, //number
           nickname: res.data.user.nickname, //닉네임
         });
+
         setCookie("refreshToken", res.data.token.refresh, { path: "/" });
-        navigate("/club/start");
+        navigate("/fontsetting");
       })
       .catch((err) => {
         console.error(err);
       });
   };
+  useEffect(() => {
+    localStorage.setItem("loginState", JSON.stringify(login));
+  }, [login]);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>

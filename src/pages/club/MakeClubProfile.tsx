@@ -130,6 +130,7 @@ const MakeClubProfile = () => {
   };
 
   const handleImageUpload = async () => {
+    let myClubCode;
     if (!selectedImage) {
       return;
     }
@@ -144,6 +145,7 @@ const MakeClubProfile = () => {
       );
       const club_code = response.data.code;
       setClubCode(club_code);
+      myClubCode = response.data.code;
     } catch (error) {
       console.error("Error register clubName, description:", error);
     }
@@ -164,26 +166,27 @@ const MakeClubProfile = () => {
     } catch (error) {
       console.error("Error uploading image:", error);
     }
+    return myClubCode;
   };
 
   useEffect(() => {
     setNicknameStatus("0");
   }, [nickname]);
+
   useEffect(() => {
     if (!clubName || !description || !keywordsList) {
       return navigate("/club/start");
     }
-  });
+  }, []);
 
   const handleNext = () => {
-    handleImageUpload().then((returnData) => {});
-    // 여기에서 생성을 성공하면? 다음 페이지로 넘어가기
-    console.log("clubCode :", clubCode);
-    return navigate("/club/register", {
-      state: {
-        clubName: clubName,
-        clubCode: clubCode,
-      },
+    handleImageUpload().then((returnData) => {
+      return navigate("/club/register", {
+        state: {
+          clubName: clubName,
+          clubCode: returnData,
+        },
+      });
     });
   };
 

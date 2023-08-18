@@ -38,7 +38,7 @@ const ClubMountainMap = () => {
   }, [club_rank]);
 
   return (
-    <>
+    <div className={classes["real-outside"]}>
       <DefaultContainer>
         <Toolbar sx={{ height: "60px" }} />
         <AppBarWithDrawer />
@@ -85,7 +85,7 @@ const ClubMountainMap = () => {
         </div>
         <BottomTabBar currentPage="club" />
       </DefaultContainer>
-    </>
+    </div>
   );
 };
 
