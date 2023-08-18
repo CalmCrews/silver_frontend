@@ -5,6 +5,7 @@ import * as style from "../../components/main/MyBuyingCardComponents";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
 import classes from "./ClubJoinMemberPopup.module.css";
 import DownArrowIcon from "../../assets/icons/DownArrowGrey.png";
+import PopUpPerson from "./joinMemberPerson";
 
 interface PopupProps {
   members: { id: number; profile_image: string; nickname: string }[];
@@ -22,6 +23,9 @@ const ClubJoinMemberPopup: React.FC<PopupProps> = ({ members, onClick }) => {
       <div className={classes["popup-member-count"]}>총 {members.length}명</div>
       <div>
         {members.map((member) => (
+          <PopUpPerson member={member} />
+        ))}
+        {/* {members.map((member) => (
           <div className={classes["popup-user-info-div"]}>
             <div className={classes["popup-user-info-profile-div"]}>
               <style.RargeNoneProfile index={1} top={2}>
@@ -47,7 +51,7 @@ const ClubJoinMemberPopup: React.FC<PopupProps> = ({ members, onClick }) => {
               콕 인사하기
             </button>
           </div>
-        ))}
+        ))} */}
       </div>
       {members.length > 5 && (
         <div className={classes["more-see-outer-div"]}>
