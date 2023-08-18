@@ -17,6 +17,9 @@ import Checked from "../../assets/icons/CheckedIcon.png";
 import Plus from "../../assets/icons/Plus.png";
 
 import classes from "./style/MakeClubProfile.module.css";
+import { useRecoilValue } from "recoil";
+
+import { loginState } from "../../states/userInfo";
 
 const Title = styled.h1`
   color: ${(props) => props.theme.colors.primary};
@@ -68,6 +71,14 @@ const JoinClubProfile = () => {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const user = useRecoilValue(loginState);
+  const newAxiosInstance = axios.create({
+    baseURL: "http://127.0.0.1:8000/",
+    headers: {
+      Authorization: `Bearer ${user.accessToken}`,
+    },
+  });
 
   const handleNickname = (event: React.ChangeEvent) => {
     const nicknameInputValue = nicknameRef.current
@@ -131,10 +142,10 @@ const JoinClubProfile = () => {
     }
     const formData = new FormData();
     formData.append("nickname", nickname);
-    formData.append("image", selectedImage);
+    formData.append("profile_image", selectedImage);
 
     try {
-      await axios.post(
+      await newAxiosInstance.put(
         `${process.env.REACT_APP_API_URL}users/nickname/`,
         formData,
         {
@@ -144,8 +155,10 @@ const JoinClubProfile = () => {
         }
       );
       console.log("Image uploaded successfully");
+      return "ok";
     } catch (error) {
       console.error("Error uploading image:", error);
+      return "no";
     }
   };
   useEffect(() => {
@@ -153,9 +166,12 @@ const JoinClubProfile = () => {
   }, [nickname]);
 
   const handleNext = () => {
-    handleImageUpload();
+    handleImageUpload().then((returnData) => {
+      if (returnData === "ok") {
+        return navigate("/club/myClubs");
+      }
+    });
     // 여기에서 생성을 성공하면? 다음 페이지로 넘어가기
-    return navigate("/club/myClubs");
   };
 
   return (

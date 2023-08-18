@@ -132,30 +132,6 @@ const ClubDetail = () => {
     } catch (error) {
       console.log("error :", error);
     }
-    //   try {
-    //     const response = await newAxiosInstance.post(
-    //       `${process.env.REACT_APP_API_URL}clubs/join/`,
-    //       {
-    //         club_code: String(id),
-    //       }
-    //     );
-    //     // 로그인 상태 양호 및 가입 성공!
-
-    //     response.status
-    //   } catch (error) {
-    //     if (axios.isAxiosError(error)) {
-    //       const axiosError = error as AxiosError;
-    //       const responseData = axiosError.response; // API 응답 데이터
-
-    //       if (responseData && responseData.status) {
-    //         const errorMessage = responseData.status;
-    //         console.log("Error Message:", errorMessage);
-    //       } else {
-    //         console.log("Error with no response data or message");
-    //       }
-    //     }
-    //   }
-    // }
   }, [login]);
 
   useEffect(() => {
