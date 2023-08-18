@@ -114,7 +114,7 @@ const MainCarousel = () => {
           key={index}
           sx={{ width: "100%", height: "100%", position: "relative" }}
         >
-          <Link href={`/`}>
+          <Link href={product.id === 1 ? '/products/6' : product.id === 2 ? '/products/13' : '/products/7'}>
             <CardImage
               src={product.imgPath}
               alt={product.label}
