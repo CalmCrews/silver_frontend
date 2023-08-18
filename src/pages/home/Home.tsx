@@ -231,8 +231,8 @@ interface RecommendDataItem {
 
 const Home = () => {
   const [login, setLogin] = useRecoilState(loginState);
-  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
   const user = useRecoilValue(loginState);
+  const [cookies, setCookie, removeCookie] = useCookies(["refreshToken"]);
 
   const handleLogout = () => {
     setLogin({ isLoggedIn: false, userId: "", accessToken: "" });
@@ -444,7 +444,7 @@ const Home = () => {
             </Button>
           </SectionBox>
 
-          {!login.isLoggedIn ? (
+          {/* {!login.isLoggedIn ? (
             <>
               <Button component={Link} to="/login">
                 로그인
@@ -455,7 +455,7 @@ const Home = () => {
               <h2>{login.userId}님 안녕하세요</h2>
               <Button onClick={handleLogout}>로그아웃</Button>
             </>
-          )}
+          )} */}
         </MainDiv>
         <BottomTabBar currentPage="home" />
       </DefaultContainer>

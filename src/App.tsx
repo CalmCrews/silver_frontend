@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect, ReactNode } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home/Home";
-import Review from "./pages/testing/Review";
 import "./App.css";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import theme from "./theme/theme";
 import SignIn from "./pages/users/SignIn";
@@ -32,6 +31,8 @@ import ClubMountainMap from "./pages/club/ClubMountainMap";
 import Search from "./pages/search/Search";
 import Splash from "./pages/splash/Splash";
 import SplashAdvertisement from "./pages/splash/SplashAdvertisement";
+import { loginState } from "./states/userInfo";
+import Background from "./assets/Images/MoyeoBackground.png";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -43,10 +44,29 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+
+interface AuthProps {
+  isLoggedIn: boolean;
+}
+
+interface PrivateRouteProps {
+  auth: AuthProps;
+  children: ReactNode;
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ auth, children }) => {
+  return auth ? <>{children}</> : <Navigate to="/splash" />;
+};
+
 function App() {
   const [bodyFontSize, setBodyFontSize] = useRecoilState(fontSizeState);
 
+  const user = useRecoilValue(loginState);
+  const isLoggedIn = user.isLoggedIn;
+
+
   useEffect(() => {
+    console.log(isLoggedIn);
     const storedBodyFontSize = localStorage.getItem("bodyFontSize");
     if (storedBodyFontSize) {
       console.log("getbodyfont", storedBodyFontSize);
@@ -71,50 +91,62 @@ function App() {
       <Router>
         <div className="ResponsiveLayout">
           <div className="desktop-view">
-            <div className="desktop-background"></div>
+            <div className="desktop-background">
+              <div style={{width: "100%", height: "100%", position:"relative"}}>
+                <img 
+                  src={Background} 
+                  alt="moyeo_background" 
+                  style={{
+                    position: "absolute",
+                    left: "0",
+                    top: "10%",
+                    width: "45%",
+                  }}
+                />
+              </div>
+            </div>
           </div>
           <div className="mobile-view">
-            <div className="mobile-content">
+            <div className="mobile-content" style={{border: "1px solid #EBE4FF"}}>
               <Routes>
                 <Route path="/splash" element={<Splash />} />
                 <Route path="/splash/ads" element={<SplashAdvertisement />} />
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<PrivateRoute auth={isLoggedIn}><Home /></PrivateRoute>} /> 
                 <Route path="/signup/id" element={<SignupId />} />
                 <Route path="/signup/password" element={<SignupPs />} />
                 <Route path="/login" element={<SignIn />} />
-                <Route path="/review" element={<Review />} />
                 <Route path="/users/kakao/callback/" element={<KakaoLogin />} />
                 <Route path="/users/naver/callback/" element={<NaverLogin />} />
                 <Route
                   path="/products/:productId"
-                  element={<ProductDetail />}
+                  element={<PrivateRoute auth={isLoggedIn}><ProductDetail /></PrivateRoute>}
                 />
                 <Route
                   path="/clubProducts/:clubProductId"
                   element={<ProductDetail />}
                 />
-                <Route path="/club/start" element={<ClubFirstStep />} />
-                <Route path="/club/naming" element={<MakeClubNaming />}></Route>
-                <Route path="/club/description" element={<MakeClubDes />} />
-                <Route path="/club/keywords" element={<MakeClubKeywords />} />
-                <Route path="/club/profile" element={<MakeClubProfile />} />
-                <Route path="/club/register" element={<MakeClubRegister />} />
-                <Route path="/club/join" element={<JoinClubRegister />} />
+                <Route path="/club/start" element={<PrivateRoute auth={isLoggedIn}><ClubFirstStep /></PrivateRoute>} />
+                <Route path="/club/naming" element={<PrivateRoute auth={isLoggedIn}><MakeClubNaming /></PrivateRoute>}></Route>
+                <Route path="/club/description" element={<PrivateRoute auth={isLoggedIn}><MakeClubDes /></PrivateRoute>} />
+                <Route path="/club/keywords" element={<PrivateRoute auth={isLoggedIn}><MakeClubKeywords /></PrivateRoute>} />
+                <Route path="/club/profile" element={<PrivateRoute auth={isLoggedIn}><MakeClubProfile /></PrivateRoute>} />
+                <Route path="/club/register" element={<PrivateRoute auth={isLoggedIn}><MakeClubRegister /></PrivateRoute>} />
+                <Route path="/club/join" element={<PrivateRoute auth={isLoggedIn}><JoinClubRegister /></PrivateRoute>} />
                 <Route
                   path="/club/join/profile"
-                  element={<JoinClubProfile />}
+                  element={<PrivateRoute auth={isLoggedIn}><JoinClubProfile /></PrivateRoute>}
                 />
-                <Route path="/club/myClubs" element={<MyClubs />} />
+                <Route path="/club/myClubs" element={<PrivateRoute auth={isLoggedIn}><MyClubs /></PrivateRoute>} />
                 <Route
                   path="/club/myClubs/detail/:id"
-                  element={<MyClubDetail />}
+                  element={<PrivateRoute auth={isLoggedIn}><MyClubDetail /></PrivateRoute>}
                 />
-                <Route path="/club/myClubs/all" element={<MyClubsAll />} />
-                <Route path="/club/clubMap" element={<ClubMountainMap />} />
-                <Route path="/my" element={<MyInfo />} />
-                <Route path="/fontsetting" element={<FontSetting />} />
-                <Route path="/search" element={<Search />} />
-                <Route path="/charge" element={<ChargeCash />} />
+                <Route path="/club/myClubs/all" element={<PrivateRoute auth={isLoggedIn}><MyClubsAll /></PrivateRoute>} />
+                <Route path="/club/clubMap" element={<PrivateRoute auth={isLoggedIn}><ClubMountainMap /></PrivateRoute>} />
+                <Route path="/my" element={<PrivateRoute auth={isLoggedIn}><MyInfo /></PrivateRoute>} />
+                <Route path="/fontsetting" element={<PrivateRoute auth={isLoggedIn}><FontSetting /></PrivateRoute>} />
+                <Route path="/search" element={<PrivateRoute auth={isLoggedIn}><Search /></PrivateRoute>} />
+                <Route path="/charge" element={<PrivateRoute auth={isLoggedIn}><ChargeCash /></PrivateRoute>} />
               </Routes>
             </div>
           </div>

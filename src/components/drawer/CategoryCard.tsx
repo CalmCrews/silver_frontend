@@ -40,7 +40,7 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ title, imageUrl, id } : CategoryCardProps ) => {
   return (
-    <Link to={`/search/?category=${id}`} state={{ title: title }} style={{textDecoration: "none"}}>
+    <Link to={`/search/?category=${id}`} state={{ title: title }} style={{textDecoration: "none", maxWidth: "170px", height: "130px"}}>
       <StyledCard sx={{ maxWidth: "170px" }}>
         <CardContent sx={{ width : "86px", padding: "16px 0 0 16px" }}>
           <StyledTypo gutterBottom variant="h5">
